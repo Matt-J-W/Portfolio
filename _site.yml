@@ -1,0 +1,11 @@
+name: "my-portfolio"
+navbar:
+  title: "My Portfolio"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Projects"
+      href: projects.html
+    - text: "About"
+      href: about.html
+output_dir: "docs"

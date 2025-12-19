@@ -1,0 +1,12 @@
+---
+title: "Projects"
+output: html_document
+---
+
+## Projects
+
+Here I'll showcase my data analysis projects.
+
+- Project 1
+- Project 2
+- Project 3
