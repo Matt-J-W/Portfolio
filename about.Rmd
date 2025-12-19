@@ -5,4 +5,6 @@ output: html_document
 
 ## About Me
 
-I'm Matt and this is my portfolio site.
+I've been an analyst in the NHS for ten years and in that time I've used data to influence policy, change healthlcare guidelines, and solve patient focused problems.
+
+I've 
