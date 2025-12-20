@@ -268,14 +268,14 @@ $(document).ready(function () {
 </div>
 
 
-<div id="projects" class="section level2">
-<h2>Projects</h2>
-<p>I’ve conducted end-to-end analysis on many projects at NHS England, I
-will showcase some of the biggest here.</p>
-</div>
-<div id="patient-safety-event-data-quarterly-publication"
+<p>I’ve conducted end-to-end analysis on many projects at NHS England,
+from adhoc data requests and recurring reports for internal and 3rd
+party use, to quarterly publications regarding a wide range of metrics.
+I will briefly talk about some recent publications here.</p>
+<div id="project-1---patient-safety-event-data-quarterly-publication"
 class="section level1">
-<h1>Patient Safety Event Data Quarterly Publication</h1>
+<h1><strong>Project 1</strong> - Patient Safety Event Data Quarterly
+Publication</h1>
 <p>My team helped set up the Learn from Patient Safety Events (LFPSE)
 service is a national NHS system for the recording and analysis of
 patient safety events that occur in healthcare. The service introduces a
@@ -291,13 +291,30 @@ href="https://www.england.nhs.uk/statistics/statistical-work-areas/patient-safet
 full report can be found here.</a></p>
 <p>I was personally in charge of creating a new quarterly report using
 this data in order to make it public. This allows people to access
-certain aspects of the data without having to come to my team first,
-decreasing the amount of requests we get and increasing the
-accessibility of the data for public use.</p>
+aspects of the data without having to come to my team first, decreasing
+the amount of requests we get and increasing the accessibility of the
+data for public use.</p>
 <p>This project involved many different analytical tools and required me
 to pull data from multiple sources, clean it, handle missing data and
 anonymisation issues, and create new metrics and plots to visualise
 trends.</p>
+</div>
+<div id="bed-days" class="section level1">
+<h1>Bed Days</h1>
+<p>One of the metrics I created is the bed days formula, some NHS Trusts
+are bigger than others and offer different types of care and have
+different facilities; so directly comparing the number of their reports
+is unfair and unrepresentative. The bed days calculation rectifies this
+by standardising activity across NHS Trusts, the data was taken from the
+<a
+href="https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/bed-data-overnight/">KH03
+mandatory data collection</a> and is also an example of retrieving data
+from another source and amalgamating it with our LFPSE <a href="data:\"
+class="uri">data:\</a></p>
+<p><span class="math display">\[
+Recording\;rate =
+\frac{Number\;of\;incidents}{Bed\;days\;in\;quarter}*1,000
+\]</span></p>
 <ul>
 <li>Project 2</li>
 <li>Project 3</li>
