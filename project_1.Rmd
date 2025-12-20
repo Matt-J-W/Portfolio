@@ -3,7 +3,7 @@ title: "Project 1"
 output: html_document
 ---
 
-# **Project 1** - Patient Safety Event Data Quarterly Publication
+#Patient Safety Event Data Quarterly Publication
 
 My team helped set up the Learn from Patient Safety Events (LFPSE) service is a national NHS system for the recording and analysis of patient safety events that occur in healthcare. The service introduces a range of innovations to support the NHS to improve learning from the over 2.5 million patient safety events recorded each year, to help make care safer. LFPSE is now in use across the NHS, and organisations have switched to recording patient safety events onto the new LFPSE service using LFPSE-compliant local systems, rather than the National Reporting and Learning System (NRLS), which was decommissioned on 30 June 2024. 
 
@@ -15,14 +15,14 @@ This project involved many different analytical tools and required me to pull da
 
 # Bed Days 
 
-One of the metrics I created is the bed days formula, some NHS Trusts are bigger than others and offer different types of care and have different facilities; so directly comparing the number of their reports is unfair and unrepresentative. The bed days calculation rectifies this by standardising activity across NHS Trusts, the data was taken from the [KH03 mandatory data collection](https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/bed-data-overnight/) and is also an example of retrieving data from another source and amalgamating it with our LFPSE data:\
+One of the metrics I created is the bed days formula, some NHS Trusts are bigger than others and offer different types of care and have different facilities; so directly comparing the number of their reports is unfair and unrepresentative. The bed days calculation rectifies this by standardising activity across NHS Trusts, the data was taken from the [KH03 mandatory data collection](https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/bed-data-overnight/) and is also an example of retrieving data from another source and amalgamating it with our LFPSE data.:\
 
 $$
 Recording\;rate = \frac{Number\;of\;incidents}{Bed\;days\;in\;quarter}*1,000
 $$ 
-For the plot I decided on a scatter faceted by sector an alpha of 0.7 as there is a lot of overlap, this way you can clearly see the outliers
+For the plot I decided on a scatter faceted by sector an alpha of 0.7 as there is a lot of overlap, this way you can clearly see the outliers and the the disparity between care sectors.
 
-![Bed days](images\bed_days.png){width=600px height=1200px}
+![Bed days](images\bed_days.png){width=600px height=900px}
 
 
 
