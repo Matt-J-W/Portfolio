@@ -1,11 +1,13 @@
 name: "my-portfolio"
 navbar:
-  title: "My Portfolio"
+  title: "MSc Matthew Webb - Data Scientist"
   left:
-    - text: "Home"
+    - text: "About"
       href: index.html
-    - text: "Projects"
-      href: projects.html
+    - text: "Project 1"
+      href: project_1.html
     - text: "About"
       href: about.html
 output_dir: "docs"
+
+

@@ -1,9 +1,7 @@
 ---
-title: "Projects"
+title: "Project 1"
 output: html_document
 ---
-
-I've conducted end-to-end analysis on many projects at NHS England, from adhoc data requests and recurring reports for internal and 3rd party use, to quarterly publications regarding a wide range of metrics. I will briefly talk about some recent publications here.
 
 # **Project 1** - Patient Safety Event Data Quarterly Publication
 
@@ -13,7 +11,7 @@ My team helped set up the Learn from Patient Safety Events (LFPSE) service is a 
 
 I was personally in charge of creating a new quarterly report using this data in order to make it public. This allows people to access aspects of the data without having to come to my team first, decreasing the amount of requests we get and increasing the accessibility of the data for public use. 
 
-This project involved many different analytical tools and required me to pull data from multiple sources, clean it, handle missing data and anonymisation issues, and create new metrics and plots to visualise trends. 
+This project involved many different analytical tools and required me to pull data from multiple sources, clean it, handle missing data and anonymisation issues, and create new metrics and plots to visualise trends. The code isn't public yet so I can't share it.
 
 # Bed Days 
 
@@ -22,6 +20,9 @@ One of the metrics I created is the bed days formula, some NHS Trusts are bigger
 $$
 Recording\;rate = \frac{Number\;of\;incidents}{Bed\;days\;in\;quarter}*1,000
 $$ 
+For the plot I decided on a scatter faceted by sector an alpha of 0.7 as there is a lot of overlap, this way you can clearly see the outliers
+
+![Bed days](images\bed_days.png){width=600px height=1200px}
 
 
 

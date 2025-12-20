@@ -1,8 +1,22 @@
 ---
-title: "Home"
+title: "About"
 output: html_document
 ---
 
-## Welcome
+# Links
+<p>
+  <a href="https://www.linkedin.com/in/matthew1webb/">
+    <img src="icons/linkedin.png" width="32" style="vertical-align:middle; margin-right:10px;">
+  </a>
 
-This is my data analysis portfolio built with R Markdown and GitHub Pages
+  <a href="https://github.com/Matt-J-W">
+    <img src="icons/github.png" width="32" style="vertical-align:middle; margin-right:10px;">
+  </a>
+
+  <a href="mailto:your.email@example.com">
+    <img src="icons/email.png" width="32" style="vertical-align:middle;">
+  </a>
+</p>
+
+I have been a data analyst in the NHS for a decade working on all manner of healthcare data from local trust trauma data at Lewisham A&E, to Parliamentary enquiries around Never Events.
+
