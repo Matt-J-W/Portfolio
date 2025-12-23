@@ -6,8 +6,8 @@ navbar:
       href: index.html
     - text: "Project 1"
       href: project_1.html
-    - text: "About"
-      href: about.html
+    - text: "Project 2"
+      href: project_2.html
 output_dir: "docs"
 
 
