@@ -14,11 +14,17 @@ output: html_document
   </a>
 
   <a href="mailto:your.email@example.com">
-    <img src="icons/email.png" width="32" style="vertical-align:middle;">Email
+    <img src="icons/email.png" width="32" style="vertical-align:middle;"> Email
   </a>
 </p>
 
-I have been a data analyst in the NHS for a decade working on all manner of healthcare data from local trust trauma data at Lewisham A&E, to Parliamentary enquiries around Never Events. I have experience working with a range of software and coding languages providing insights to organisations throughout the UK, I can lead end-to-end analysis and and produce automated repeatable reports using github version control. This includes liaising with stakeholders on a daily basis to understand their requests and help design strategies to pull the most relevant data possible, I have experience then presenting the findings to the stakeholders in order to ensure the the request has been fulfilled successfully.
+I've been a data analyst in the NHS for a decade working with many pools of healthcare data from local trust trauma data at Lewisham A&E, to Parliamentary inquiries around Never Events at NHS England. I have experience working with a range of software and coding languages providing insights to organisations throughout the UK, I can lead end-to-end analysis and and produce automated repeatable reports using github version control. This includes liaising with stakeholders on a daily basis to understand their requests and help design strategies to pull the most relevant data possible, I have experience then presenting the findings to the stakeholders in order to ensure the the request has been fulfilled successfully.
 
 I work with multiple large databases with experience in pulling data from multiple sources to create the clearest picture possible with the data. I know how to handle data quality issues and structure my scripts so anyone can run them. My team is responsible for warehousing and analysing the largest repository of patient safety incidents in the country with over 200,000 incidents reported every month.
+
+I'm looking for a role that allows me to continue my data analysis career and this portfolio showcases my skills.
+
+# Project 1 - Carbon Emissions: How to Optimise Fuel Efficiency Without Comprimising on Deliveries
+
+# Project 2 - Snapshot of my Patient Safety Events Data Publication: Creating Bed Days KPI
 

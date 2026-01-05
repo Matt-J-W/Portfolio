@@ -1,7 +1,65 @@
 ---
-title: "Project 1 - Python"
+title: "Project 1 - Carbon Emissions: How to Optimise Fuel Efficiency Without Comprimising on Deliveries"
 output: html_document
 ---
 
-Here is a real-world case of how to optimise fuel efficiency for a delivery company using public data. I will use this data to decide which route and delivery types should be used by which vehicle types to reduce CO2 emissions without compromising on delivery performance.
+# Context
+This fictional delivery company uses a range of vehicles, routes, and delivery types, they need to figure out how to improve their fuel efficiency without out impacting their revenue.
+
+This data was sourced from Kaggle and uses the following tools:
+- Python
+- Pandas
+- Matplotlib
+- Seaborn
+
+# Approach
+I started by importing and exploring the data, checking for completeness and standardisation.
+```{r, knitr, include = FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{python, data import}
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx")
+
+print(data_import.head())
+print(data_import.columns)
+
+# Exploring the data for completeness
+columns_to_check = ["Vehicle_Type", "Route_Type", "Delivery_Type"]
+
+# Create empty dictionary for the tables to be stored in
+count_tables = {} 
+
+for col in columns_to_check:
+  count_tables[col] = data_import[col].value_counts().to_frame(name="Count")
+  
+```
+
+<div style="display:flex; gap:20px;">
+
+<div style="flex:1;">
+```{python, include = FALSE}
+count_tables[columns_to_check[0]]
+```
+</div>
+
+<div style="flex:1;">
+```{python, include = FALSE}
+count_tables[columns_to_check[1]]
+```
+</div>
+
+<div style="flex:1;">
+```{python, include = FALSE}
+count_tables[columns_to_check[2]]
+```
+</div>
+
+</div>
 

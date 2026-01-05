@@ -15,9 +15,13 @@ print(data_import.columns)
 # Exploring the data for completeness
 columns_to_check = ["Vehicle_Type", "Route_Type", "Delivery_Type"]
 
+# Create empty dictionary for the tables to be stored in
+count_tables = {} 
+
 for col in columns_to_check:
-  print(f"Count for {col}")
-  print(data_import[col].value_counts())
+  count_tables[col] = data_import[col].value_counts().to_frame(name="Count")
+
+count_tables
 
 # Handling columns
 data_import["CO2_Emissions_kg"] = (data_import["CO2_Emissions_g"] / 1000).round(2)
