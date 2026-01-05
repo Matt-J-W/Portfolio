@@ -3,6 +3,7 @@ title: "Project 1 - Carbon Emissions: How to Optimise Fuel Efficiency Without Co
 output: html_document
 ---
 
+
 # Context
 This fictional delivery company uses a range of vehicles, routes, and delivery types, they need to figure out how to improve their fuel efficiency without out impacting their revenue.
 
@@ -12,14 +13,16 @@ This data was sourced from Kaggle and uses the following tools:
 - Matplotlib
 - Seaborn
 
+
 # Approach
+## Data Importing
 I started by importing and exploring the data, checking for completeness and standardisation.
 ```{r, knitr, include = FALSE}
 
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{python, data import}
+```{python, data import, results = FALSE}
 
 import pandas as pd
 import seaborn as sns
@@ -41,25 +44,86 @@ for col in columns_to_check:
   
 ```
 
+Here we have the counts of the variables which has highlighted an anonmalous row we will remove in the vehicle type column
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
-```{python, include = FALSE}
+```{python, echo = FALSE}
 count_tables[columns_to_check[0]]
 ```
 </div>
 
 <div style="flex:1;">
-```{python, include = FALSE}
+```{python, echo = FALSE}
 count_tables[columns_to_check[1]]
 ```
 </div>
 
 <div style="flex:1;">
-```{python, include = FALSE}
+```{python, echo = FALSE}
 count_tables[columns_to_check[2]]
 ```
 </div>
 
 </div>
+
+Before I start comparing the delivery and vehicle types for fuel efficiency I want to check how load utilization effects fuel efficiency, as ultimately maximizing fuel efficiency is what we are aiming to achieve here. We can see that for Electric vehicles and Bikes the fuel efficiency decreases steadily as the load utilization increases, whereas for CNG Trucks and Diesel Vans it increases. This is key information that will factor into my conclusion.
+
+```{python, echo = FALSE}
+# This plot is 
+sns_load_util = sns.lmplot(
+  data=data_import, 
+  x="Load_Utilization_%", 
+  y="Fuel_Efficiency_kmpl", 
+  hue="Vehicle_Type", 
+  height=6, 
+  aspect=1.3, 
+  scatter = False 
+  )
+plt.title("Effect of Load Utilization on Fuel Efficiency")
+plt.show()
+```
+
+
+## Data Handling & Descriptive Analysis
+Here I can see the break down of the key columns I will be using for my calculations, my next step is to handle the data and create an average fuel efficiency per vehicle and delivery type, and see how this compares to the averages of the type combinations.
+
+```{python, averages, results = FALSE}
+
+# Handling columns
+data_import["CO2_Emissions_kg"] = (data_import["CO2_Emissions_g"] / 1000).round(2)
+data_import = data_import[data_import["Vehicle_Type"] != "S"]
+
+# Creating an average fuel efficiency per litre for each vehicle type
+data_import.groupby("Vehicle_Type")["Fuel_Efficiency_kmpl"].mean()
+data_import.groupby("Delivery_Type")["Fuel_Efficiency_kmpl"].mean()
+```
+
+I created a function that calculated the averages for each combination of delivery and vehicle type for the other key metrics in the data.
+
+```{python, average function}
+
+# Creating function
+def matrix_function(value_column):
+  return data_import.pivot_table(
+    index="Vehicle_Type",
+    columns="Delivery_Type",
+    values=value_column,
+    aggfunc="mean"
+  ).round(2).T
+
+on_time_matrix = matrix_function("On_Time_Delivery")
+co2_matrix = matrix_function("CO2_Emissions_kg")
+fuel_matrix = matrix_function("Fuel_Efficiency_kmpl")
+
+# Step 2: Now combining them into one for ease of reading
+combined_matrix = pd.concat(
+    [on_time_matrix, co2_matrix, fuel_matrix],
+    axis=0,
+    keys=["On_Time", "CO2_kg", "Fuel_kmpl"]
+)
+
+combined_matrix.index = combined_matrix.index.map('_'.join)
+combined_matrix
+```
 

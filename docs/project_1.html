@@ -279,6 +279,8 @@ Python - Pandas - Matplotlib - Seaborn</p>
 </div>
 <div id="approach" class="section level1">
 <h1>Approach</h1>
+<div id="data-importing" class="section level2">
+<h2>Data Importing</h2>
 <p>I started by importing and exploring the data, checking for
 completeness and standardisation.</p>
 <pre class="python"><code>import pandas as pd
@@ -288,19 +290,7 @@ import matplotlib.pyplot as plt
 data_import = pd.read_excel(r&quot;C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx&quot;)
 
 print(data_import.head())</code></pre>
-<pre><code>##   Vehicle_ID  Vehicle_Type  ... Load_Utilization_% Fuel_Efficiency_kmpl
-## 0      V0103    Diesel Van  ...              94.79                15.45
-## 1      V0271          Bike  ...              52.89                 5.14
-## 2      V0107     CNG Truck  ...              57.03                11.33
-## 3      V0072     CNG Truck  ...              85.83                18.54
-## 4      V0189  Electric Van  ...              71.86                14.68
-## 
-## [5 rows x 9 columns]</code></pre>
 <pre class="python"><code>print(data_import.columns)</code></pre>
-<pre><code>## Index([&#39;Vehicle_ID&#39;, &#39;Vehicle_Type&#39;, &#39;Route_Type&#39;, &#39;Delivery_Type&#39;,
-##        &#39;Distance_km&#39;, &#39;CO2_Emissions_g&#39;, &#39;On_Time_Delivery&#39;,
-##        &#39;Load_Utilization_%&#39;, &#39;Fuel_Efficiency_kmpl&#39;],
-##       dtype=&#39;object&#39;)</code></pre>
 <pre class="python"><code>
 # Exploring the data for completeness
 columns_to_check = [&quot;Vehicle_Type&quot;, &quot;Route_Type&quot;, &quot;Delivery_Type&quot;]
@@ -311,17 +301,91 @@ count_tables = {}
 for col in columns_to_check:
   count_tables[col] = data_import[col].value_counts().to_frame(name=&quot;Count&quot;)
   </code></pre>
-<p><img src="project_1_files/figure-html/data%20import-1.png" width="950" /></p>
+Here we have the counts of the variables which has highlighted an
+anonmalous row we will remove in the vehicle type column
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-
+<pre><code>##               Count
+## Vehicle_Type       
+## Diesel Van      525
+## Electric Van    403
+## CNG Truck       310
+## Bike            261
+## S                 1</code></pre>
 </div>
 <div style="flex:1;">
-
+<pre><code>##             Count
+## Route_Type       
+## Urban         592
+## Suburban      463
+## Rural         305
+## Highway       140</code></pre>
 </div>
 <div style="flex:1;">
-
+<pre><code>##                Count
+## Delivery_Type       
+## Standard         749
+## Express          459
+## Same-day         292</code></pre>
 </div>
+</div>
+<p>Before I start comparing the delivery and vehicle types for fuel
+efficiency I want to check how load utilization effects fuel efficiency,
+as ultimately maximizing fuel efficiency is what we are aiming to
+achieve here. We can see that for Electric vehicles and Bikes the fuel
+efficiency decreases steadily as the load utilization increases, whereas
+for CNG Trucks and Diesel Vans it increases. This is key information
+that will factor into my conclusion.</p>
+<p><img src="project_1_files/figure-html/unnamed-chunk-4-1.png" width="875" /></p>
+</div>
+<div id="data-handling-descriptive-analysis" class="section level2">
+<h2>Data Handling &amp; Descriptive Analysis</h2>
+<p>Here I can see the break down of the key columns I will be using for
+my calculations, my next step is to handle the data and create an
+average fuel efficiency per vehicle and delivery type, and see how this
+compares to the averages of the type combinations.</p>
+<pre class="python"><code># Handling columns
+data_import[&quot;CO2_Emissions_kg&quot;] = (data_import[&quot;CO2_Emissions_g&quot;] / 1000).round(2)
+data_import = data_import[data_import[&quot;Vehicle_Type&quot;] != &quot;S&quot;]
+
+# Creating an average fuel efficiency per litre for each vehicle type
+data_import.groupby(&quot;Vehicle_Type&quot;)[&quot;Fuel_Efficiency_kmpl&quot;].mean()</code></pre>
+<pre class="python"><code>data_import.groupby(&quot;Delivery_Type&quot;)[&quot;Fuel_Efficiency_kmpl&quot;].mean()</code></pre>
+<p>I created a function that calculated the averages for each
+combination of delivery and vehicle type for the other key metrics in
+the data.</p>
+<pre class="python"><code># Creating function
+def matrix_function(value_column):
+  return data_import.pivot_table(
+    index=&quot;Vehicle_Type&quot;,
+    columns=&quot;Delivery_Type&quot;,
+    values=value_column,
+    aggfunc=&quot;mean&quot;
+  ).round(2).T
+
+on_time_matrix = matrix_function(&quot;On_Time_Delivery&quot;)
+co2_matrix = matrix_function(&quot;CO2_Emissions_kg&quot;)
+fuel_matrix = matrix_function(&quot;Fuel_Efficiency_kmpl&quot;)
+
+# Step 2: Now combining them into one for ease of reading
+combined_matrix = pd.concat(
+    [on_time_matrix, co2_matrix, fuel_matrix],
+    axis=0,
+    keys=[&quot;On_Time&quot;, &quot;CO2_kg&quot;, &quot;Fuel_kmpl&quot;]
+)
+
+combined_matrix.index = combined_matrix.index.map(&#39;_&#39;.join)
+combined_matrix</code></pre>
+<pre><code>## Vehicle_Type         Bike  CNG Truck  Diesel Van  Electric Van
+## On_Time_Express      0.89       0.87        0.89          0.92
+## On_Time_Same-day     0.95       0.92        0.93          0.90
+## On_Time_Standard     0.93       0.92        0.94          0.90
+## CO2_kg_Express       2.72      11.86       18.77          4.07
+## CO2_kg_Same-day      2.00      11.93       20.89          3.70
+## CO2_kg_Standard      2.41      12.39       18.12          4.08
+## Fuel_kmpl_Express   15.17      14.94       15.44         15.18
+## Fuel_kmpl_Same-day  16.07      14.67       14.86         14.57
+## Fuel_kmpl_Standard  15.97      15.42       15.15         14.70</code></pre>
 </div>
 </div>
 

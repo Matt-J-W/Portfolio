@@ -1,6 +1,6 @@
 
 ### What factors drive customer purchasing behaviour, and how can a business increase conversions?
-
+# rmarkdown::render_site()
 # Importing the data
 
 import pandas as pd

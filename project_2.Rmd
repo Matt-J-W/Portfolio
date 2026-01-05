@@ -1,5 +1,5 @@
 ---
-title: "Project 2 - R"
+title: "Project 2 - Bed Days KPI"
 output: html_document
 ---
 
