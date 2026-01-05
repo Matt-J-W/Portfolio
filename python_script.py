@@ -66,6 +66,8 @@ sns_load_util = sns.lmplot(
   scatter = False 
   )
 plt.title("Effect of Load Utilization on Fuel Efficiency")
+plt.xlabel("Load Utilization %")
+plt.ylabel("Fuel Efficiency kmpl")
 plt.show()
   
   

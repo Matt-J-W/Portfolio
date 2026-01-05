@@ -69,6 +69,8 @@ count_tables[columns_to_check[2]]
 
 Before I start comparing the delivery and vehicle types for fuel efficiency I want to check how load utilization effects fuel efficiency, as ultimately maximizing fuel efficiency is what we are aiming to achieve here. We can see that for Electric vehicles and Bikes the fuel efficiency decreases steadily as the load utilization increases, whereas for CNG Trucks and Diesel Vans it increases. This is key information that will factor into my conclusion.
 
+</div>
+
 ```{python, echo = FALSE}
 # This plot is 
 sns_load_util = sns.lmplot(
@@ -81,6 +83,8 @@ sns_load_util = sns.lmplot(
   scatter = False 
   )
 plt.title("Effect of Load Utilization on Fuel Efficiency")
+plt.xlabel("Load Utilization %")
+plt.ylabel("Fuel Efficiency kmpl")
 plt.show()
 ```
 
@@ -88,18 +92,42 @@ plt.show()
 ## Data Handling & Descriptive Analysis
 Here I can see the break down of the key columns I will be using for my calculations, my next step is to handle the data and create an average fuel efficiency per vehicle and delivery type, and see how this compares to the averages of the type combinations.
 
-```{python, averages, results = FALSE}
+```{python, averages}
 
 # Handling columns
 data_import["CO2_Emissions_kg"] = (data_import["CO2_Emissions_g"] / 1000).round(2)
 data_import = data_import[data_import["Vehicle_Type"] != "S"]
 
 # Creating an average fuel efficiency per litre for each vehicle type
-data_import.groupby("Vehicle_Type")["Fuel_Efficiency_kmpl"].mean()
-data_import.groupby("Delivery_Type")["Fuel_Efficiency_kmpl"].mean()
+average_tables = {}
+
+for col in columns_to_check:
+  average_tables[col] = data_import.groupby(col)["Fuel_Efficiency_kmpl"].mean().to_frame(name="Average")
 ```
 
-I created a function that calculated the averages for each combination of delivery and vehicle type for the other key metrics in the data.
+<div style="display:flex; gap:20px;">
+
+<div style="flex:1;">
+```{python, echo = FALSE}
+average_tables[columns_to_check[0]]
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE}
+average_tables[columns_to_check[1]]
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE}
+average_tables[columns_to_check[2]]
+```
+</div>
+
+</div>
+
+I created a function that calculated the averages for each combination of delivery and vehicle types for the other key metrics in the data.
 
 ```{python, average function}
 
@@ -126,4 +154,13 @@ combined_matrix = pd.concat(
 combined_matrix.index = combined_matrix.index.map('_'.join)
 combined_matrix
 ```
+</div>
 
+Now we can clearly see how the averages of the combinations stack up against the average for the whole variable, this shows us which combinations are preforming below average and could do with reorganising. 
+
+# Conclusion
+## CO2 kg:
+- Same day delivery for diesel vans produces >2kg of fuel per delivery on average, compared to electric vans which has a lower average fuel cost. So moving some of the same day deliveries over from diesel to electric will lower the CO2 emissions without compromising deliveries.
+
+## Load Utilisation:
+- Diesel vans and electric vans both have a steady decline in their fuel efficiency as load utilisation increases, with electric vehicles seeing a bigger drop 

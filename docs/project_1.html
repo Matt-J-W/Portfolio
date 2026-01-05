@@ -336,6 +336,7 @@ achieve here. We can see that for Electric vehicles and Bikes the fuel
 efficiency decreases steadily as the load utilization increases, whereas
 for CNG Trucks and Diesel Vans it increases. This is key information
 that will factor into my conclusion.</p>
+</div>
 <p><img src="project_1_files/figure-html/unnamed-chunk-4-1.png" width="875" /></p>
 </div>
 <div id="data-handling-descriptive-analysis" class="section level2">
@@ -344,15 +345,43 @@ that will factor into my conclusion.</p>
 my calculations, my next step is to handle the data and create an
 average fuel efficiency per vehicle and delivery type, and see how this
 compares to the averages of the type combinations.</p>
-<pre class="python"><code># Handling columns
+<pre class="python"><code>
+# Handling columns
 data_import[&quot;CO2_Emissions_kg&quot;] = (data_import[&quot;CO2_Emissions_g&quot;] / 1000).round(2)
 data_import = data_import[data_import[&quot;Vehicle_Type&quot;] != &quot;S&quot;]
 
 # Creating an average fuel efficiency per litre for each vehicle type
-data_import.groupby(&quot;Vehicle_Type&quot;)[&quot;Fuel_Efficiency_kmpl&quot;].mean()</code></pre>
-<pre class="python"><code>data_import.groupby(&quot;Delivery_Type&quot;)[&quot;Fuel_Efficiency_kmpl&quot;].mean()</code></pre>
+average_tables = {}
+
+for col in columns_to_check:
+  average_tables[col] = data_import.groupby(col)[&quot;Fuel_Efficiency_kmpl&quot;].mean().to_frame(name=&quot;Average&quot;)</code></pre>
+<div style="display:flex; gap:20px;">
+<div style="flex:1;">
+<pre><code>##                 Average
+## Vehicle_Type           
+## Bike          15.732069
+## CNG Truck     15.134452
+## Diesel Van    15.172057
+## Electric Van  14.837692</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>##               Average
+## Route_Type           
+## Highway     15.511071
+## Rural       15.255016
+## Suburban    15.411147
+## Urban       14.862145</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>##                  Average
+## Delivery_Type           
+## Express        15.223813
+## Same-day       14.928797
+## Standard       15.234526</code></pre>
+</div>
+</div>
 <p>I created a function that calculated the averages for each
-combination of delivery and vehicle type for the other key metrics in
+combination of delivery and vehicle types for the other key metrics in
 the data.</p>
 <pre class="python"><code># Creating function
 def matrix_function(value_column):
@@ -386,6 +415,32 @@ combined_matrix</code></pre>
 ## Fuel_kmpl_Express   15.17      14.94       15.44         15.18
 ## Fuel_kmpl_Same-day  16.07      14.67       14.86         14.57
 ## Fuel_kmpl_Standard  15.97      15.42       15.15         14.70</code></pre>
+</div>
+<p>Now we can clearly see how the averages of the combinations stack up
+against the average for the whole variable, this shows us which
+combinations are preforming below average and could do with
+reorganising.</p>
+</div>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<div id="co2-kg" class="section level2">
+<h2>CO2 kg:</h2>
+<ul>
+<li>Same day delivery for diesel vans produces &gt;2kg of fuel per
+delivery on average, compared to electric vans which has a lower average
+fuel cost. So moving some of the same day deliveries over from diesel to
+electric will lower the CO2 emissions without compromising
+deliveries.</li>
+</ul>
+</div>
+<div id="load-utilisation" class="section level2">
+<h2>Load Utilisation:</h2>
+<ul>
+<li>Diesel vans and electric vans both have a steady decline in their
+fuel efficiency as load utilisation increases, with electric vehicles
+seeing a bigger drop</li>
+</ul>
 </div>
 </div>
 
