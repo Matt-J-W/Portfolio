@@ -11,7 +11,7 @@
 
 
 
-<title>Project 1</title>
+<title>Project 1 - Carbon Emissions: How to Optimise Fuel Efficiency Without Comprimising on Deliveries</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -249,7 +249,7 @@ $(document).ready(function () {
   <a href="project_1.html">Project 1</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="project_2.html">Project 2</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -263,61 +263,66 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Project 1</h1>
+<h1 class="title toc-ignore">Project 1 - Carbon Emissions: How to
+Optimise Fuel Efficiency Without Comprimising on Deliveries</h1>
 
 </div>
 
 
-<p>#Patient Safety Event Data Quarterly Publication</p>
-<p>My team helped set up the Learn from Patient Safety Events (LFPSE)
-service is a national NHS system for the recording and analysis of
-patient safety events that occur in healthcare. The service introduces a
-range of innovations to support the NHS to improve learning from the
-over 2.5 million patient safety events recorded each year, to help make
-care safer. LFPSE is now in use across the NHS, and organisations have
-switched to recording patient safety events onto the new LFPSE service
-using LFPSE-compliant local systems, rather than the National Reporting
-and Learning System (NRLS), which was decommissioned on 30 June
-2024.</p>
-<p><a
-href="https://www.england.nhs.uk/statistics/statistical-work-areas/patient-safety-data/2025-26/quarter-2-2025-26-july-august-september-2025/">The
-full report can be found here.</a></p>
-<p>I was personally in charge of creating a new quarterly report using
-this data in order to make it public. This allows people to access
-aspects of the data without having to come to my team first, decreasing
-the amount of requests we get and increasing the accessibility of the
-data for public use.</p>
-<p>This project involved many different analytical tools and required me
-to pull data from multiple sources, clean it, handle missing data and
-anonymisation issues, and create new metrics and plots to visualise
-trends. The code isn’t public yet so I can’t share it.</p>
-<div id="bed-days" class="section level1">
-<h1>Bed Days</h1>
-<p>One of the metrics I created is the bed days formula, some NHS Trusts
-are bigger than others and offer different types of care and have
-different facilities; so directly comparing the number of their reports
-is unfair and unrepresentative. The bed days calculation rectifies this
-by standardising activity across NHS Trusts, the data was taken from the
-<a
-href="https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/bed-data-overnight/">KH03
-mandatory data collection</a> and is also an example of retrieving data
-from another source and amalgamating it with our LFPSE data.:<br />
-</p>
-<p><span class="math display">\[
-Recording\;rate =
-\frac{Number\;of\;incidents}{Bed\;days\;in\;quarter}*1,000
-\]</span> For the plot I decided on a scatter faceted by sector an alpha
-of 0.7 as there is a lot of overlap, this way you can clearly see the
-outliers and the the disparity between care sectors.</p>
-<div class="float">
-<img src="images/bed_days.png" width="600" height="900"
-alt="Bed days" />
-<div class="figcaption">Bed days</div>
+<div id="context" class="section level1">
+<h1>Context</h1>
+<p>This fictional delivery company uses a range of vehicles, routes, and
+delivery types, they need to figure out how to improve their fuel
+efficiency without out impacting their revenue.</p>
+<p>This data was sourced from Kaggle and uses the following tools: -
+Python - Pandas - Matplotlib - Seaborn</p>
 </div>
-<ul>
-<li>Project 2</li>
-<li>Project 3</li>
-</ul>
+<div id="approach" class="section level1">
+<h1>Approach</h1>
+<p>I started by importing and exploring the data, checking for
+completeness and standardisation.</p>
+<pre class="python"><code>import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data_import = pd.read_excel(r&quot;C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx&quot;)
+
+print(data_import.head())</code></pre>
+<pre><code>##   Vehicle_ID  Vehicle_Type  ... Load_Utilization_% Fuel_Efficiency_kmpl
+## 0      V0103    Diesel Van  ...              94.79                15.45
+## 1      V0271          Bike  ...              52.89                 5.14
+## 2      V0107     CNG Truck  ...              57.03                11.33
+## 3      V0072     CNG Truck  ...              85.83                18.54
+## 4      V0189  Electric Van  ...              71.86                14.68
+## 
+## [5 rows x 9 columns]</code></pre>
+<pre class="python"><code>print(data_import.columns)</code></pre>
+<pre><code>## Index([&#39;Vehicle_ID&#39;, &#39;Vehicle_Type&#39;, &#39;Route_Type&#39;, &#39;Delivery_Type&#39;,
+##        &#39;Distance_km&#39;, &#39;CO2_Emissions_g&#39;, &#39;On_Time_Delivery&#39;,
+##        &#39;Load_Utilization_%&#39;, &#39;Fuel_Efficiency_kmpl&#39;],
+##       dtype=&#39;object&#39;)</code></pre>
+<pre class="python"><code>
+# Exploring the data for completeness
+columns_to_check = [&quot;Vehicle_Type&quot;, &quot;Route_Type&quot;, &quot;Delivery_Type&quot;]
+
+# Create empty dictionary for the tables to be stored in
+count_tables = {} 
+
+for col in columns_to_check:
+  count_tables[col] = data_import[col].value_counts().to_frame(name=&quot;Count&quot;)
+  </code></pre>
+<p><img src="project_1_files/figure-html/data%20import-1.png" width="950" /></p>
+<div style="display:flex; gap:20px;">
+<div style="flex:1;">
+
+</div>
+<div style="flex:1;">
+
+</div>
+<div style="flex:1;">
+
+</div>
+</div>
 </div>
 
 

@@ -11,7 +11,7 @@
 
 
 
-<title>Home</title>
+<title>Project 2 - R</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -249,7 +249,7 @@ $(document).ready(function () {
   <a href="project_1.html">Project 1</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="project_2.html">Project 2</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -263,17 +263,66 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">Project 2 - R</h1>
 
 </div>
 
 
-<div id="about-me" class="section level2">
-<h2>About Me</h2>
-<p>I’ve been an analyst in the NHS for ten years and in that time I’ve
-used data to influence policy, change healthlcare guidelines, and solve
-patient focused problems.</p>
-<p>I’ve</p>
+<p>Here are some examples of my analysis with NHS England’s healthcare
+data.</p>
+<div id="patient-safety-event-data-quarterly-publication"
+class="section level1">
+<h1>Patient Safety Event Data Quarterly Publication</h1>
+<p>My team helped set up the Learn from Patient Safety Events (LFPSE)
+service is a national NHS system for the recording and analysis of
+patient safety events that occur in healthcare. The service introduces a
+range of innovations to support the NHS to improve learning from the
+over 2.5 million patient safety events recorded each year, to help make
+care safer. LFPSE is now in use across the NHS, and organisations have
+switched to recording patient safety events onto the new LFPSE service
+using LFPSE-compliant local systems, rather than the National Reporting
+and Learning System (NRLS), which was decommissioned on 30 June
+2024.</p>
+<p><a
+href="https://www.england.nhs.uk/statistics/statistical-work-areas/patient-safety-data/2025-26/quarter-2-2025-26-july-august-september-2025/">The
+full report can be found here.</a></p>
+<p>I was personally in charge of creating a new quarterly report using
+this data in order to make it public. This allows people to access
+aspects of the data without having to come to my team first, decreasing
+the amount of requests we get and increasing the accessibility of the
+data for public use.</p>
+<p>This project involved many different analytical tools and required me
+to pull data from multiple sources, clean it, handle missing data and
+anonymisation issues, and create new metrics and plots to visualise
+trends. The code isn’t public yet so I can’t share it.</p>
+</div>
+<div id="bed-days" class="section level1">
+<h1>Bed Days</h1>
+<p>One of the metrics I created is the bed days formula, some NHS Trusts
+are bigger than others and offer different types of care and have
+different facilities; so directly comparing the number of their reports
+is unfair and unrepresentative. The bed days calculation rectifies this
+by standardising activity across NHS Trusts, the data was taken from the
+<a
+href="https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/bed-data-overnight/">KH03
+mandatory data collection</a> and is also an example of retrieving data
+from another source and amalgamating it with our LFPSE data.:<br />
+</p>
+<p><span class="math display">\[
+Recording\;rate =
+\frac{Number\;of\;incidents}{Bed\;days\;in\;quarter}*1,000
+\]</span> For the plot I decided on a scatter faceted by sector an alpha
+of 0.7 as there is a lot of overlap, this way you can clearly see the
+outliers and the the disparity between care sectors.</p>
+<div class="float">
+<img src="images/bed_days.png" width="600" height="900"
+alt="Bed days" />
+<div class="figcaption">Bed days</div>
+</div>
+<ul>
+<li>Project 2</li>
+<li>Project 3</li>
+</ul>
 </div>
 
 
