@@ -6,6 +6,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import statsmodels.api as sm
 
 data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx")
 
@@ -72,6 +73,20 @@ plt.title("Effect of Load Utilization on Fuel Efficiency")
 plt.xlabel("Load Utilization %")
 plt.ylabel("Fuel Efficiency kmpl")
 plt.show()
+
+# Creating a regression test to see how much fuel efficiency is effected by load increase
+
+results = {} 
+
+for vtype in data_import["Vehicle_Type"].unique(): 
+  subset = data_import[data_import["Vehicle_Type"] == vtype] 
+  X = sm.add_constant(subset["Load_Utilization_%"]) 
+  y = subset["Fuel_Efficiency_kmpl"]
+  model = sm.OLS(y, X).fit() 
+  results[vtype] = model 
+  
+  print(f"\n=== {vtype} ===") 
+  print(model.summary())
   
   
 

@@ -1,24 +1,26 @@
 ---
 title: "Project 1 - Carbon Emissions: How to Optimise Fuel Efficiency Without Comprimising on Deliveries"
 output: html_document
+header-includes:
+  - |
+    <style>
+      h1 {font-size:20px;}
+      h2 {font-size:15px;}
+    <style>
 ---
 
 
 # Context
 This fictional delivery company uses a range of vehicles, routes, and delivery types, they need to figure out how to improve their fuel efficiency without out impacting their revenue.
 
-This data was sourced from Kaggle and uses the following tools:
-- Python
-- Pandas
-- Matplotlib
-- Seaborn
-
+This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Seaborn
 
 # Approach
+
 ## Data Importing
+
 I started by importing and exploring the data, checking for completeness and standardisation.
 ```{r, knitr, include = FALSE}
-
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -30,7 +32,6 @@ import matplotlib.pyplot as plt
 
 data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx")
 
-print(data_import.head())
 print(data_import.columns)
 
 # Exploring the data for completeness
@@ -39,6 +40,7 @@ columns_to_check = ["Vehicle_Type", "Route_Type", "Delivery_Type"]
 # Create empty dictionary for the tables to be stored in
 count_tables = {} 
 
+# Pulling the counts for the values in the variables
 for col in columns_to_check:
   count_tables[col] = data_import[col].value_counts().to_frame(name="Count")
 
@@ -51,45 +53,85 @@ Here we have the counts of the variables which has highlighted an anomalous row 
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
-```{python, echo = FALSE}
+```{python, echo = FALSE, results='asis'}
 count_tables[columns_to_check[0]]
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
+```{python, echo = FALSE, results='asis'}
 count_tables[columns_to_check[1]]
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
+```{python, echo = FALSE, results='asis'}
 count_tables[columns_to_check[2]]
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
+```{python, echo = FALSE, results='asis'}
 mean_distance
 ```
 </div>
 
-<div style="flex:1;">
-```{python, echo = FALSE}
+<div style="flex:1;width:1200px;">
+```{python, echo = FALSE, results='asis'}
 count_delivery_type
+```
+
+
+## Data Handling & Descriptive Analysis
+
+Here I can see the break down of the key columns I will be using for my calculations, my next step is to handle the data and create an average fuel efficiency per vehicle and delivery type, and see how this compares to the averages of the type combinations.
+
+```{python, averages}
+
+# Handling columns
+data_import["CO2_Emissions_kg"] = (data_import["CO2_Emissions_g"] / 1000).round(2)
+data_import_cleaned = data_import[data_import["Vehicle_Type"] != "S"]
+
+# Creating an average fuel efficiency per litre for each vehicle type
+average_tables = {}
+
+for col in columns_to_check:
+  average_tables[col] = data_import_cleaned.groupby(col)["Fuel_Efficiency_kmpl"].mean().to_frame(name="Average")
+```
+
+<div style="display:flex; gap:20px;">
+
+<div style="flex:1;">
+```{python, echo = FALSE, results='asis'}
+average_tables[columns_to_check[0]]
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE, results='asis'}
+average_tables[columns_to_check[1]]
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE, results='asis'}
+average_tables[columns_to_check[2]]
 ```
 </div>
 
 </div>
 
+## Load Utilisation
+
 Before I start comparing the delivery and vehicle types for fuel efficiency I want to check how load utilization effects fuel efficiency, as ultimately maximizing fuel efficiency is what we are aiming to achieve here. We can see that for Electric vehicles and Bikes the fuel efficiency decreases steadily as the load utilization increases, whereas for CNG Trucks and Diesel Vans it increases. This is key information that will factor into my conclusion.
 
 </div>
+</div>
 
-```{python, echo = FALSE}
+```{python, laod utilisation plot}
 # This plot is 
 sns_load_util = sns.lmplot(
-  data=data_import, 
+  data=data_import_cleaned, 
   x="Load_Utilization_%", 
   y="Fuel_Efficiency_kmpl", 
   hue="Vehicle_Type", 
@@ -103,52 +145,55 @@ plt.ylabel("Fuel Efficiency kmpl")
 plt.show()
 ```
 
+I will now employ a regression analysis to see how much fuel efficiency is impacted by load utilisation across vehicle types as this will tell us where to maximize it and where to not.
 
-## Data Handling & Descriptive Analysis
-Here I can see the break down of the key columns I will be using for my calculations, my next step is to handle the data and create an average fuel efficiency per vehicle and delivery type, and see how this compares to the averages of the type combinations.
+```{python, regression, results=FALSE}
+# Creating empty dictionary to store results
 
-```{python, averages}
+results = {} 
 
-# Handling columns
-data_import["CO2_Emissions_kg"] = (data_import["CO2_Emissions_g"] / 1000).round(2)
-data_import = data_import[data_import["Vehicle_Type"] != "S"]
-
-# Creating an average fuel efficiency per litre for each vehicle type
-average_tables = {}
-
-for col in columns_to_check:
-  average_tables[col] = data_import.groupby(col)["Fuel_Efficiency_kmpl"].mean().to_frame(name="Average")
+for vtype in data_import["Vehicle_Type"].unique(): 
+  # Subsetting data based on vehicle type
+  subset = data_import[data_import["Vehicle_Type"] == vtype] 
+  # Adding in predictor variable coefficient
+  X = sm.add_constant(subset["Load_Utilization_%"])
+  y = subset["Fuel_Efficiency_kmpl"] 
+  # Running regression
+  model = sm.OLS(y, X).fit() 
+  results[vtype] = model
 ```
 
-<div style="display:flex; gap:20px;">
+I will simplify the results by extracting just the p_values and impact on kmpl for every 10% increase in load.
+```{python, regression results, results='asis'}
+# Empty dictionary to store results
+coef_table = [] 
 
-<div style="flex:1;">
-```{python, echo = FALSE}
-average_tables[columns_to_check[0]]
+for vtype, model in results.items(): 
+  # Pulling kmpl change for every 1% load increase
+  beta_1 = model.params["Load_Utilization_%"] 
+  # Pulling p values
+  pval = model.pvalues["Load_Utilization_%"] 
+  # Creating a better metric of kmpl change for every 10% increase
+  beta_10 = beta_1 * 10
+  
+  coef_table.append({ 
+    "Vehicle Type": vtype, 
+    "kmpl change per 10% load increase": beta_10, 
+    "p_value": pval 
+    }) 
+    
+coef_df = pd.DataFrame(coef_table) 
+print(coef_df)
 ```
-</div>
 
-<div style="flex:1;">
-```{python, echo = FALSE}
-average_tables[columns_to_check[1]]
-```
-</div>
-
-<div style="flex:1;">
-```{python, echo = FALSE}
-average_tables[columns_to_check[2]]
-```
-</div>
-
-</div>
 
 I created a function that calculated the averages for each combination of delivery and vehicle types for the other key metrics in the data.
 
-```{python, average function}
+```{python, average function, results='asis'}
 
 # Creating function
 def matrix_function(value_column):
-  return data_import.pivot_table(
+  return data_import_cleaned.pivot_table(
     index="Vehicle_Type",
     columns="Delivery_Type",
     values=value_column,

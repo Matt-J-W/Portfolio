@@ -274,8 +274,8 @@ Optimise Fuel Efficiency Without Comprimising on Deliveries</h1>
 <p>This fictional delivery company uses a range of vehicles, routes, and
 delivery types, they need to figure out how to improve their fuel
 efficiency without out impacting their revenue.</p>
-<p>This data was sourced from Kaggle and uses the following tools: -
-Python - Pandas - Matplotlib - Seaborn</p>
+<p>This data was sourced from Kaggle and uses the following tools:
+Python, Pandas, Matplotlib, Seaborn</p>
 </div>
 <div id="approach" class="section level1">
 <h1>Approach</h1>
@@ -289,8 +289,7 @@ import matplotlib.pyplot as plt
 
 data_import = pd.read_excel(r&quot;C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx&quot;)
 
-print(data_import.head())</code></pre>
-<pre class="python"><code>print(data_import.columns)</code></pre>
+print(data_import.columns)</code></pre>
 <pre class="python"><code>
 # Exploring the data for completeness
 columns_to_check = [&quot;Vehicle_Type&quot;, &quot;Route_Type&quot;, &quot;Delivery_Type&quot;]
@@ -298,6 +297,7 @@ columns_to_check = [&quot;Vehicle_Type&quot;, &quot;Route_Type&quot;, &quot;Deli
 # Create empty dictionary for the tables to be stored in
 count_tables = {} 
 
+# Pulling the counts for the values in the variables
 for col in columns_to_check:
   count_tables[col] = data_import[col].value_counts().to_frame(name=&quot;Count&quot;)
 
@@ -308,64 +308,29 @@ Here we have the counts of the variables which has highlighted an
 anomalous row we will remove in the vehicle type column
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<pre><code>##               Count
-## Vehicle_Type       
-## Diesel Van      525
-## Electric Van    403
-## CNG Truck       310
-## Bike            261
-## S                 1</code></pre>
+<pre><code>          Count</code></pre>
+<p>Vehicle_Type<br />
+Diesel Van 525 Electric Van 403 CNG Truck 310 Bike 261 S 1</p>
 </div>
 <div style="flex:1;">
-<pre><code>##             Count
-## Route_Type       
-## Urban         592
-## Suburban      463
-## Rural         305
-## Highway       140</code></pre>
+<pre><code>        Count</code></pre>
+<p>Route_Type<br />
+Urban 592 Suburban 463 Rural 305 Highway 140</p>
 </div>
 <div style="flex:1;">
-<pre><code>##                Count
-## Delivery_Type       
-## Standard         749
-## Express          459
-## Same-day         292</code></pre>
+<pre><code>           Count</code></pre>
+<p>Delivery_Type<br />
+Standard 749 Express 459 Same-day 292</p>
 </div>
 <div style="flex:1;">
-<pre><code>## Delivery_Type
-## Express     103.216187
-## Same-day    101.389212
-## Standard    101.014619
-## Name: Distance_km, dtype: float64</code></pre>
+<p>Delivery_Type Express 103.216187 Same-day 101.389212 Standard
+101.014619 Name: Distance_km, dtype: float64</p>
 </div>
-<div style="flex:1;">
-<pre><code>## Vehicle_Type  Delivery_Type
-## Bike          Standard         135
-##               Express           83
-##               Same-day          43
-## CNG Truck     Standard         160
-##               Express           86
-##               Same-day          64
-## Diesel Van    Standard         253
-##               Express          158
-##               Same-day         114
-## Electric Van  Standard         201
-##               Express          132
-##               Same-day          70
-## S             Same-day           1
-## Name: count, dtype: int64</code></pre>
-</div>
-</div>
-<p>Before I start comparing the delivery and vehicle types for fuel
-efficiency I want to check how load utilization effects fuel efficiency,
-as ultimately maximizing fuel efficiency is what we are aiming to
-achieve here. We can see that for Electric vehicles and Bikes the fuel
-efficiency decreases steadily as the load utilization increases, whereas
-for CNG Trucks and Diesel Vans it increases. This is key information
-that will factor into my conclusion.</p>
-</div>
-<p><img src="project_1_files/figure-html/unnamed-chunk-6-1.png" width="875" /></p>
-</div>
+<div style="flex:1;width:1200px;">
+<p>Vehicle_Type Delivery_Type Bike Standard 135 Express 83 Same-day 43
+CNG Truck Standard 160 Express 86 Same-day 64 Diesel Van Standard 253
+Express 158 Same-day 114 Electric Van Standard 201 Express 132 Same-day
+70 S Same-day 1 Name: count, dtype: int64</p>
 <div id="data-handling-descriptive-analysis" class="section level2">
 <h2>Data Handling &amp; Descriptive Analysis</h2>
 <p>Here I can see the break down of the key columns I will be using for
@@ -375,44 +340,105 @@ compares to the averages of the type combinations.</p>
 <pre class="python"><code>
 # Handling columns
 data_import[&quot;CO2_Emissions_kg&quot;] = (data_import[&quot;CO2_Emissions_g&quot;] / 1000).round(2)
-data_import = data_import[data_import[&quot;Vehicle_Type&quot;] != &quot;S&quot;]
+data_import_cleaned = data_import[data_import[&quot;Vehicle_Type&quot;] != &quot;S&quot;]
 
 # Creating an average fuel efficiency per litre for each vehicle type
 average_tables = {}
 
 for col in columns_to_check:
-  average_tables[col] = data_import.groupby(col)[&quot;Fuel_Efficiency_kmpl&quot;].mean().to_frame(name=&quot;Average&quot;)</code></pre>
+  average_tables[col] = data_import_cleaned.groupby(col)[&quot;Fuel_Efficiency_kmpl&quot;].mean().to_frame(name=&quot;Average&quot;)</code></pre>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<pre><code>##                 Average
-## Vehicle_Type           
-## Bike          15.732069
-## CNG Truck     15.134452
-## Diesel Van    15.172057
-## Electric Van  14.837692</code></pre>
+<pre><code>            Average</code></pre>
+<p>Vehicle_Type<br />
+Bike 15.732069 CNG Truck 15.134452 Diesel Van 15.172057 Electric Van
+14.837692</p>
 </div>
 <div style="flex:1;">
-<pre><code>##               Average
-## Route_Type           
-## Highway     15.511071
-## Rural       15.255016
-## Suburban    15.411147
-## Urban       14.862145</code></pre>
+<pre><code>          Average</code></pre>
+<p>Route_Type<br />
+Highway 15.511071 Rural 15.255016 Suburban 15.411147 Urban 14.862145</p>
 </div>
 <div style="flex:1;">
-<pre><code>##                  Average
-## Delivery_Type           
-## Express        15.223813
-## Same-day       14.928797
-## Standard       15.234526</code></pre>
+<pre><code>             Average</code></pre>
+<p>Delivery_Type<br />
+Express 15.223813 Same-day 14.928797 Standard 15.234526</p>
 </div>
 </div>
+</div>
+<div id="load-utilisation" class="section level2">
+<h2>Load Utilisation</h2>
+<p>Before I start comparing the delivery and vehicle types for fuel
+efficiency I want to check how load utilization effects fuel efficiency,
+as ultimately maximizing fuel efficiency is what we are aiming to
+achieve here. We can see that for Electric vehicles and Bikes the fuel
+efficiency decreases steadily as the load utilization increases, whereas
+for CNG Trucks and Diesel Vans it increases. This is key information
+that will factor into my conclusion.</p>
+</div>
+</div>
+</div>
+<pre class="python"><code># This plot is 
+sns_load_util = sns.lmplot(
+  data=data_import_cleaned, 
+  x=&quot;Load_Utilization_%&quot;, 
+  y=&quot;Fuel_Efficiency_kmpl&quot;, 
+  hue=&quot;Vehicle_Type&quot;, 
+  height=6, 
+  aspect=1.3, 
+  scatter = False 
+  )
+plt.title(&quot;Effect of Load Utilization on Fuel Efficiency&quot;)
+plt.xlabel(&quot;Load Utilization %&quot;)
+plt.ylabel(&quot;Fuel Efficiency kmpl&quot;)
+plt.show()</code></pre>
+<p><img src="project_1_files/figure-html/laod%20utilisation%20plot-1.png" width="875" /></p>
+<p>I will now employ a regression analysis to see how much fuel
+efficiency is impacted by load utilisation across vehicle types as this
+will tell us where to maximize it and where to not.</p>
+<pre class="python"><code># Creating empty dictionary to store results
+
+results = {} 
+
+for vtype in data_import[&quot;Vehicle_Type&quot;].unique(): 
+  # Subsetting data based on vehicle type
+  subset = data_import[data_import[&quot;Vehicle_Type&quot;] == vtype] 
+  # Adding in predictor variable coefficient
+  X = sm.add_constant(subset[&quot;Load_Utilization_%&quot;])
+  y = subset[&quot;Fuel_Efficiency_kmpl&quot;] 
+  # Running regression
+  model = sm.OLS(y, X).fit() 
+  results[vtype] = model</code></pre>
+<p>I will simplify the results by extracting just the p_values and
+impact on kmpl for every 10% increase in load.</p>
+<pre class="python"><code># Empty dictionary to store results
+coef_table = [] 
+
+for vtype, model in results.items(): 
+  # Pulling kmpl change for every 1% load increase
+  beta_1 = model.params[&quot;Load_Utilization_%&quot;] 
+  # Pulling p values
+  pval = model.pvalues[&quot;Load_Utilization_%&quot;] 
+  # Creating a better metric of kmpl change for every 10% increase
+  beta_10 = beta_1 * 10
+  
+  coef_table.append({ 
+    &quot;Vehicle Type&quot;: vtype, 
+    &quot;kmpl change per 10% load increase&quot;: beta_10, 
+    &quot;p_value&quot;: pval 
+    }) 
+    
+coef_df = pd.DataFrame(coef_table) 
+print(coef_df)</code></pre>
+<p>Vehicle Type kmpl change per 10% load increase p_value 0 Diesel Van
+0.042691 0.810296 1 Bike -0.134249 0.584365 2 CNG Truck 0.096572
+0.664480 3 Electric Van -0.293594 0.162169 4 S 2.506024 NaN</p>
 <p>I created a function that calculated the averages for each
 combination of delivery and vehicle types for the other key metrics in
 the data.</p>
 <pre class="python"><code># Creating function
 def matrix_function(value_column):
-  return data_import.pivot_table(
+  return data_import_cleaned.pivot_table(
     index=&quot;Vehicle_Type&quot;,
     columns=&quot;Delivery_Type&quot;,
     values=value_column,
@@ -432,16 +458,12 @@ combined_matrix = pd.concat(
 
 combined_matrix.index = combined_matrix.index.map(&#39;_&#39;.join)
 combined_matrix</code></pre>
-<pre><code>## Vehicle_Type         Bike  CNG Truck  Diesel Van  Electric Van
-## On_Time_Express      0.89       0.87        0.89          0.92
-## On_Time_Same-day     0.95       0.92        0.93          0.90
-## On_Time_Standard     0.93       0.92        0.94          0.90
-## CO2_kg_Express       2.72      11.86       18.77          4.07
-## CO2_kg_Same-day      2.00      11.93       20.89          3.70
-## CO2_kg_Standard      2.41      12.39       18.12          4.08
-## Fuel_kmpl_Express   15.17      14.94       15.44         15.18
-## Fuel_kmpl_Same-day  16.07      14.67       14.86         14.57
-## Fuel_kmpl_Standard  15.97      15.42       15.15         14.70</code></pre>
+Vehicle_Type Bike CNG Truck Diesel Van Electric Van On_Time_Express 0.89
+0.87 0.89 0.92 On_Time_Same-day 0.95 0.92 0.93 0.90 On_Time_Standard
+0.93 0.92 0.94 0.90 CO2_kg_Express 2.72 11.86 18.77 4.07 CO2_kg_Same-day
+2.00 11.93 20.89 3.70 CO2_kg_Standard 2.41 12.39 18.12 4.08
+Fuel_kmpl_Express 15.17 14.94 15.44 15.18 Fuel_kmpl_Same-day 16.07 14.67
+14.86 14.57 Fuel_kmpl_Standard 15.97 15.42 15.15 14.70
 </div>
 <p>Now we can clearly see how the averages of the combinations stack up
 against the average for the whole variable, this shows us which
@@ -473,7 +495,7 @@ has a lower average fuel cost. So moving some of the same day deliveries
 over from diesel to electric will lower the CO2 emissions without
 compromising deliveries.</p>
 </div>
-<div id="load-utilisation" class="section level2">
+<div id="load-utilisation-1" class="section level2">
 <h2>Load Utilisation:</h2>
 <ul>
 <li>Diesel vans and electric vans both have a steady decline in their
