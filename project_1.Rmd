@@ -41,10 +41,13 @@ count_tables = {}
 
 for col in columns_to_check:
   count_tables[col] = data_import[col].value_counts().to_frame(name="Count")
-  
+
+# I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type
+count_delivery_type = data_import.groupby("Vehicle_Type")["Delivery_Type"].value_counts()
+mean_distance = data_import.groupby("Delivery_Type")["Distance_km"].mean()
 ```
 
-Here we have the counts of the variables which has highlighted an anonmalous row we will remove in the vehicle type column
+Here we have the counts of the variables which has highlighted an anomalous row we will remove in the vehicle type column
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
@@ -62,6 +65,18 @@ count_tables[columns_to_check[1]]
 <div style="flex:1;">
 ```{python, echo = FALSE}
 count_tables[columns_to_check[2]]
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE}
+mean_distance
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE}
+count_delivery_type
 ```
 </div>
 
@@ -159,6 +174,16 @@ combined_matrix
 Now we can clearly see how the averages of the combinations stack up against the average for the whole variable, this shows us which combinations are preforming below average and could do with reorganising. 
 
 # Conclusion
+## Fuel Efficiency:
+- Bikes have the highest fuel efficiency for same day deliveries with 16.07 and electric vans have the lowest with 14.57. Currently bikes are only delivering 15% of same day deliveries so there is scope to shift bikes from express to same day, as express is their lowest performing metric for on time deliveries. Using the below equation you can calculate how much fuel you would save per delivery on average:
+
+$$
+Fuel\;saved = (\frac{1}{Vehicle\;1\;Av.\;kmpl}-\frac{1}{Vehicle\;2\;Av.\;kmpl})*Average\;distance
+$$ 
+So this give you 0.65 litres saved per delivery.
+$$
+Fuel\;saved = (\frac{1}{14.57}-\frac{1}{16.07})*101
+$$ 
 ## CO2 kg:
 - Same day delivery for diesel vans produces >2kg of fuel per delivery on average, compared to electric vans which has a lower average fuel cost. So moving some of the same day deliveries over from diesel to electric will lower the CO2 emissions without compromising deliveries.
 

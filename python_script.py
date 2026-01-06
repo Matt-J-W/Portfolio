@@ -28,8 +28,11 @@ data_import["CO2_Emissions_kg"] = (data_import["CO2_Emissions_g"] / 1000).round(
 data_import = data_import[data_import["Vehicle_Type"] != "S"]
 
 # Creating an average fuel efficiency per litre for each vehicle type
+# And also the count of delivery types for each vehicle type
 data_import.groupby("Vehicle_Type")["Fuel_Efficiency_kmpl"].mean()
 data_import.groupby("Delivery_Type")["Fuel_Efficiency_kmpl"].mean()
+data_import.groupby("Delivery_Type")["Distance_km"].mean()
+data_import.groupby("Vehicle_Type")["Delivery_Type"].value_counts()
 
 # My plan is to calculate the rate of on time deliveries for each vehicle / delivery type
 # Step 1: Create a resuable function for calculating the mean of a given metric

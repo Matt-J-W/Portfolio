@@ -300,9 +300,12 @@ count_tables = {}
 
 for col in columns_to_check:
   count_tables[col] = data_import[col].value_counts().to_frame(name=&quot;Count&quot;)
-  </code></pre>
+
+# I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type
+count_delivery_type = data_import.groupby(&quot;Vehicle_Type&quot;)[&quot;Delivery_Type&quot;].value_counts()
+mean_distance = data_import.groupby(&quot;Delivery_Type&quot;)[&quot;Distance_km&quot;].mean()</code></pre>
 Here we have the counts of the variables which has highlighted an
-anonmalous row we will remove in the vehicle type column
+anomalous row we will remove in the vehicle type column
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
 <pre><code>##               Count
@@ -328,6 +331,30 @@ anonmalous row we will remove in the vehicle type column
 ## Express          459
 ## Same-day         292</code></pre>
 </div>
+<div style="flex:1;">
+<pre><code>## Delivery_Type
+## Express     103.216187
+## Same-day    101.389212
+## Standard    101.014619
+## Name: Distance_km, dtype: float64</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>## Vehicle_Type  Delivery_Type
+## Bike          Standard         135
+##               Express           83
+##               Same-day          43
+## CNG Truck     Standard         160
+##               Express           86
+##               Same-day          64
+## Diesel Van    Standard         253
+##               Express          158
+##               Same-day         114
+## Electric Van  Standard         201
+##               Express          132
+##               Same-day          70
+## S             Same-day           1
+## Name: count, dtype: int64</code></pre>
+</div>
 </div>
 <p>Before I start comparing the delivery and vehicle types for fuel
 efficiency I want to check how load utilization effects fuel efficiency,
@@ -337,7 +364,7 @@ efficiency decreases steadily as the load utilization increases, whereas
 for CNG Trucks and Diesel Vans it increases. This is key information
 that will factor into my conclusion.</p>
 </div>
-<p><img src="project_1_files/figure-html/unnamed-chunk-4-1.png" width="875" /></p>
+<p><img src="project_1_files/figure-html/unnamed-chunk-6-1.png" width="875" /></p>
 </div>
 <div id="data-handling-descriptive-analysis" class="section level2">
 <h2>Data Handling &amp; Descriptive Analysis</h2>
@@ -424,15 +451,27 @@ reorganising.</p>
 </div>
 <div id="conclusion" class="section level1">
 <h1>Conclusion</h1>
-<div id="co2-kg" class="section level2">
-<h2>CO2 kg:</h2>
+<div id="fuel-efficiency" class="section level2">
+<h2>Fuel Efficiency:</h2>
 <ul>
-<li>Same day delivery for diesel vans produces &gt;2kg of fuel per
-delivery on average, compared to electric vans which has a lower average
-fuel cost. So moving some of the same day deliveries over from diesel to
-electric will lower the CO2 emissions without compromising
-deliveries.</li>
+<li>Bikes have the highest fuel efficiency for same day deliveries with
+16.07 and electric vans have the lowest with 14.57. Currently bikes are
+only delivering 15% of same day deliveries so there is scope to shift
+bikes from express to same day, as express is their lowest performing
+metric for on time deliveries. Using the below equation you can
+calculate how much fuel you would save per delivery on average:</li>
 </ul>
+<p><span class="math display">\[
+Fuel\;saved =
+(\frac{1}{Vehicle\;1\;Av.\;kmpl}-\frac{1}{Vehicle\;2\;Av.\;kmpl})*Average\;distance
+\]</span> So this give you 0.65 litres saved per delivery. <span
+class="math display">\[
+Fuel\;saved = (\frac{1}{14.57}-\frac{1}{16.07})*101
+\]</span> ## CO2 kg: - Same day delivery for diesel vans produces
+&gt;2kg of fuel per delivery on average, compared to electric vans which
+has a lower average fuel cost. So moving some of the same day deliveries
+over from diesel to electric will lower the CO2 emissions without
+compromising deliveries.</p>
 </div>
 <div id="load-utilisation" class="section level2">
 <h2>Load Utilisation:</h2>
