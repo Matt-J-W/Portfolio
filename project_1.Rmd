@@ -55,19 +55,19 @@ Here we have the counts of the variables which has highlighted an anomalous row 
 
 <div style="flex:1;">
 ```{python, echo = FALSE, results='asis'}
-count_tables[columns_to_check[0]]
+print(count_tables[columns_to_check[0]].to_html())
 ```
 </div>
 
 <div style="flex:1;">
 ```{python, echo = FALSE, results='asis'}
-count_tables[columns_to_check[1]]
+print(count_tables[columns_to_check[1]].to_html())
 ```
 </div>
 
 <div style="flex:1;">
 ```{python, echo = FALSE, results='asis'}
-count_tables[columns_to_check[2]]
+print(count_tables[columns_to_check[2]].to_html())
 ```
 </div>
 
@@ -79,13 +79,13 @@ count_tables[columns_to_check[2]]
 
 <div style="flex:1;">
 ```{python, echo = FALSE, results='asis'}
-mean_distance
+print(mean_distance.to_frame().to_html())
 ```
 </div>
 
 <div style="flex:1;">
 ```{python, echo = FALSE, results='asis'}
-count_delivery_type
+print(count_delivery_type.to_frame().to_html())
 ```
 
 

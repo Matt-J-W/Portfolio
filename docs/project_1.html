@@ -308,32 +308,361 @@ mean_distance = data_import.groupby(&quot;Delivery_Type&quot;)[&quot;Distance_km
 anomalous row we will remove in the vehicle type column</p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<pre><code>          Count</code></pre>
-<p>Vehicle_Type<br />
-Diesel Van 525 Electric Van 403 CNG Truck 310 Bike 261 S 1</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Count
+</th>
+</tr>
+<tr>
+<th>
+Vehicle_Type
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+Diesel Van
+</th>
+<td>
+525
+</td>
+</tr>
+<tr>
+<th>
+Electric Van
+</th>
+<td>
+403
+</td>
+</tr>
+<tr>
+<th>
+CNG Truck
+</th>
+<td>
+310
+</td>
+</tr>
+<tr>
+<th>
+Bike
+</th>
+<td>
+261
+</td>
+</tr>
+<tr>
+<th>
+S
+</th>
+<td>
+1
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div style="flex:1;">
-<pre><code>        Count</code></pre>
-<p>Route_Type<br />
-Urban 592 Suburban 463 Rural 305 Highway 140</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Count
+</th>
+</tr>
+<tr>
+<th>
+Route_Type
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+Urban
+</th>
+<td>
+592
+</td>
+</tr>
+<tr>
+<th>
+Suburban
+</th>
+<td>
+463
+</td>
+</tr>
+<tr>
+<th>
+Rural
+</th>
+<td>
+305
+</td>
+</tr>
+<tr>
+<th>
+Highway
+</th>
+<td>
+140
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div style="flex:1;">
-<pre><code>           Count</code></pre>
-<p>Delivery_Type<br />
-Standard 749 Express 459 Same-day 292</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Count
+</th>
+</tr>
+<tr>
+<th>
+Delivery_Type
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+Standard
+</th>
+<td>
+749
+</td>
+</tr>
+<tr>
+<th>
+Express
+</th>
+<td>
+459
+</td>
+</tr>
+<tr>
+<th>
+Same-day
+</th>
+<td>
+292
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p><br></p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<p>Delivery_Type Express 103.216187 Same-day 101.389212 Standard
-101.014619 Name: Distance_km, dtype: float64</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Distance_km
+</th>
+</tr>
+<tr>
+<th>
+Delivery_Type
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+Express
+</th>
+<td>
+103.216187
+</td>
+</tr>
+<tr>
+<th>
+Same-day
+</th>
+<td>
+101.389212
+</td>
+</tr>
+<tr>
+<th>
+Standard
+</th>
+<td>
+101.014619
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div style="flex:1;">
-<p>Vehicle_Type Delivery_Type Bike Standard 135 Express 83 Same-day 43
-CNG Truck Standard 160 Express 86 Same-day 64 Diesel Van Standard 253
-Express 158 Same-day 114 Electric Van Standard 201 Express 132 Same-day
-70 S Same-day 1 Name: count, dtype: int64</p>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+</th>
+<th>
+count
+</th>
+</tr>
+<tr>
+<th>
+Vehicle_Type
+</th>
+<th>
+Delivery_Type
+</th>
+<th>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="3" valign="top">
+Bike
+</th>
+<th>
+Standard
+</th>
+<td>
+135
+</td>
+</tr>
+<tr>
+<th>
+Express
+</th>
+<td>
+83
+</td>
+</tr>
+<tr>
+<th>
+Same-day
+</th>
+<td>
+43
+</td>
+</tr>
+<tr>
+<th rowspan="3" valign="top">
+CNG Truck
+</th>
+<th>
+Standard
+</th>
+<td>
+160
+</td>
+</tr>
+<tr>
+<th>
+Express
+</th>
+<td>
+86
+</td>
+</tr>
+<tr>
+<th>
+Same-day
+</th>
+<td>
+64
+</td>
+</tr>
+<tr>
+<th rowspan="3" valign="top">
+Diesel Van
+</th>
+<th>
+Standard
+</th>
+<td>
+253
+</td>
+</tr>
+<tr>
+<th>
+Express
+</th>
+<td>
+158
+</td>
+</tr>
+<tr>
+<th>
+Same-day
+</th>
+<td>
+114
+</td>
+</tr>
+<tr>
+<th rowspan="3" valign="top">
+Electric Van
+</th>
+<th>
+Standard
+</th>
+<td>
+201
+</td>
+</tr>
+<tr>
+<th>
+Express
+</th>
+<td>
+132
+</td>
+</tr>
+<tr>
+<th>
+Same-day
+</th>
+<td>
+70
+</td>
+</tr>
+<tr>
+<th>
+S
+</th>
+<th>
+Same-day
+</th>
+<td>
+1
+</td>
+</tr>
+</tbody>
+</table>
 <div id="data-handling-descriptive-analysis" class="section level2">
 <h2>Data Handling &amp; Descriptive Analysis</h2>
 <p>Here I can see the break down of the key columns I will be using for
