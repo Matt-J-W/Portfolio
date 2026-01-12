@@ -50,6 +50,7 @@ mean_distance = data_import.groupby("Delivery_Type")["Distance_km"].mean()
 ```
 
 Here we have the counts of the variables which has highlighted an anomalous row we will remove in the vehicle type column
+
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
@@ -69,6 +70,12 @@ count_tables[columns_to_check[1]]
 count_tables[columns_to_check[2]]
 ```
 </div>
+
+</div>
+
+<br>
+
+<div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
 ```{python, echo = FALSE, results='asis'}
@@ -184,11 +191,12 @@ for vtype, model in results.items():
 coef_df = pd.DataFrame(coef_table) 
 print(coef_df)
 ```
+As you can see every p value is >0.05 meaning none of the results are significant, indicating that increasing the load has a negligible effect on fuel efficiency for every vehicle type.
 
 
 I created a function that calculated the averages for each combination of delivery and vehicle types for the other key metrics in the data.
 
-```{python, average function, results='asis'}
+```{python, average function}
 
 # Creating function
 def matrix_function(value_column):
@@ -232,4 +240,4 @@ $$
 - Same day delivery for diesel vans produces >2kg of fuel per delivery on average, compared to electric vans which has a lower average fuel cost. So moving some of the same day deliveries over from diesel to electric will lower the CO2 emissions without compromising deliveries.
 
 ## Load Utilisation:
-- Diesel vans and electric vans both have a steady decline in their fuel efficiency as load utilisation increases, with electric vehicles seeing a bigger drop 
+- Diesel vans and electric vans both have a steady decline in their fuel efficiency as load utilisation increases, with electric vehicles seeing a bigger drop. However, my coefficient table indicates that these observations are not significant.

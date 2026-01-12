@@ -304,8 +304,8 @@ for col in columns_to_check:
 # I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type
 count_delivery_type = data_import.groupby(&quot;Vehicle_Type&quot;)[&quot;Delivery_Type&quot;].value_counts()
 mean_distance = data_import.groupby(&quot;Delivery_Type&quot;)[&quot;Distance_km&quot;].mean()</code></pre>
-Here we have the counts of the variables which has highlighted an
-anomalous row we will remove in the vehicle type column
+<p>Here we have the counts of the variables which has highlighted an
+anomalous row we will remove in the vehicle type column</p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
 <pre><code>          Count</code></pre>
@@ -322,6 +322,9 @@ Urban 592 Suburban 463 Rural 305 Highway 140</p>
 <p>Delivery_Type<br />
 Standard 749 Express 459 Same-day 292</p>
 </div>
+</div>
+<p><br></p>
+<div style="display:flex; gap:20px;">
 <div style="flex:1;">
 <p>Delivery_Type Express 103.216187 Same-day 101.389212 Standard
 101.014619 Name: Distance_km, dtype: float64</p>
@@ -431,7 +434,10 @@ coef_df = pd.DataFrame(coef_table)
 print(coef_df)</code></pre>
 <p>Vehicle Type kmpl change per 10% load increase p_value 0 Diesel Van
 0.042691 0.810296 1 Bike -0.134249 0.584365 2 CNG Truck 0.096572
-0.664480 3 Electric Van -0.293594 0.162169 4 S 2.506024 NaN</p>
+0.664480 3 Electric Van -0.293594 0.162169 4 S 2.506024 NaN As you can
+see every p value is &gt;0.05 meaning none of the results are
+significant, indicating that increasing the load has a negligible effect
+on fuel efficiency for every vehicle type.</p>
 <p>I created a function that calculated the averages for each
 combination of delivery and vehicle types for the other key metrics in
 the data.</p>
@@ -457,12 +463,16 @@ combined_matrix = pd.concat(
 
 combined_matrix.index = combined_matrix.index.map(&#39;_&#39;.join)
 combined_matrix</code></pre>
-Vehicle_Type Bike CNG Truck Diesel Van Electric Van On_Time_Express 0.89
-0.87 0.89 0.92 On_Time_Same-day 0.95 0.92 0.93 0.90 On_Time_Standard
-0.93 0.92 0.94 0.90 CO2_kg_Express 2.72 11.86 18.77 4.07 CO2_kg_Same-day
-2.00 11.93 20.89 3.70 CO2_kg_Standard 2.41 12.39 18.12 4.08
-Fuel_kmpl_Express 15.17 14.94 15.44 15.18 Fuel_kmpl_Same-day 16.07 14.67
-14.86 14.57 Fuel_kmpl_Standard 15.97 15.42 15.15 14.70
+<pre><code>## Vehicle_Type         Bike  CNG Truck  Diesel Van  Electric Van
+## On_Time_Express      0.89       0.87        0.89          0.92
+## On_Time_Same-day     0.95       0.92        0.93          0.90
+## On_Time_Standard     0.93       0.92        0.94          0.90
+## CO2_kg_Express       2.72      11.86       18.77          4.07
+## CO2_kg_Same-day      2.00      11.93       20.89          3.70
+## CO2_kg_Standard      2.41      12.39       18.12          4.08
+## Fuel_kmpl_Express   15.17      14.94       15.44         15.18
+## Fuel_kmpl_Same-day  16.07      14.67       14.86         14.57
+## Fuel_kmpl_Standard  15.97      15.42       15.15         14.70</code></pre>
 </div>
 <p>Now we can clearly see how the averages of the combinations stack up
 against the average for the whole variable, this shows us which
@@ -499,7 +509,8 @@ compromising deliveries.</p>
 <ul>
 <li>Diesel vans and electric vans both have a steady decline in their
 fuel efficiency as load utilisation increases, with electric vehicles
-seeing a bigger drop</li>
+seeing a bigger drop. However, my coefficient table indicates that these
+observations are not significant.</li>
 </ul>
 </div>
 </div>
