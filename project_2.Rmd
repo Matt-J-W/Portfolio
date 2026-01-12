@@ -26,7 +26,3 @@ For the plot I decided on a scatter faceted by sector an alpha of 0.7 as there i
 
 ![Bed days](images\bed_days.png){width=600px height=900px}
 
-
-
-- Project 2
-- Project 3

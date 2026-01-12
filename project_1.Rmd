@@ -54,19 +54,19 @@ Here we have the counts of the variables which has highlighted an anomalous row 
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 print(count_tables[columns_to_check[0]].to_html())
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 print(count_tables[columns_to_check[1]].to_html())
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 print(count_tables[columns_to_check[2]].to_html())
 ```
 </div>
@@ -78,13 +78,13 @@ print(count_tables[columns_to_check[2]].to_html())
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 print(mean_distance.to_frame().to_html())
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 print(count_delivery_type.to_frame().to_html())
 ```
 
@@ -109,19 +109,19 @@ for col in columns_to_check:
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 average_tables[columns_to_check[0]]
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 average_tables[columns_to_check[1]]
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 average_tables[columns_to_check[2]]
 ```
 </div>
@@ -170,7 +170,7 @@ for vtype in data_import["Vehicle_Type"].unique():
 ```
 
 I will simplify the results by extracting just the p_values and impact on kmpl for every 10% increase in load.
-```{python, regression results, results='asis'}
+```{python, regression results}
 # Empty dictionary to store results
 coef_table = [] 
 
