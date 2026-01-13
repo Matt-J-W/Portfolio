@@ -1,28 +1,71 @@
 ---
-title: "Project 2 - Bed Days KPI"
+title: "Project 2 - E-Commerce"
 output: html_document
 ---
 
-Here are some examples of my analysis with NHS England's healthcare data.
+# Context
 
-# Patient Safety Event Data Quarterly Publication
+This dataset contains 1,000,000 rows that simulates e-commerce shopping patterns. This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Seaborn
 
-My team helped set up the Learn from Patient Safety Events (LFPSE) service is a national NHS system for the recording and analysis of patient safety events that occur in healthcare. The service introduces a range of innovations to support the NHS to improve learning from the over 2.5 million patient safety events recorded each year, to help make care safer. LFPSE is now in use across the NHS, and organisations have switched to recording patient safety events onto the new LFPSE service using LFPSE-compliant local systems, rather than the National Reporting and Learning System (NRLS), which was decommissioned on 30 June 2024. 
+# Approach
 
-[The full report can be found here.](https://www.england.nhs.uk/statistics/statistical-work-areas/patient-safety-data/2025-26/quarter-2-2025-26-july-august-september-2025/)
+## Data Importing
 
-I was personally in charge of creating a new quarterly report using this data in order to make it public. This allows people to access aspects of the data without having to come to my team first, decreasing the amount of requests we get and increasing the accessibility of the data for public use. 
+I started by importing and exploring the data, checking for completeness and standardisation. I created a function to check for the completeness of a few demographic variables to understand what the data looks like.
 
-This project involved many different analytical tools and required me to pull data from multiple sources, clean it, handle missing data and anonymisation issues, and create new metrics and plots to visualise trends. The code isn't public yet so I can't share it.
+```{r, knitr, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-# Bed Days 
+```{python, data import, results = FALSE}
 
-One of the metrics I created is the bed days formula, some NHS Trusts are bigger than others and offer different types of care and have different facilities; so directly comparing the number of their reports is unfair and unrepresentative. The bed days calculation rectifies this by standardising activity across NHS Trusts, the data was taken from the [KH03 mandatory data collection](https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/bed-data-overnight/) and is also an example of retrieving data from another source and amalgamating it with our LFPSE data.:\
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-$$
-Recording\;rate = \frac{Number\;of\;incidents}{Bed\;days\;in\;quarter}*1,000
-$$ 
-For the plot I decided on a scatter faceted by sector an alpha of 0.7 as there is a lot of overlap, this way you can clearly see the outliers and the the disparity between care sectors.
+p2_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\e_commerce_shopper_behaviour_and_lifestyle.csv")
 
-![Bed days](images\bed_days.png){width=600px height=900px}
+# Exploring the data for completeness with a function
+# This dataset is large: 57 x 1,00,000
+
+def variable_counts(column):
+  counts = p2_data_import[column].value_counts()
+  formatted_counts = counts.apply(lambda x: f"{x:,}")
+  percentages = p2_data_import[column].value_counts(normalize=True).mul(100).round(1)
+  result = pd.concat([formatted_counts, percentages], axis=1, keys=['count', 'percentage'])
+  return result
+
+employment_status_table = variable_counts("employment_status")
+education_level_table = variable_counts("education_level")
+budget_table = variable_counts("budgeting_style")
+product_category_table = variable_counts("product_category_preference")
+
+```
+
+
+<div style="display:flex; gap:20px;">
+
+<div style="flex:1;">
+
+```{python, echo = FALSE}
+print(employment_status_table)
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE}
+print(budget_table)
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE}
+print(product_category_table)
+```
+</div>
+
+</div>
+
+<br>
+
 
