@@ -11,7 +11,7 @@
 
 
 
-<title>Project 2 - Bed Days KPI</title>
+<title>Project 2 - E-Commerce</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -251,6 +251,9 @@ $(document).ready(function () {
 <li>
   <a href="project_2.html">Project 2</a>
 </li>
+<li>
+  <a href="project_3.html">Project 3</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -263,66 +266,78 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Project 2 - Bed Days KPI</h1>
+<h1 class="title toc-ignore">Project 2 - E-Commerce</h1>
 
 </div>
 
 
-<p>Here are some examples of my analysis with NHS England’s healthcare
-data.</p>
-<div id="patient-safety-event-data-quarterly-publication"
-class="section level1">
-<h1>Patient Safety Event Data Quarterly Publication</h1>
-<p>My team helped set up the Learn from Patient Safety Events (LFPSE)
-service is a national NHS system for the recording and analysis of
-patient safety events that occur in healthcare. The service introduces a
-range of innovations to support the NHS to improve learning from the
-over 2.5 million patient safety events recorded each year, to help make
-care safer. LFPSE is now in use across the NHS, and organisations have
-switched to recording patient safety events onto the new LFPSE service
-using LFPSE-compliant local systems, rather than the National Reporting
-and Learning System (NRLS), which was decommissioned on 30 June
-2024.</p>
-<p><a
-href="https://www.england.nhs.uk/statistics/statistical-work-areas/patient-safety-data/2025-26/quarter-2-2025-26-july-august-september-2025/">The
-full report can be found here.</a></p>
-<p>I was personally in charge of creating a new quarterly report using
-this data in order to make it public. This allows people to access
-aspects of the data without having to come to my team first, decreasing
-the amount of requests we get and increasing the accessibility of the
-data for public use.</p>
-<p>This project involved many different analytical tools and required me
-to pull data from multiple sources, clean it, handle missing data and
-anonymisation issues, and create new metrics and plots to visualise
-trends. The code isn’t public yet so I can’t share it.</p>
+<div id="context" class="section level1">
+<h1>Context</h1>
+<p>This dataset contains 1,000,000 rows that simulates e-commerce
+shopping patterns. This data was sourced from Kaggle and uses the
+following tools: Python, Pandas, Matplotlib, Seaborn</p>
 </div>
-<div id="bed-days" class="section level1">
-<h1>Bed Days</h1>
-<p>One of the metrics I created is the bed days formula, some NHS Trusts
-are bigger than others and offer different types of care and have
-different facilities; so directly comparing the number of their reports
-is unfair and unrepresentative. The bed days calculation rectifies this
-by standardising activity across NHS Trusts, the data was taken from the
-<a
-href="https://www.england.nhs.uk/statistics/statistical-work-areas/bed-availability-and-occupancy/bed-data-overnight/">KH03
-mandatory data collection</a> and is also an example of retrieving data
-from another source and amalgamating it with our LFPSE data.:<br />
-</p>
-<p><span class="math display">\[
-Recording\;rate =
-\frac{Number\;of\;incidents}{Bed\;days\;in\;quarter}*1,000
-\]</span> For the plot I decided on a scatter faceted by sector an alpha
-of 0.7 as there is a lot of overlap, this way you can clearly see the
-outliers and the the disparity between care sectors.</p>
-<div class="float">
-<img src="images/bed_days.png" width="600" height="900"
-alt="Bed days" />
-<div class="figcaption">Bed days</div>
+<div id="approach" class="section level1">
+<h1>Approach</h1>
+<div id="data-importing" class="section level2">
+<h2>Data Importing</h2>
+<p>I started by importing and exploring the data, checking for
+completeness and standardisation. I created a function to check for the
+completeness of a few demographic variables to understand what the data
+looks like.</p>
+<pre class="python"><code>
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+p2_data_import = pd.read_csv(r&quot;C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\e_commerce_shopper_behaviour_and_lifestyle.csv&quot;)
+
+# Exploring the data for completeness with a function
+# This dataset is large: 57 x 1,00,000
+
+def variable_counts(column):
+  counts = p2_data_import[column].value_counts()
+  formatted_counts = counts.apply(lambda x: f&quot;{x:,}&quot;)
+  percentages = p2_data_import[column].value_counts(normalize=True).mul(100).round(1)
+  result = pd.concat([formatted_counts, percentages], axis=1, keys=[&#39;count&#39;, &#39;percentage&#39;])
+  return result
+
+employment_status_table = variable_counts(&quot;employment_status&quot;)
+education_level_table = variable_counts(&quot;education_level&quot;)
+budget_table = variable_counts(&quot;budgeting_style&quot;)
+product_category_table = variable_counts(&quot;product_category_preference&quot;)</code></pre>
+<div style="display:flex; gap:20px;">
+<div style="flex:1;">
+<pre><code>##                      count  percentage
+## employment_status                     
+## Retired            200,246        20.0
+## Unemployed         200,225        20.0
+## Employed           199,988        20.0
+## Student            199,949        20.0
+## Self-employed      199,592        20.0</code></pre>
 </div>
-<ul>
-<li>Project 2</li>
-<li>Project 3</li>
-</ul>
+<div style="flex:1;">
+<pre><code>##                    count  percentage
+## budgeting_style                     
+## Moderate         333,771        33.4
+## Loose            333,438        33.3
+## Strict           332,791        33.3</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>##                                count  percentage
+## product_category_preference                     
+## Beauty                       125,409        12.5
+## Sports                       125,227        12.5
+## Electronics                  125,074        12.5
+## Books                        125,054        12.5
+## Groceries                    124,988        12.5
+## Fashion                      124,904        12.5
+## Toys                         124,735        12.5
+## Home &amp; Kitchen               124,609        12.5</code></pre>
+</div>
+</div>
+<p><br></p>
+</div>
 </div>
 
 
