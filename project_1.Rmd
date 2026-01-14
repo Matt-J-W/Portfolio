@@ -8,7 +8,17 @@ header-includes:
       h2 {font-size:15px;}
     <style>
 ---
-
+<style> 
+pre { 
+  text-align: left;
+  border: 1px solid #ccc; 
+  padding: 8px; 
+  margin-bottom: 20px; 
+  background: #fafafa; 
+  white-space: pre; 
+  } 
+  </style>
+  
 # Context
 This fictional delivery company uses a range of vehicles, routes, and delivery types, they need to figure out how to improve their fuel efficiency without out impacting their revenue.
 
@@ -21,6 +31,7 @@ This data was sourced from Kaggle and uses the following tools: Python, Pandas, 
 I started by importing and exploring the data, checking for completeness and standardisation.
 ```{r, knitr, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment = "")
 ```
 
 ```{python, data import, results = FALSE}
@@ -54,20 +65,20 @@ Here we have the counts of the variables which has highlighted an anomalous row 
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
-```{python, echo = FALSE}
-print(count_tables[columns_to_check[0]].to_html())
+```{python, echo = FALSE, comment="", results="markup"}
+print(count_tables[columns_to_check[0]])
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
-print(count_tables[columns_to_check[1]].to_html())
+```{python, echo = FALSE, comment="", results="markup"}
+print(count_tables[columns_to_check[1]])
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
-print(count_tables[columns_to_check[2]].to_html())
+```{python, echo = FALSE, comment="", results="markup"}
+print(count_tables[columns_to_check[2]])
 ```
 </div>
 
@@ -78,14 +89,14 @@ print(count_tables[columns_to_check[2]].to_html())
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
-```{python, echo = FALSE}
-print(mean_distance.to_frame().to_html())
+```{python, echo = FALSE, comment="", results="markup"}
+print(mean_distance)
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
-print(count_delivery_type.to_frame().to_html())
+```{python, echo = FALSE, comment="", results="markup"}
+print(count_delivery_type)
 ```
 
 
@@ -109,20 +120,20 @@ for col in columns_to_check:
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
-```{python, echo = FALSE}
-average_tables[columns_to_check[0]]
+```{python, echo = FALSE, comment="", results="markup"}
+print(average_tables[columns_to_check[0]])
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
-average_tables[columns_to_check[1]]
+```{python, echo = FALSE, comment="", results="markup"}
+print(average_tables[columns_to_check[1]])
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
-average_tables[columns_to_check[2]]
+```{python, echo = FALSE, comment="", results="markup"}
+print(average_tables[columns_to_check[2]])
 ```
 </div>
 
