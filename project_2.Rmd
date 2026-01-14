@@ -46,19 +46,19 @@ budget_table = variable_counts("budgeting_style")
 
 <div style="flex:1;">
 
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 print(employment_status_table)
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 print(budget_table)
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE, results='asis'}
+```{python, echo = FALSE}
 print(education_level_table)
 ```
 </div>
