@@ -38,7 +38,6 @@ def variable_counts(column):
 employment_status_table = variable_counts("employment_status")
 education_level_table = variable_counts("education_level")
 budget_table = variable_counts("budgeting_style")
-product_category_table = variable_counts("product_category_preference")
 
 ```
 
@@ -47,20 +46,20 @@ product_category_table = variable_counts("product_category_preference")
 
 <div style="flex:1;">
 
-```{python, echo = FALSE}
+```{python, echo = FALSE, results='asis'}
 print(employment_status_table)
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
+```{python, echo = FALSE, results='asis'}
 print(budget_table)
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
-print(product_category_table)
+```{python, echo = FALSE, results='asis'}
+print(education_level_table)
 ```
 </div>
 

@@ -291,9 +291,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 
-data_import = pd.read_excel(r&quot;C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx&quot;)
+p1_data_import = pd.read_excel(r&quot;C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx&quot;)
 
-print(data_import.columns)</code></pre>
+print(p1_data_import.columns)</code></pre>
 <pre class="python"><code>
 # Exploring the data for completeness
 columns_to_check = [&quot;Vehicle_Type&quot;, &quot;Route_Type&quot;, &quot;Delivery_Type&quot;]
@@ -303,11 +303,11 @@ count_tables = {}
 
 # Pulling the counts for the values in the variables
 for col in columns_to_check:
-  count_tables[col] = data_import[col].value_counts().to_frame(name=&quot;Count&quot;)
+  count_tables[col] = p1_data_import[col].value_counts().to_frame(name=&quot;Count&quot;)
 
 # I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type
-count_delivery_type = data_import.groupby(&quot;Vehicle_Type&quot;)[&quot;Delivery_Type&quot;].value_counts()
-mean_distance = data_import.groupby(&quot;Delivery_Type&quot;)[&quot;Distance_km&quot;].mean()</code></pre>
+count_delivery_type = p1_data_import.groupby(&quot;Vehicle_Type&quot;)[&quot;Delivery_Type&quot;].value_counts()
+mean_distance = p1_data_import.groupby(&quot;Delivery_Type&quot;)[&quot;Distance_km&quot;].mean()</code></pre>
 <p>Here we have the counts of the variables which has highlighted an
 anomalous row we will remove in the vehicle type column</p>
 <div style="display:flex; gap:20px;">
@@ -520,14 +520,14 @@ average fuel efficiency per vehicle and delivery type, and see how this
 compares to the averages of the type combinations.</p>
 <pre class="python"><code>
 # Handling columns
-data_import[&quot;CO2_Emissions_kg&quot;] = (data_import[&quot;CO2_Emissions_g&quot;] / 1000).round(2)
-data_import_cleaned = data_import[data_import[&quot;Vehicle_Type&quot;] != &quot;S&quot;]
+p1_data_import[&quot;CO2_Emissions_kg&quot;] = (p1_data_import[&quot;CO2_Emissions_g&quot;] / 1000).round(2)
+p1_data_import_cleaned = p1_data_import[p1_data_import[&quot;Vehicle_Type&quot;] != &quot;S&quot;]
 
 # Creating an average fuel efficiency per litre for each vehicle type
 average_tables = {}
 
 for col in columns_to_check:
-  average_tables[col] = data_import_cleaned.groupby(col)[&quot;Fuel_Efficiency_kmpl&quot;].mean().to_frame(name=&quot;Average&quot;)</code></pre>
+  average_tables[col] = p1_data_import_cleaned.groupby(col)[&quot;Fuel_Efficiency_kmpl&quot;].mean().to_frame(name=&quot;Average&quot;)</code></pre>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
 <pre><code>##                 Average
@@ -568,7 +568,7 @@ that will factor into my conclusion.</p>
 </div>
 <pre class="python"><code># This plot is 
 sns_load_util = sns.lmplot(
-  data=data_import_cleaned, 
+  data=p1_data_import_cleaned, 
   x=&quot;Load_Utilization_%&quot;, 
   y=&quot;Fuel_Efficiency_kmpl&quot;, 
   hue=&quot;Vehicle_Type&quot;, 
@@ -587,9 +587,9 @@ will tell us where to maximize it and where to not.</p>
 
 results = {} 
 
-for vtype in data_import[&quot;Vehicle_Type&quot;].unique(): 
+for vtype in p1_data_import_cleaned[&quot;Vehicle_Type&quot;].unique(): 
   # Subsetting data based on vehicle type
-  subset = data_import[data_import[&quot;Vehicle_Type&quot;] == vtype] 
+  subset = p1_data_import_cleaned[p1_data_import_cleaned[&quot;Vehicle_Type&quot;] == vtype] 
   # Adding in predictor variable coefficient
   X = sm.add_constant(subset[&quot;Load_Utilization_%&quot;])
   y = subset[&quot;Fuel_Efficiency_kmpl&quot;] 
@@ -621,8 +621,7 @@ print(coef_df)</code></pre>
 ## 0    Diesel Van                           0.042691  0.810296
 ## 1          Bike                          -0.134249  0.584365
 ## 2     CNG Truck                           0.096572  0.664480
-## 3  Electric Van                          -0.293594  0.162169
-## 4             S                           2.506024       NaN</code></pre>
+## 3  Electric Van                          -0.293594  0.162169</code></pre>
 <p>As you can see every p value is &gt;0.05 meaning none of the results
 are significant, indicating that increasing the load has a negligible
 effect on fuel efficiency for every vehicle type.</p>
@@ -631,7 +630,7 @@ combination of delivery and vehicle types for the other key metrics in
 the data.</p>
 <pre class="python"><code># Creating function
 def matrix_function(value_column):
-  return data_import_cleaned.pivot_table(
+  return p1_data_import_cleaned.pivot_table(
     index=&quot;Vehicle_Type&quot;,
     columns=&quot;Delivery_Type&quot;,
     values=value_column,

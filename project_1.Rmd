@@ -30,9 +30,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 
-data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx")
+p1_data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx")
 
-print(data_import.columns)
+print(p1_data_import.columns)
 
 # Exploring the data for completeness
 columns_to_check = ["Vehicle_Type", "Route_Type", "Delivery_Type"]
@@ -42,11 +42,11 @@ count_tables = {}
 
 # Pulling the counts for the values in the variables
 for col in columns_to_check:
-  count_tables[col] = data_import[col].value_counts().to_frame(name="Count")
+  count_tables[col] = p1_data_import[col].value_counts().to_frame(name="Count")
 
 # I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type
-count_delivery_type = data_import.groupby("Vehicle_Type")["Delivery_Type"].value_counts()
-mean_distance = data_import.groupby("Delivery_Type")["Distance_km"].mean()
+count_delivery_type = p1_data_import.groupby("Vehicle_Type")["Delivery_Type"].value_counts()
+mean_distance = p1_data_import.groupby("Delivery_Type")["Distance_km"].mean()
 ```
 
 Here we have the counts of the variables which has highlighted an anomalous row we will remove in the vehicle type column
@@ -96,14 +96,14 @@ Here I can see the break down of the key columns I will be using for my calculat
 ```{python, averages}
 
 # Handling columns
-data_import["CO2_Emissions_kg"] = (data_import["CO2_Emissions_g"] / 1000).round(2)
-data_import_cleaned = data_import[data_import["Vehicle_Type"] != "S"]
+p1_data_import["CO2_Emissions_kg"] = (p1_data_import["CO2_Emissions_g"] / 1000).round(2)
+p1_data_import_cleaned = p1_data_import[p1_data_import["Vehicle_Type"] != "S"]
 
 # Creating an average fuel efficiency per litre for each vehicle type
 average_tables = {}
 
 for col in columns_to_check:
-  average_tables[col] = data_import_cleaned.groupby(col)["Fuel_Efficiency_kmpl"].mean().to_frame(name="Average")
+  average_tables[col] = p1_data_import_cleaned.groupby(col)["Fuel_Efficiency_kmpl"].mean().to_frame(name="Average")
 ```
 
 <div style="display:flex; gap:20px;">
@@ -138,7 +138,7 @@ Before I start comparing the delivery and vehicle types for fuel efficiency I wa
 ```{python, laod utilisation plot}
 # This plot is 
 sns_load_util = sns.lmplot(
-  data=data_import_cleaned, 
+  data=p1_data_import_cleaned, 
   x="Load_Utilization_%", 
   y="Fuel_Efficiency_kmpl", 
   hue="Vehicle_Type", 
@@ -158,9 +158,9 @@ I will now employ a regression analysis to see how much fuel efficiency is impac
 
 results = {} 
 
-for vtype in data_import["Vehicle_Type"].unique(): 
+for vtype in p1_data_import_cleaned["Vehicle_Type"].unique(): 
   # Subsetting data based on vehicle type
-  subset = data_import[data_import["Vehicle_Type"] == vtype] 
+  subset = p1_data_import_cleaned[p1_data_import_cleaned["Vehicle_Type"] == vtype] 
   # Adding in predictor variable coefficient
   X = sm.add_constant(subset["Load_Utilization_%"])
   y = subset["Fuel_Efficiency_kmpl"] 
@@ -200,7 +200,7 @@ I created a function that calculated the averages for each combination of delive
 
 # Creating function
 def matrix_function(value_column):
-  return data_import_cleaned.pivot_table(
+  return p1_data_import_cleaned.pivot_table(
     index="Vehicle_Type",
     columns="Delivery_Type",
     values=value_column,
