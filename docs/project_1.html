@@ -305,48 +305,49 @@ p1_data_import = pd.read_excel(r&quot;C:\Users\Matthew.Webb12\Desktop\GitHub Rep
 
 print(p1_data_import.columns)</code></pre>
 <pre class="python"><code>
-# Exploring the data for completeness
-columns_to_check = [&quot;Vehicle_Type&quot;, &quot;Route_Type&quot;, &quot;Delivery_Type&quot;]
+######NEW METHOD
+def variable_counts(column):
+  counts = p1_data_import[column].value_counts()
+  formatted_counts = counts.apply(lambda x: f&quot;{x:,}&quot;)
+  percentages = p1_data_import[column].value_counts(normalize=True).mul(100).round(1)
+  result = pd.concat([formatted_counts, percentages], axis=1, keys=[&#39;count&#39;, &#39;percentage&#39;])
+  return result
 
-# Create empty dictionary for the tables to be stored in
-count_tables = {} 
-
-# Pulling the counts for the values in the variables
-for col in columns_to_check:
-  count_tables[col] = p1_data_import[col].value_counts().to_frame(name=&quot;Count&quot;)
-
-# I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type
-count_delivery_type = p1_data_import.groupby(&quot;Vehicle_Type&quot;)[&quot;Delivery_Type&quot;].value_counts()
-mean_distance = p1_data_import.groupby(&quot;Delivery_Type&quot;)[&quot;Distance_km&quot;].mean()</code></pre>
+vehicle_type_table = variable_counts(&quot;Vehicle_Type&quot;)
+route_type_table = variable_counts(&quot;Route_Type&quot;)
+delivery_type_table = variable_counts(&quot;Delivery_Type&quot;)</code></pre>
 <p>Here we have the counts of the variables which has highlighted an
-anomalous row we will remove in the vehicle type column</p>
+anomalous row we will remove in the vehicle type column, aside from that
+we can see these key columns don’t contain any na incidents</p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<pre><code>              Count
-Vehicle_Type       
-Diesel Van      525
-Electric Van    403
-CNG Truck       310
-Bike            261
-S                 1</code></pre>
+<pre><code>             count  percentage
+Vehicle_Type                  
+Diesel Van     525        35.0
+Electric Van   403        26.9
+CNG Truck      310        20.7
+Bike           261        17.4
+S                1         0.1</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>            Count
-Route_Type       
-Urban         592
-Suburban      463
-Rural         305
-Highway       140</code></pre>
+<pre><code>           count  percentage
+Route_Type                  
+Urban        592        39.5
+Suburban     463        30.9
+Rural        305        20.3
+Highway      140         9.3</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>               Count
-Delivery_Type       
-Standard         749
-Express          459
-Same-day         292</code></pre>
+<pre><code>              count  percentage
+Delivery_Type                  
+Standard        749        49.9
+Express         459        30.6
+Same-day        292        19.5</code></pre>
 </div>
 </div>
 <p><br></p>
+<p>I also want to check the count of delivery types for each vehicle
+type, and the average distance for each delivery type</p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
 <pre><code>Delivery_Type
@@ -371,6 +372,10 @@ Electric Van  Standard         201
               Same-day          70
 S             Same-day           1
 Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p><br></p>
+</div>
 <div id="data-handling-descriptive-analysis" class="section level2">
 <h2>Data Handling &amp; Descriptive Analysis</h2>
 <p>Here I can see the break down of the key columns I will be using for
@@ -422,7 +427,6 @@ achieve here. We can see that for Electric vehicles and Bikes the fuel
 efficiency decreases steadily as the load utilization increases, whereas
 for CNG Trucks and Diesel Vans it increases. This is key information
 that will factor into my conclusion.</p>
-</div>
 </div>
 </div>
 <pre class="python"><code># This plot is 

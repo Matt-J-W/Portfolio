@@ -45,46 +45,52 @@ p1_data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Po
 
 print(p1_data_import.columns)
 
-# Exploring the data for completeness
-columns_to_check = ["Vehicle_Type", "Route_Type", "Delivery_Type"]
+######NEW METHOD
+def variable_counts(column):
+  counts = p1_data_import[column].value_counts()
+  formatted_counts = counts.apply(lambda x: f"{x:,}")
+  percentages = p1_data_import[column].value_counts(normalize=True).mul(100).round(1)
+  result = pd.concat([formatted_counts, percentages], axis=1, keys=['count', 'percentage'])
+  return result
 
-# Create empty dictionary for the tables to be stored in
-count_tables = {} 
+vehicle_type_table = variable_counts("Vehicle_Type")
+route_type_table = variable_counts("Route_Type")
+delivery_type_table = variable_counts("Delivery_Type")
 
-# Pulling the counts for the values in the variables
-for col in columns_to_check:
-  count_tables[col] = p1_data_import[col].value_counts().to_frame(name="Count")
-
-# I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type
-count_delivery_type = p1_data_import.groupby("Vehicle_Type")["Delivery_Type"].value_counts()
-mean_distance = p1_data_import.groupby("Delivery_Type")["Distance_km"].mean()
 ```
 
-Here we have the counts of the variables which has highlighted an anomalous row we will remove in the vehicle type column
+Here we have the counts of the variables which has highlighted an anomalous row we will remove in the vehicle type column, aside from that we can see these key columns don't contain any na incidents
 
 <div style="display:flex; gap:20px;">
 
 <div style="flex:1;">
 ```{python, echo = FALSE, comment="", results="markup"}
-print(count_tables[columns_to_check[0]])
+print(vehicle_type_table)
 ```
 </div>
 
 <div style="flex:1;">
 ```{python, echo = FALSE, comment="", results="markup"}
-print(count_tables[columns_to_check[1]])
+print(route_type_table)
 ```
 </div>
 
 <div style="flex:1;">
 ```{python, echo = FALSE, comment="", results="markup"}
-print(count_tables[columns_to_check[2]])
+print(delivery_type_table)
 ```
 </div>
 
 </div>
 
 <br>
+
+I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type
+
+```{python, vehicle + delivery averages, echo=FALSE}
+count_delivery_type = p1_data_import.groupby("Vehicle_Type")["Delivery_Type"].value_counts()
+mean_distance = p1_data_import.groupby("Delivery_Type")["Distance_km"].mean()
+```
 
 <div style="display:flex; gap:20px;">
 
@@ -99,12 +105,17 @@ print(mean_distance)
 print(count_delivery_type)
 ```
 
+</div>
+
+</div>
+
+<br>
 
 ## Data Handling & Descriptive Analysis
 
 Here I can see the break down of the key columns I will be using for my calculations, my next step is to handle the data and create an average fuel efficiency per vehicle and delivery type, and see how this compares to the averages of the type combinations.
 
-```{python, averages}
+```{python, average fuel efficiency}
 
 # Handling columns
 p1_data_import["CO2_Emissions_kg"] = (p1_data_import["CO2_Emissions_g"] / 1000).round(2)
