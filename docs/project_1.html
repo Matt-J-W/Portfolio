@@ -312,206 +312,206 @@ mean_distance = p1_data_import.groupby(&quot;Delivery_Type&quot;)[&quot;Distance
 anomalous row we will remove in the vehicle type column</p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<pre><code>## &lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
-##   &lt;thead&gt;
-##     &lt;tr style=&quot;text-align: right;&quot;&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##       &lt;th&gt;Count&lt;/th&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Vehicle_Type&lt;/th&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##     &lt;/tr&gt;
-##   &lt;/thead&gt;
-##   &lt;tbody&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Diesel Van&lt;/th&gt;
-##       &lt;td&gt;525&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Electric Van&lt;/th&gt;
-##       &lt;td&gt;403&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;CNG Truck&lt;/th&gt;
-##       &lt;td&gt;310&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Bike&lt;/th&gt;
-##       &lt;td&gt;261&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;S&lt;/th&gt;
-##       &lt;td&gt;1&lt;/td&gt;
-##     &lt;/tr&gt;
-##   &lt;/tbody&gt;
-## &lt;/table&gt;</code></pre>
+<pre><code>&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Count&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Vehicle_Type&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Diesel Van&lt;/th&gt;
+      &lt;td&gt;525&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Electric Van&lt;/th&gt;
+      &lt;td&gt;403&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;CNG Truck&lt;/th&gt;
+      &lt;td&gt;310&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Bike&lt;/th&gt;
+      &lt;td&gt;261&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;S&lt;/th&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>## &lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
-##   &lt;thead&gt;
-##     &lt;tr style=&quot;text-align: right;&quot;&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##       &lt;th&gt;Count&lt;/th&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Route_Type&lt;/th&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##     &lt;/tr&gt;
-##   &lt;/thead&gt;
-##   &lt;tbody&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Urban&lt;/th&gt;
-##       &lt;td&gt;592&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Suburban&lt;/th&gt;
-##       &lt;td&gt;463&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Rural&lt;/th&gt;
-##       &lt;td&gt;305&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Highway&lt;/th&gt;
-##       &lt;td&gt;140&lt;/td&gt;
-##     &lt;/tr&gt;
-##   &lt;/tbody&gt;
-## &lt;/table&gt;</code></pre>
+<pre><code>&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Count&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Route_Type&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Urban&lt;/th&gt;
+      &lt;td&gt;592&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Suburban&lt;/th&gt;
+      &lt;td&gt;463&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Rural&lt;/th&gt;
+      &lt;td&gt;305&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Highway&lt;/th&gt;
+      &lt;td&gt;140&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>## &lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
-##   &lt;thead&gt;
-##     &lt;tr style=&quot;text-align: right;&quot;&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##       &lt;th&gt;Count&lt;/th&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Delivery_Type&lt;/th&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##     &lt;/tr&gt;
-##   &lt;/thead&gt;
-##   &lt;tbody&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Standard&lt;/th&gt;
-##       &lt;td&gt;749&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Express&lt;/th&gt;
-##       &lt;td&gt;459&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Same-day&lt;/th&gt;
-##       &lt;td&gt;292&lt;/td&gt;
-##     &lt;/tr&gt;
-##   &lt;/tbody&gt;
-## &lt;/table&gt;</code></pre>
+<pre><code>&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Count&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Delivery_Type&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Standard&lt;/th&gt;
+      &lt;td&gt;749&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Express&lt;/th&gt;
+      &lt;td&gt;459&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Same-day&lt;/th&gt;
+      &lt;td&gt;292&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
 </div>
 </div>
 <p><br></p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<pre><code>## &lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
-##   &lt;thead&gt;
-##     &lt;tr style=&quot;text-align: right;&quot;&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##       &lt;th&gt;Distance_km&lt;/th&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Delivery_Type&lt;/th&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##     &lt;/tr&gt;
-##   &lt;/thead&gt;
-##   &lt;tbody&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Express&lt;/th&gt;
-##       &lt;td&gt;103.216187&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Same-day&lt;/th&gt;
-##       &lt;td&gt;101.389212&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Standard&lt;/th&gt;
-##       &lt;td&gt;101.014619&lt;/td&gt;
-##     &lt;/tr&gt;
-##   &lt;/tbody&gt;
-## &lt;/table&gt;</code></pre>
+<pre><code>&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Distance_km&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Delivery_Type&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Express&lt;/th&gt;
+      &lt;td&gt;103.216187&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Same-day&lt;/th&gt;
+      &lt;td&gt;101.389212&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Standard&lt;/th&gt;
+      &lt;td&gt;101.014619&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>## &lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
-##   &lt;thead&gt;
-##     &lt;tr style=&quot;text-align: right;&quot;&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##       &lt;th&gt;count&lt;/th&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Vehicle_Type&lt;/th&gt;
-##       &lt;th&gt;Delivery_Type&lt;/th&gt;
-##       &lt;th&gt;&lt;/th&gt;
-##     &lt;/tr&gt;
-##   &lt;/thead&gt;
-##   &lt;tbody&gt;
-##     &lt;tr&gt;
-##       &lt;th rowspan=&quot;3&quot; valign=&quot;top&quot;&gt;Bike&lt;/th&gt;
-##       &lt;th&gt;Standard&lt;/th&gt;
-##       &lt;td&gt;135&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Express&lt;/th&gt;
-##       &lt;td&gt;83&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Same-day&lt;/th&gt;
-##       &lt;td&gt;43&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th rowspan=&quot;3&quot; valign=&quot;top&quot;&gt;CNG Truck&lt;/th&gt;
-##       &lt;th&gt;Standard&lt;/th&gt;
-##       &lt;td&gt;160&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Express&lt;/th&gt;
-##       &lt;td&gt;86&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Same-day&lt;/th&gt;
-##       &lt;td&gt;64&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th rowspan=&quot;3&quot; valign=&quot;top&quot;&gt;Diesel Van&lt;/th&gt;
-##       &lt;th&gt;Standard&lt;/th&gt;
-##       &lt;td&gt;253&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Express&lt;/th&gt;
-##       &lt;td&gt;158&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Same-day&lt;/th&gt;
-##       &lt;td&gt;114&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th rowspan=&quot;3&quot; valign=&quot;top&quot;&gt;Electric Van&lt;/th&gt;
-##       &lt;th&gt;Standard&lt;/th&gt;
-##       &lt;td&gt;201&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Express&lt;/th&gt;
-##       &lt;td&gt;132&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;Same-day&lt;/th&gt;
-##       &lt;td&gt;70&lt;/td&gt;
-##     &lt;/tr&gt;
-##     &lt;tr&gt;
-##       &lt;th&gt;S&lt;/th&gt;
-##       &lt;th&gt;Same-day&lt;/th&gt;
-##       &lt;td&gt;1&lt;/td&gt;
-##     &lt;/tr&gt;
-##   &lt;/tbody&gt;
-## &lt;/table&gt;</code></pre>
+<pre><code>&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;count&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Vehicle_Type&lt;/th&gt;
+      &lt;th&gt;Delivery_Type&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th rowspan=&quot;3&quot; valign=&quot;top&quot;&gt;Bike&lt;/th&gt;
+      &lt;th&gt;Standard&lt;/th&gt;
+      &lt;td&gt;135&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Express&lt;/th&gt;
+      &lt;td&gt;83&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Same-day&lt;/th&gt;
+      &lt;td&gt;43&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th rowspan=&quot;3&quot; valign=&quot;top&quot;&gt;CNG Truck&lt;/th&gt;
+      &lt;th&gt;Standard&lt;/th&gt;
+      &lt;td&gt;160&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Express&lt;/th&gt;
+      &lt;td&gt;86&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Same-day&lt;/th&gt;
+      &lt;td&gt;64&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th rowspan=&quot;3&quot; valign=&quot;top&quot;&gt;Diesel Van&lt;/th&gt;
+      &lt;th&gt;Standard&lt;/th&gt;
+      &lt;td&gt;253&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Express&lt;/th&gt;
+      &lt;td&gt;158&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Same-day&lt;/th&gt;
+      &lt;td&gt;114&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th rowspan=&quot;3&quot; valign=&quot;top&quot;&gt;Electric Van&lt;/th&gt;
+      &lt;th&gt;Standard&lt;/th&gt;
+      &lt;td&gt;201&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Express&lt;/th&gt;
+      &lt;td&gt;132&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Same-day&lt;/th&gt;
+      &lt;td&gt;70&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;S&lt;/th&gt;
+      &lt;th&gt;Same-day&lt;/th&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
 <div id="data-handling-descriptive-analysis" class="section level2">
 <h2>Data Handling &amp; Descriptive Analysis</h2>
 <p>Here I can see the break down of the key columns I will be using for
@@ -530,27 +530,27 @@ for col in columns_to_check:
   average_tables[col] = p1_data_import_cleaned.groupby(col)[&quot;Fuel_Efficiency_kmpl&quot;].mean().to_frame(name=&quot;Average&quot;)</code></pre>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<pre><code>##                 Average
-## Vehicle_Type           
-## Bike          15.732069
-## CNG Truck     15.134452
-## Diesel Van    15.172057
-## Electric Van  14.837692</code></pre>
+<pre><code>                Average
+Vehicle_Type           
+Bike          15.732069
+CNG Truck     15.134452
+Diesel Van    15.172057
+Electric Van  14.837692</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>##               Average
-## Route_Type           
-## Highway     15.511071
-## Rural       15.255016
-## Suburban    15.411147
-## Urban       14.862145</code></pre>
+<pre><code>              Average
+Route_Type           
+Highway     15.511071
+Rural       15.255016
+Suburban    15.411147
+Urban       14.862145</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>##                  Average
-## Delivery_Type           
-## Express        15.223813
-## Same-day       14.928797
-## Standard       15.234526</code></pre>
+<pre><code>                 Average
+Delivery_Type           
+Express        15.223813
+Same-day       14.928797
+Standard       15.234526</code></pre>
 </div>
 </div>
 </div>
@@ -617,11 +617,11 @@ for vtype, model in results.items():
     
 coef_df = pd.DataFrame(coef_table) 
 print(coef_df)</code></pre>
-<pre><code>##    Vehicle Type  kmpl change per 10% load increase   p_value
-## 0    Diesel Van                           0.042691  0.810296
-## 1          Bike                          -0.134249  0.584365
-## 2     CNG Truck                           0.096572  0.664480
-## 3  Electric Van                          -0.293594  0.162169</code></pre>
+<pre><code>   Vehicle Type  kmpl change per 10% load increase   p_value
+0    Diesel Van                           0.042691  0.810296
+1          Bike                          -0.134249  0.584365
+2     CNG Truck                           0.096572  0.664480
+3  Electric Van                          -0.293594  0.162169</code></pre>
 <p>As you can see every p value is &gt;0.05 meaning none of the results
 are significant, indicating that increasing the load has a negligible
 effect on fuel efficiency for every vehicle type.</p>
@@ -650,16 +650,16 @@ combined_matrix = pd.concat(
 
 combined_matrix.index = combined_matrix.index.map(&#39;_&#39;.join)
 combined_matrix</code></pre>
-<pre><code>## Vehicle_Type         Bike  CNG Truck  Diesel Van  Electric Van
-## On_Time_Express      0.89       0.87        0.89          0.92
-## On_Time_Same-day     0.95       0.92        0.93          0.90
-## On_Time_Standard     0.93       0.92        0.94          0.90
-## CO2_kg_Express       2.72      11.86       18.77          4.07
-## CO2_kg_Same-day      2.00      11.93       20.89          3.70
-## CO2_kg_Standard      2.41      12.39       18.12          4.08
-## Fuel_kmpl_Express   15.17      14.94       15.44         15.18
-## Fuel_kmpl_Same-day  16.07      14.67       14.86         14.57
-## Fuel_kmpl_Standard  15.97      15.42       15.15         14.70</code></pre>
+<pre><code>Vehicle_Type         Bike  CNG Truck  Diesel Van  Electric Van
+On_Time_Express      0.89       0.87        0.89          0.92
+On_Time_Same-day     0.95       0.92        0.93          0.90
+On_Time_Standard     0.93       0.92        0.94          0.90
+CO2_kg_Express       2.72      11.86       18.77          4.07
+CO2_kg_Same-day      2.00      11.93       20.89          3.70
+CO2_kg_Standard      2.41      12.39       18.12          4.08
+Fuel_kmpl_Express   15.17      14.94       15.44         15.18
+Fuel_kmpl_Same-day  16.07      14.67       14.86         14.57
+Fuel_kmpl_Standard  15.97      15.42       15.15         14.70</code></pre>
 </div>
 <p>Now we can clearly see how the averages of the combinations stack up
 against the average for the whole variable, this shows us which

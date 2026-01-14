@@ -15,6 +15,7 @@ I started by importing and exploring the data, checking for completeness and sta
 
 ```{r, knitr, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment = "")
 ```
 
 ```{python, data import, results = FALSE}
@@ -46,19 +47,19 @@ budget_table = variable_counts("budgeting_style")
 
 <div style="flex:1;">
 
-```{python, echo = FALSE}
+```{python, echo = FALSE, comment="", results="markup"}
 print(employment_status_table)
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
+```{python, echo = FALSE, comment="", results="markup"}
 print(budget_table)
 ```
 </div>
 
 <div style="flex:1;">
-```{python, echo = FALSE}
+```{python, echo = FALSE, comment="", results="markup"}
 print(education_level_table)
 ```
 </div>
