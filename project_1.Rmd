@@ -9,7 +9,6 @@ header-includes:
     <style>
 ---
 
-
 # Context
 This fictional delivery company uses a range of vehicles, routes, and delivery types, they need to figure out how to improve their fuel efficiency without out impacting their revenue.
 
@@ -29,6 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import statsmodels.api as sm
 
 data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx")
 
