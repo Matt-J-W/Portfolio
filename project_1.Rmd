@@ -4,8 +4,8 @@ output: html_document
 header-includes:
   - |
     <style>
-      h1 {font-size:20px;}
-      h2 {font-size:15px;}
+      h1 {font-size:15px;}
+      h2 {font-size:10px;}
     <style>
 ---
 <style> 
@@ -59,7 +59,7 @@ delivery_type_table = variable_counts("Delivery_Type")
 
 ```
 
-Here we have the counts of the variables which has highlighted an anomalous row we will remove in the vehicle type column, aside from that we can see these key columns don't contain any na incidents
+Here we have the counts of the variables which has highlighted an anomalous row we will remove in the vehicle type column, aside from that we can see these key columns don't contain any na incidents or non-standard values.
 
 <div style="display:flex; gap:20px;">
 
@@ -85,7 +85,7 @@ print(delivery_type_table)
 
 <br>
 
-I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type
+I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type as these will be key metrics for later.
 
 ```{python, vehicle + delivery averages, echo=FALSE}
 count_delivery_type = p1_data_import.groupby("Vehicle_Type")["Delivery_Type"].value_counts()
@@ -121,11 +121,12 @@ Here I can see the break down of the key columns I will be using for my calculat
 p1_data_import["CO2_Emissions_kg"] = (p1_data_import["CO2_Emissions_g"] / 1000).round(2)
 p1_data_import_cleaned = p1_data_import[p1_data_import["Vehicle_Type"] != "S"]
 
+columns_to_check = ["Vehicle_Type", "Route_Type", "Delivery_Type"]
 # Creating an average fuel efficiency per litre for each vehicle type
 average_tables = {}
 
 for col in columns_to_check:
-  average_tables[col] = p1_data_import_cleaned.groupby(col)["Fuel_Efficiency_kmpl"].mean().to_frame(name="Average")
+  average_tables[col] = p1_data_import_cleaned.groupby(col)["Fuel_Efficiency_kmpl"].mean().to_frame(name="Average kmpl")
 ```
 
 <div style="display:flex; gap:20px;">
@@ -173,6 +174,8 @@ plt.ylabel("Fuel Efficiency kmpl")
 plt.show()
 ```
 
+## Regression Test
+
 I will now employ a regression analysis to see how much fuel efficiency is impacted by load utilisation across vehicle types as this will tell us where to maximize it and where to not.
 
 ```{python, regression, results=FALSE}
@@ -215,6 +218,7 @@ print(coef_df)
 ```
 As you can see every p value is >0.05 meaning none of the results are significant, indicating that increasing the load has a negligible effect on fuel efficiency for every vehicle type.
 
+## Mean Testing
 
 I created a function that calculated the averages for each combination of delivery and vehicle types for the other key metrics in the data.
 
@@ -258,6 +262,7 @@ So this give you 0.65 litres saved per delivery.
 $$
 Fuel\;saved = (\frac{1}{14.57}-\frac{1}{16.07})*101
 $$ 
+
 ## CO2 kg:
 - Same day delivery for diesel vans produces >2kg of fuel per delivery on average, compared to electric vans which has a lower average fuel cost. So moving some of the same day deliveries over from diesel to electric will lower the CO2 emissions without compromising deliveries.
 

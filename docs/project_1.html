@@ -318,7 +318,8 @@ route_type_table = variable_counts(&quot;Route_Type&quot;)
 delivery_type_table = variable_counts(&quot;Delivery_Type&quot;)</code></pre>
 <p>Here we have the counts of the variables which has highlighted an
 anomalous row we will remove in the vehicle type column, aside from that
-we can see these key columns don’t contain any na incidents</p>
+we can see these key columns don’t contain any na incidents or
+non-standard values.</p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
 <pre><code>             count  percentage
@@ -347,7 +348,8 @@ Same-day        292        19.5</code></pre>
 </div>
 <p><br></p>
 <p>I also want to check the count of delivery types for each vehicle
-type, and the average distance for each delivery type</p>
+type, and the average distance for each delivery type as these will be
+key metrics for later.</p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
 <pre><code>Delivery_Type
@@ -387,34 +389,35 @@ compares to the averages of the type combinations.</p>
 p1_data_import[&quot;CO2_Emissions_kg&quot;] = (p1_data_import[&quot;CO2_Emissions_g&quot;] / 1000).round(2)
 p1_data_import_cleaned = p1_data_import[p1_data_import[&quot;Vehicle_Type&quot;] != &quot;S&quot;]
 
+columns_to_check = [&quot;Vehicle_Type&quot;, &quot;Route_Type&quot;, &quot;Delivery_Type&quot;]
 # Creating an average fuel efficiency per litre for each vehicle type
 average_tables = {}
 
 for col in columns_to_check:
-  average_tables[col] = p1_data_import_cleaned.groupby(col)[&quot;Fuel_Efficiency_kmpl&quot;].mean().to_frame(name=&quot;Average&quot;)</code></pre>
+  average_tables[col] = p1_data_import_cleaned.groupby(col)[&quot;Fuel_Efficiency_kmpl&quot;].mean().to_frame(name=&quot;Average kmpl&quot;)</code></pre>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<pre><code>                Average
-Vehicle_Type           
-Bike          15.732069
-CNG Truck     15.134452
-Diesel Van    15.172057
-Electric Van  14.837692</code></pre>
+<pre><code>              Average kmpl
+Vehicle_Type              
+Bike             15.732069
+CNG Truck        15.134452
+Diesel Van       15.172057
+Electric Van     14.837692</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>              Average
-Route_Type           
-Highway     15.511071
-Rural       15.255016
-Suburban    15.411147
-Urban       14.862145</code></pre>
+<pre><code>            Average kmpl
+Route_Type              
+Highway        15.511071
+Rural          15.255016
+Suburban       15.411147
+Urban          14.862145</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>                 Average
-Delivery_Type           
-Express        15.223813
-Same-day       14.928797
-Standard       15.234526</code></pre>
+<pre><code>               Average kmpl
+Delivery_Type              
+Express           15.223813
+Same-day          14.928797
+Standard          15.234526</code></pre>
 </div>
 </div>
 </div>
@@ -443,6 +446,9 @@ plt.xlabel(&quot;Load Utilization %&quot;)
 plt.ylabel(&quot;Fuel Efficiency kmpl&quot;)
 plt.show()</code></pre>
 <p><img src="project_1_files/figure-html/laod%20utilisation%20plot-1.png" width="875" /></p>
+</div>
+<div id="regression-test" class="section level2">
+<h2>Regression Test</h2>
 <p>I will now employ a regression analysis to see how much fuel
 efficiency is impacted by load utilisation across vehicle types as this
 will tell us where to maximize it and where to not.</p>
@@ -488,6 +494,9 @@ print(coef_df)</code></pre>
 <p>As you can see every p value is &gt;0.05 meaning none of the results
 are significant, indicating that increasing the load has a negligible
 effect on fuel efficiency for every vehicle type.</p>
+</div>
+<div id="mean-testing" class="section level2">
+<h2>Mean Testing</h2>
 <p>I created a function that calculated the averages for each
 combination of delivery and vehicle types for the other key metrics in
 the data.</p>
@@ -548,11 +557,17 @@ Fuel\;saved =
 \]</span> So this give you 0.65 litres saved per delivery. <span
 class="math display">\[
 Fuel\;saved = (\frac{1}{14.57}-\frac{1}{16.07})*101
-\]</span> ## CO2 kg: - Same day delivery for diesel vans produces
-&gt;2kg of fuel per delivery on average, compared to electric vans which
-has a lower average fuel cost. So moving some of the same day deliveries
-over from diesel to electric will lower the CO2 emissions without
-compromising deliveries.</p>
+\]</span></p>
+</div>
+<div id="co2-kg" class="section level2">
+<h2>CO2 kg:</h2>
+<ul>
+<li>Same day delivery for diesel vans produces &gt;2kg of fuel per
+delivery on average, compared to electric vans which has a lower average
+fuel cost. So moving some of the same day deliveries over from diesel to
+electric will lower the CO2 emissions without compromising
+deliveries.</li>
+</ul>
 </div>
 <div id="load-utilisation-1" class="section level2">
 <h2>Load Utilisation:</h2>
