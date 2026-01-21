@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = "")
 ```
 
-```{python, data import, results = FALSE}
+```{python, data import, results = FALSE, include = FALSE}
 
 import pandas as pd
 import sklearn as sklearn
@@ -29,5 +29,58 @@ import matplotlib.pyplot as plt
 
 p4_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio3\python data\healthcare_dataset.csv")
 
+p4_data_import.head()
+p4_data_import.columns
 
+# Creating count and percentage table to inspect columns
+def variable_counts(column):
+  counts = p4_data_import[column].value_counts()
+  formatted_counts = counts.apply(lambda x: f"{x:,}")
+  percentages = p4_data_import[column].value_counts(normalize=True).mul(100).round(1)
+  result = pd.concat([formatted_counts, percentages], axis = 1, keys = ['count', 'percentage'])
+  return result
+
+condition_table = variable_counts("Medical Condition")
+admission_type_table = variable_counts("Admission Type")
+test_results_table = variable_counts("Test Results")
+medication_table = variable_counts("Medication")
+hospital_table = variable_counts("Hospital")
+
+# I also want to create a matrix that counts the unique values in each column as it will make it easier to identify the most appropriate approach
+
+unique_value_counts = p4_data_import.nunique()
+unique_values_matrix = unique_value_counts.to_frame(name = "Unique Values Per Column")
+print(unique_values_matrix)
+```
+This table of unique values is very useful as it indicates where the most appropriate analysis would be, I can't do any sort of hospital bench marking as there aren't enough rows per hospital.
+
+
+<div style="display:flex; gap:20px;">
+
+<div style="flex:1;">
+```{python, echo = FALSE, comment="", results="markup"}
+print(condition_table)
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE, comment="", results="markup"}
+print(admission_type_table)
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE, comment="", results="markup"}
+print(test_results_table)
+```
+</div>
+
+<br>
+
+```{python, average billing, include = FALSE, comment="", results="markup"}
+
+# I would like to know the billing amounts for the available conditions, and how this is effected by the result type
+
+average_condition_billings = p4_data_import.groupby("Medical Condition")["Billing Amount"].mean()
+print(average_condition_billings)
 ```

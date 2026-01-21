@@ -91,7 +91,7 @@ print(education_level_table)
 
 Now I want to start creating my customer clusters and the first step is to determine the types of the columns
 
-```{python clustering test, comment="", results="markup"}
+```{python clustering-test, echo=FALSE, warning=FALSE, message=FALSE comment="", results="markup"}
 
 # Dropping the user_id column
 p2_data_cleaned = p2_data_import.drop(columns = ["user_id"])
