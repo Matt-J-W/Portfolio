@@ -1,0 +1,33 @@
+---
+title: "project_4"
+author: "Matthew Webb"
+date: "2026-01-20"
+output: html_document
+---
+
+# Context
+This fictional dataset contains information about patients stays at hospital including some demographic info and information about their reason for attendance. I will use this to create insights on healthcare trends in order to inform trusts about growing concerns around patient safety.
+
+This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Seaborn
+
+# Approach
+
+
+## Data Importing
+
+I started by importing and exploring the data, checking for completeness and standardisation.
+```{r, knitr, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment = "")
+```
+
+```{python, data import, results = FALSE}
+
+import pandas as pd
+import sklearn as sklearn
+import matplotlib.pyplot as plt
+
+p4_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio2\python data\healthcare_dataset.csv")
+
+
+```
