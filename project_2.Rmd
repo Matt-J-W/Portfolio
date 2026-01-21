@@ -91,7 +91,7 @@ print(education_level_table)
 
 Now I want to start creating my customer clusters and the first step is to determine the types of the columns
 
-```{python clustering-test, echo=FALSE, warning=FALSE, message=FALSE comment="", results="markup"}
+```{python clustering-test, echo=FALSE, warning=FALSE, message=FALSE, comment="", results="markup"}
 
 # Dropping the user_id column
 p2_data_cleaned = p2_data_import.drop(columns = ["user_id"])
@@ -136,6 +136,7 @@ plt.show()
 From the above plot 5 clusters is where the gradient starts to become more shallow so I will use 8 clusters in this analysis. So now I need to run a final KMeans clustering.
 
 ```{python clustering-test, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
 # KMeans clustering using 8 clusters
 p2_kmeans = KMeans(n_clusters = 5, random_state = 123)
 p2_kmeans.fit(p2_data_transformed)

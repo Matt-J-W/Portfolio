@@ -158,7 +158,7 @@ Before I start comparing the delivery and vehicle types for fuel efficiency I wa
 </div>
 </div>
 
-```{python, laod utilisation plot}
+```{python, load utilisation plot}
 # This plot is 
 sns_load_util = sns.lmplot(
   data=p1_data_import_cleaned, 
