@@ -41,7 +41,7 @@ from sklearn.decomposition import PCA
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-p2_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio2\python data\e_commerce_shopper_behaviour_and_lifestyle.csv")
+p2_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio3\python data\e_commerce_shopper_behaviour_and_lifestyle.csv")
 
 # Exploring the data for completeness with a function
 # This dataset is large: 57 x 1,00,000
