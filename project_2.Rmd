@@ -15,7 +15,7 @@ pre {
 
 # Context
 
-This dataset contains 1,000,000 rows that simulates e-commerce shopping patterns. This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Seaborn
+This dataset contains 1,000,000 rows that simulates e-commerce shopping patterns. This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Sickit-learn
 
 # Approach
 
@@ -37,10 +37,11 @@ import sklearn as sklearn
 from sklearn.compose import ColumnTransformer 
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-p2_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\e_commerce_shopper_behaviour_and_lifestyle.csv")
+p2_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio2\python data\e_commerce_shopper_behaviour_and_lifestyle.csv")
 
 # Exploring the data for completeness with a function
 # This dataset is large: 57 x 1,00,000
@@ -132,12 +133,12 @@ plt.show()
 ```
 <br><br><br>
 
-From the above plot 8 clusters is where the gradient starts to become more shallow so I will use 8 clusters in this analysis. So now I need to run a final KMeans clustering.
+From the above plot 5 clusters is where the gradient starts to become more shallow so I will use 8 clusters in this analysis. So now I need to run a final KMeans clustering.
 
-```{python KMeans, comments = ""}
+```{python KMeans, comments = "", results='markup', include = FALSE}
 
 # KMeans clustering using 8 clusters
-p2_kmeans = KMeans(n_clusters = 6, random_state = 123)
+p2_kmeans = KMeans(n_clusters = 5, random_state = 123)
 p2_kmeans.fit(p2_data_transformed)
 labels = p2_kmeans.labels_
 
@@ -145,8 +146,104 @@ labels = p2_kmeans.labels_
 p2_data_cleaned["cluster"] = labels
 p2_data_clustering = p2_data_cleaned
 
-# To quickly visuialise the difference in the clusters we can take the averages of their values
-p2_clustering_means = p2_data_clustering.groupby("cluster").mean(numeric_only=True)
+# Now I need to add the categorical columns in in order to get a full picture of the cluster profiles
+# Pulling the categorical columns from the earlier encoding
+cat_cols_initial = column_encoding.named_transformers_["cat"]
+cat_cols = cat_cols_initial.get_feature_names_out(categorical_cols)
+
+# Combining with the numeric
+all_cols = list(numeric_cols) + list(cat_cols)
+
+p2_data_all_cols = pd.DataFrame(
+    p2_data_transformed.toarray() if hasattr(p2_data_transformed, "toarray") else p2_data_transformed,
+    columns=all_cols
+)
+
+# Creating a dataframe with the full list of columns
+p2_data_all_cols["cluster"] = labels
+
+# The final step is to pull the greatest variance among clusters and turn this into insights
+
+# First let's visualise our clusters
+# This creates a new plot so it doesnt overwrite the previous
+plt.figure(figsize=(8,6))  
+
+pca = PCA(n_components=2)
+pca_result = pca.fit_transform(p2_data_all_cols.drop(columns=["cluster"]))
+
+# main scatterplot
+scatter = plt.scatter(
+    pca_result[:,0],
+    pca_result[:,1],
+    c=labels,
+    cmap="tab10",
+    s=10
+)
+
+# auto-generate legend with correct colours
+handles, _ = scatter.legend_elements(prop="colors")
+plt.legend(handles, [f"Cluster {i}" for i in sorted(set(labels))], title="Clusters")
+
+plt.title("PCA of Clusters")
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.show()
+
 
 ```
+
+## Interpretation
+
+This plot tells me some key things about my clustering, the clustering has been effective due to the cluster 'blobs' being all similar sizes with distinct customer behaviours in each due to there being minimal overlap. No empty spaces tells me the behaviour differences between the clusters aren't radically different but vary gradually from one cluster to the next. 
+
+Before my final summary I need one more step, adding in a means table and pulling the dominant cluster features from each cluster so I can build a profile for the business to target actions to.
+
+```{python dominant cluster features, comments = "", results='markup', include = TRUE}
+
+# In order to now interpret the results of this clustering I need to create a means table, and a dominant variance for each cluster list
+
+# Means table
+p2_data_clustering_full = p2_data_all_cols.groupby("cluster").mean()
+p2_data_clustering_full = p2_data_clustering_full.round(4)
+
+# Dominant variance
+dom_cluster_feature = p2_data_clustering_full.copy()
+
+dom_features_per_cluster = {}
+
+for c in dom_cluster_feature.index:
+    top_features = (
+        dom_cluster_feature.loc[c]
+        .sort_values(ascending=False)
+        .head(15)
+        *100
+    )
+    dom_features_per_cluster[c] = top_features.round(2)
+    
+```
+
+Now I have my cluster profiles I can provide business insights into how to target these clusters effectively, for the sake of space I will only analyse two clusters using some of their most dominant features calculated in the previous step.
+
+### Cluster 1
+
+```{python, conclusions, comments = "", results='markup', include = FALSE}
+print(dom_features_per_cluster[0])
+
+```
+
+- **Split evenly among genders** - Use gender neutral ads to maximise engagement
+- **Predominantly on mobile devices** - Provide push-notifications and mobile based deals
+- **Split evenly among budget types** - This point is important, you should use tiered pricing models on products, i.e. low, medium and high price, this will again maximise engagement by appealing to all budget types. You should also make your medium price much higher than your low price but not that much lower than your high price, this employs psychological mechanism that makes people purchase the medium and high priced items more.
+- **Predominantly lives in urban areas** -  Prioritise click-and-collect
+
+### Cluster 2
+
+```{python, conclusions continued, comments = "", results='markup', include = FALSE}
+print(dom_features_per_cluster[1])
+
+```
+- **Very High cart abandonment rate** - Offer promotional deals like free returns, or pay in installments, and make the buying process quicker with one-click payment to prevent customers backing out. Make sure to also save their carts if customers leave the site, and offer them discounts on the cart if they come back and pay.
+- **Very impulsive** - This is a relatively easy behaviour to utilise because it works against the customer, offer them time sensitive deals like flash deals
+- **Also predominantly on mobile devices** - So utilise mobile push notifications about the cart abandonment deals and incorporate mobile paying services like apple pay as this will pair with their impulsivity if they don't need to input card details, giving them time to think about their purchase and lose interest
+- **High social sharing frequency** - This can be a useful feature as it implies that people with respond to things like referral bonuses and sharing bonuses if they share on social media
 
