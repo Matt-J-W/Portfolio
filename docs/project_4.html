@@ -291,13 +291,36 @@ Python, Pandas, Matplotlib, Seaborn</p>
 <h2>Data Importing</h2>
 <p>I started by importing and exploring the data, checking for
 completeness and standardisation.</p>
-<pre class="python"><code>
-import pandas as pd
-import sklearn as sklearn
-import matplotlib.pyplot as plt
-
-p4_data_import = pd.read_csv(r&quot;C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio3\python data\healthcare_dataset.csv&quot;)
-</code></pre>
+<p>This table of unique values is very useful as it indicates where the
+most appropriate analysis would be, I can’t do any sort of hospital
+bench marking as there aren’t enough rows per hospital.</p>
+<div style="display:flex; gap:20px;">
+<div style="flex:1;">
+<pre><code>                   count  percentage
+Medical Condition                   
+Arthritis          9,308        16.8
+Diabetes           9,304        16.8
+Hypertension       9,245        16.7
+Obesity            9,231        16.6
+Cancer             9,227        16.6
+Asthma             9,185        16.5</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>                 count  percentage
+Admission Type                    
+Elective        18,655        33.6
+Urgent          18,576        33.5
+Emergency       18,269        32.9</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>               count  percentage
+Test Results                    
+Abnormal      18,627        33.6
+Normal        18,517        33.4
+Inconclusive  18,356        33.1</code></pre>
+</div>
+<p><br></p>
+</div>
 </div>
 </div>
 
