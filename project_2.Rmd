@@ -135,7 +135,7 @@ plt.show()
 
 From the above plot 5 clusters is where the gradient starts to become more shallow so I will use 8 clusters in this analysis. So now I need to run a final KMeans clustering.
 
-```{python KMeans, comments = "", results='markup', include = FALSE}
+```{python KMeans, comments = "", results='markup', include = TRUE, echo = FALSE}
 
 # KMeans clustering using 8 clusters
 p2_kmeans = KMeans(n_clusters = 5, random_state = 123)
