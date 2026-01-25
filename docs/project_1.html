@@ -285,13 +285,20 @@ pre {
 <div id="context" class="section level1">
 <h1>Context</h1>
 <p>This fictional delivery company uses a range of vehicles, routes, and
-delivery types, they need to figure out how to improve their fuel
-efficiency without out impacting their revenue.</p>
+delivery types, I will determine how to improve their fuel efficiency
+without impacting their revenue.</p>
 <p>This data was sourced from Kaggle and uses the following tools:
 Python, Pandas, Matplotlib, Seaborn</p>
 </div>
 <div id="approach" class="section level1">
 <h1>Approach</h1>
+<p>I will inspect the data and the counts of key variables, then
+calculate the mean fuel usage for for those key variables. I will then
+inspect the effects of load utilization on fuel efficiency and test it
+using regression analysis to identify significant relationships.
+Finally, I will create a matrix of of averages for all combinations of
+vehicle and delivery types to calculate how much fuel could be saved by
+switching vehicle types on certain routes.</p>
 <div id="data-importing" class="section level2">
 <h2>Data Importing</h2>
 <p>I started by importing and exploring the data, checking for
@@ -310,7 +317,7 @@ def variable_counts(column):
   counts = p1_data_import[column].value_counts()
   formatted_counts = counts.apply(lambda x: f&quot;{x:,}&quot;)
   percentages = p1_data_import[column].value_counts(normalize=True).mul(100).round(1)
-  result = pd.concat([formatted_counts, percentages], axis=1, keys=[&#39;count&#39;, &#39;percentage&#39;])
+  result = pd.concat([formatted_counts, percentages], axis=1, keys=[&#39;Count&#39;, &#39;Percentage&#39;])
   return result
 
 vehicle_type_table = variable_counts(&quot;Vehicle_Type&quot;)
@@ -322,7 +329,7 @@ we can see these key columns don’t contain any na incidents or
 non-standard values.</p>
 <div style="display:flex; gap:20px;">
 <div style="flex:1;">
-<pre><code>             count  percentage
+<pre><code>             Count  Percentage
 Vehicle_Type                  
 Diesel Van     525        35.0
 Electric Van   403        26.9
@@ -331,7 +338,7 @@ Bike           261        17.4
 S                1         0.1</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>           count  percentage
+<pre><code>           Count  Percentage
 Route_Type                  
 Urban        592        39.5
 Suburban     463        30.9
@@ -339,7 +346,7 @@ Rural        305        20.3
 Highway      140         9.3</code></pre>
 </div>
 <div style="flex:1;">
-<pre><code>              count  percentage
+<pre><code>              Count  Percentage
 Delivery_Type                  
 Standard        749        49.9
 Express         459        30.6
@@ -383,7 +390,8 @@ Name: count, dtype: int64</code></pre>
 <p>Here I can see the break down of the key columns I will be using for
 my calculations, my next step is to handle the data and create an
 average fuel efficiency per vehicle and delivery type, and see how this
-compares to the averages of the type combinations.</p>
+compares to the averages of the type combinations. These tables will be
+used at a later stage.</p>
 <pre class="python"><code>
 # Handling columns
 p1_data_import[&quot;CO2_Emissions_kg&quot;] = (p1_data_import[&quot;CO2_Emissions_g&quot;] / 1000).round(2)
@@ -428,11 +436,11 @@ efficiency I want to check how load utilization effects fuel efficiency,
 as ultimately maximizing fuel efficiency is what we are aiming to
 achieve here. We can see that for Electric vehicles and Bikes the fuel
 efficiency decreases steadily as the load utilization increases, whereas
-for CNG Trucks and Diesel Vans it increases. This is key information
-that will factor into my conclusion.</p>
+for CNG Trucks and Diesel Vans it increases. My next step is to
+calculate if these changes are significant.</p>
 </div>
 </div>
-<pre class="python"><code># This plot is 
+<pre class="python"><code># Plotting the effects of load utilisation on fuel efficiency
 sns_load_util = sns.lmplot(
   data=p1_data_import_cleaned, 
   x=&quot;Load_Utilization_%&quot;, 
@@ -453,7 +461,6 @@ plt.show()</code></pre>
 efficiency is impacted by load utilisation across vehicle types as this
 will tell us where to maximize it and where to not.</p>
 <pre class="python"><code># Creating empty dictionary to store results
-
 results = {} 
 
 for vtype in p1_data_import_cleaned[&quot;Vehicle_Type&quot;].unique(): 
@@ -484,8 +491,8 @@ for vtype, model in results.items():
     &quot;p_value&quot;: pval 
     }) 
     
-coef_df = pd.DataFrame(coef_table) 
-print(coef_df)</code></pre>
+coef_results = pd.DataFrame(coef_table) 
+print(coef_results)</code></pre>
 <pre><code>   Vehicle Type  kmpl change per 10% load increase   p_value
 0    Diesel Van                           0.042691  0.810296
 1          Bike                          -0.134249  0.584365
@@ -497,10 +504,10 @@ effect on fuel efficiency for every vehicle type.</p>
 </div>
 <div id="mean-testing" class="section level2">
 <h2>Mean Testing</h2>
-<p>I created a function that calculated the averages for each
+<p>I created a function that calculates the averages for each
 combination of delivery and vehicle types for the other key metrics in
 the data.</p>
-<pre class="python"><code># Creating function
+<pre class="python"><code># Creating function to compute means
 def matrix_function(value_column):
   return p1_data_import_cleaned.pivot_table(
     index=&quot;Vehicle_Type&quot;,
@@ -513,7 +520,7 @@ on_time_matrix = matrix_function(&quot;On_Time_Delivery&quot;)
 co2_matrix = matrix_function(&quot;CO2_Emissions_kg&quot;)
 fuel_matrix = matrix_function(&quot;Fuel_Efficiency_kmpl&quot;)
 
-# Step 2: Now combining them into one for ease of reading
+# Now combining them into one matrix for ease of reading
 combined_matrix = pd.concat(
     [on_time_matrix, co2_matrix, fuel_matrix],
     axis=0,

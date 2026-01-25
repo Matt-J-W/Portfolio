@@ -20,11 +20,13 @@ pre {
   </style>
   
 # Context
-This fictional delivery company uses a range of vehicles, routes, and delivery types, they need to figure out how to improve their fuel efficiency without out impacting their revenue.
+This fictional delivery company uses a range of vehicles, routes, and delivery types, I will determine how to improve their fuel efficiency without impacting their revenue.
 
 This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Seaborn
 
 # Approach
+
+I will inspect the data and the counts of key variables, then calculate the mean fuel usage for for those key variables. I will then inspect the effects of load utilization on fuel efficiency and test it using regression analysis to identify significant relationships. Finally, I will create a matrix of of averages for all combinations of vehicle and delivery types to calculate how much fuel could be saved by switching vehicle types on certain routes.
 
 ## Data Importing
 
@@ -50,7 +52,7 @@ def variable_counts(column):
   counts = p1_data_import[column].value_counts()
   formatted_counts = counts.apply(lambda x: f"{x:,}")
   percentages = p1_data_import[column].value_counts(normalize=True).mul(100).round(1)
-  result = pd.concat([formatted_counts, percentages], axis=1, keys=['count', 'percentage'])
+  result = pd.concat([formatted_counts, percentages], axis=1, keys=['Count', 'Percentage'])
   return result
 
 vehicle_type_table = variable_counts("Vehicle_Type")
@@ -87,7 +89,7 @@ print(delivery_type_table)
 
 I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type as these will be key metrics for later.
 
-```{python, vehicle + delivery averages, echo=FALSE}
+```{python, vehicle + delivery averages, echo=FALSE, comment="", results="markup"}
 count_delivery_type = p1_data_import.groupby("Vehicle_Type")["Delivery_Type"].value_counts()
 mean_distance = p1_data_import.groupby("Delivery_Type")["Distance_km"].mean()
 ```
@@ -113,7 +115,7 @@ print(count_delivery_type)
 
 ## Data Handling & Descriptive Analysis
 
-Here I can see the break down of the key columns I will be using for my calculations, my next step is to handle the data and create an average fuel efficiency per vehicle and delivery type, and see how this compares to the averages of the type combinations.
+Here I can see the break down of the key columns I will be using for my calculations, my next step is to handle the data and create an average fuel efficiency per vehicle and delivery type, and see how this compares to the averages of the type combinations. These tables will be used at a later stage.
 
 ```{python, average fuel efficiency}
 
@@ -153,13 +155,13 @@ print(average_tables[columns_to_check[2]])
 
 ## Load Utilisation
 
-Before I start comparing the delivery and vehicle types for fuel efficiency I want to check how load utilization effects fuel efficiency, as ultimately maximizing fuel efficiency is what we are aiming to achieve here. We can see that for Electric vehicles and Bikes the fuel efficiency decreases steadily as the load utilization increases, whereas for CNG Trucks and Diesel Vans it increases. This is key information that will factor into my conclusion.
+Before I start comparing the delivery and vehicle types for fuel efficiency I want to check how load utilization effects fuel efficiency, as ultimately maximizing fuel efficiency is what we are aiming to achieve here. We can see that for Electric vehicles and Bikes the fuel efficiency decreases steadily as the load utilization increases, whereas for CNG Trucks and Diesel Vans it increases. My next step is to calculate if these changes are significant.
 
 </div>
 </div>
 
 ```{python, load utilisation plot}
-# This plot is 
+# Plotting the effects of load utilisation on fuel efficiency
 sns_load_util = sns.lmplot(
   data=p1_data_import_cleaned, 
   x="Load_Utilization_%", 
@@ -180,7 +182,6 @@ I will now employ a regression analysis to see how much fuel efficiency is impac
 
 ```{python, regression, results=FALSE}
 # Creating empty dictionary to store results
-
 results = {} 
 
 for vtype in p1_data_import_cleaned["Vehicle_Type"].unique(): 
@@ -213,18 +214,18 @@ for vtype, model in results.items():
     "p_value": pval 
     }) 
     
-coef_df = pd.DataFrame(coef_table) 
-print(coef_df)
+coef_results = pd.DataFrame(coef_table) 
+print(coef_results)
 ```
 As you can see every p value is >0.05 meaning none of the results are significant, indicating that increasing the load has a negligible effect on fuel efficiency for every vehicle type.
 
 ## Mean Testing
 
-I created a function that calculated the averages for each combination of delivery and vehicle types for the other key metrics in the data.
+I created a function that calculates the averages for each combination of delivery and vehicle types for the other key metrics in the data.
 
 ```{python, average function}
 
-# Creating function
+# Creating function to compute means
 def matrix_function(value_column):
   return p1_data_import_cleaned.pivot_table(
     index="Vehicle_Type",
@@ -237,7 +238,7 @@ on_time_matrix = matrix_function("On_Time_Delivery")
 co2_matrix = matrix_function("CO2_Emissions_kg")
 fuel_matrix = matrix_function("Fuel_Efficiency_kmpl")
 
-# Step 2: Now combining them into one for ease of reading
+# Now combining them into one matrix for ease of reading
 combined_matrix = pd.concat(
     [on_time_matrix, co2_matrix, fuel_matrix],
     axis=0,
@@ -247,6 +248,7 @@ combined_matrix = pd.concat(
 combined_matrix.index = combined_matrix.index.map('_'.join)
 combined_matrix
 ```
+
 </div>
 
 Now we can clearly see how the averages of the combinations stack up against the average for the whole variable, this shows us which combinations are preforming below average and could do with reorganising. 

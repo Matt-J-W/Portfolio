@@ -89,9 +89,9 @@ print(education_level_table)
 
 ### Column Types
 
-Now I want to start creating my customer clusters and the first step is to determine the types of the columns
+Now I want to start creating my customer clusters, first determining the types of the columns, then encoding the categorical variables so they can be quantified by the clustering.
 
-```{python clustering-test, echo=FALSE, warning=FALSE, message=FALSE, comment="", results="markup"}
+```{python clustering-test, echo=FALSE, include=TRUE, comment="", results="markup"}
 
 # Dropping the user_id column
 p2_data_cleaned = p2_data_import.drop(columns = ["user_id"])
@@ -123,9 +123,9 @@ for k in range(2, 20):
     wcss.append(km.inertia_)
 
 # This produces the plot to easily visualise where the drop off is
-plt.plot(range(2, 20), wcss, marker = 'o')
+_ = plt.plot(range(2, 20), wcss, marker = 'o')
 plt.xlabel("Number of clusters /k")
-plt.xticks(range(2, 20))
+_ = plt.xticks(range(2, 20))
 plt.ylabel("WCSS")
 plt.title("Cluster Testing via Elbow Method")
 plt.show()
@@ -133,9 +133,9 @@ plt.show()
 ```
 <br><br><br>
 
-From the above plot 5 clusters is where the gradient starts to become more shallow so I will use 8 clusters in this analysis. So now I need to run a final KMeans clustering.
+From the above plot 5 clusters is where the gradient starts to become more shallow so I will use 5 clusters in this analysis. So now I need to run a final KMeans clustering.
 
-```{python kmeans, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+```{python kmeans, echo=FALSE, warning=FALSE, message=FALSE}
 
 # KMeans clustering using 8 clusters
 p2_kmeans = KMeans(n_clusters = 5, random_state = 123)
@@ -226,7 +226,7 @@ Now I have my cluster profiles I can provide business insights into how to targe
 
 ### Cluster 1
 
-```{python, conclusions, comments = "", results='markup', include = FALSE}
+```{python, conclusions, comments = "", results='markup', include = TRUE}
 print(dom_features_per_cluster[0])
 
 ```
@@ -238,7 +238,7 @@ print(dom_features_per_cluster[0])
 
 ### Cluster 2
 
-```{python, conclusions continued, comments = "", results='markup', include = FALSE}
+```{python, conclusions continued, comments = "", results='markup', include = TRUE}
 print(dom_features_per_cluster[1])
 
 ```
