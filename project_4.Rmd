@@ -8,10 +8,11 @@ output: html_document
 # Context
 This fictional dataset contains information about patients stays at hospital including some demographic info and information about their reason for attendance. I will use this to create insights on healthcare trends in order to inform trusts about growing concerns around patient safety.
 
-This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Seaborn
+This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Seaborn, ANOVA, Regression Test, Chi-Squared Test
 
 # Approach
 
+My goal with this data is to determine what effects the billing price for a patient, I will be running some ANOVA and regression tests on some of the variables to determine their relationship with billing. Then I will be able to conclude where hospitals need to be focusing their attention to reduce these costs.
 
 ## Data Importing
 
@@ -24,8 +25,13 @@ knitr::opts_chunk$set(comment = "")
 ```{python, data import, results = FALSE, include = FALSE}
 
 import pandas as pd
+import seaborn as sea
 import sklearn as sklearn
 import matplotlib.pyplot as plt
+from scipy.stats import f_oneway
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from scipy.stats import chi2_contingency
 
 p4_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio3\python data\healthcare_dataset.csv")
 
@@ -37,7 +43,7 @@ def variable_counts(column):
   counts = p4_data_import[column].value_counts()
   formatted_counts = counts.apply(lambda x: f"{x:,}")
   percentages = p4_data_import[column].value_counts(normalize=True).mul(100).round(1)
-  result = pd.concat([formatted_counts, percentages], axis = 1, keys = ['count', 'percentage'])
+  result = pd.concat([formatted_counts, percentages], axis = 1, keys = ['Count', 'Percentage'])
   return result
 
 condition_table = variable_counts("Medical Condition")
@@ -77,10 +83,128 @@ print(test_results_table)
 
 <br>
 
-```{python, average billing, include = FALSE, comment="", results="markup"}
+### Data Cleaning 
 
-# I would like to know the billing amounts for the available conditions, and how this is effected by the result type
+Again we have an even spread of data in our variables with no missing or erroneous values, this means we won't need to do much cleaning but I'll fix the naming conventions as there is a mix of upper and lower case in the words, and my date variables need converting. Finally, as I have admission and discharge date I can calculate a length of stay variable.
 
-average_condition_billings = p4_data_import.groupby("Medical Condition")["Billing Amount"].mean()
-print(average_condition_billings)
+```{python, data cleaning, echo = TRUE}
+
+# Converting the name columns, first creating a new dataframe so I leave the original intact
+p4_data_cleaned = p4_data_import
+p4_data_cleaned.columns = p4_data_cleaned.columns.str.lower().str.replace(" ", "_")
+
+# Converting the name column
+p4_data_cleaned["name"] = p4_data_cleaned["name"].str.title()
+
+# Converting the date columns and creating LOS column
+p4_data_cleaned["date_of_admission"] = pd.to_datetime(p4_data_cleaned["date_of_admission"], yearfirst = True)
+p4_data_cleaned["discharge_date"] = pd.to_datetime(p4_data_cleaned["discharge_date"], yearfirst = True)
+p4_data_cleaned["length_of_stay"] = (p4_data_cleaned["discharge_date"] - p4_data_cleaned["date_of_admission"]).dt.days
+
 ```
+
+### Billing Analysis
+
+As this dataset contains both patient admission information and insurance / billing information we can use this to analyse what conditions are costing the most and how much length of stay effects the billing.
+
+First I will inspect the average billing across conditions, insurance and admission types
+
+```{python, averages, echo = TRUE, comment="", results='markup'}
+
+condition_mean = p4_data_cleaned.groupby("medical_condition")["billing_amount"].mean().round()
+admission_mean = p4_data_cleaned.groupby("admission_type")["billing_amount"].mean().round()
+insurance_mean = p4_data_cleaned.groupby("insurance_provider")["billing_amount"].mean().round()
+
+```
+
+<div style="flex:1;">
+```{python, echo = FALSE, comment="", results="markup"}
+print(condition_mean)
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE, comment="", results="markup"}
+print(admission_mean)
+```
+</div>
+
+<div style="flex:1;">
+```{python, echo = FALSE, comment="", results="markup"}
+print(insurance_mean)
+```
+</div>
+
+<br>
+
+### ANOVA Test
+
+This simple test is important as it will determine if there is significance in the difference in billing between the types of admissions, i.e. do they cost different amounts.
+
+```{python, anova test, comment="", results="markup", echo = TRUE}
+
+# Running an ANOVA test and pulling the f-statistic and p-values to test for significance
+urgent_anova = p4_data_cleaned[p4_data_cleaned.admission_type == "Urgent"]["billing_amount"]
+emergency_anova = p4_data_cleaned[p4_data_cleaned.admission_type == "Emergency"]["billing_amount"]
+elective_anova = p4_data_cleaned[p4_data_cleaned.admission_type == "Elective"]["billing_amount"]
+
+# Getting the results
+f_statistic, p_value = f_oneway(urgent_anova, emergency_anova, elective_anova)
+
+# Creating a plot to visualise the results
+sns.boxplot(p4_data_cleaned, x="admission_type", y="billing_amount") 
+plt.title("Billing Amount by Admission Type") 
+plt.ylabel("Billing Amount /£")
+plt.xlabel("Admission Type")
+plt.show()
+
+```
+
+The results of my ANOVA shows no significance between the billing amount and whether the admission type is urgent, elective or emergency (f_statistic = 0.28, p_value = 0.75). This suggests that current hospital pricing is standard across admission types and doesn't need amending. However, I do now need to dig deeper to look for variability. 
+
+### Regression Test
+
+I want to see the effects of length of stay and medical condition on the billing amount, below are the results of my regression test.
+
+```{python, regression test, echo = TRUE, comment="", results="markup"}
+
+# I want to use medical condition but as it's categorical I need to tell python to encode it like a numeric so the regression can read it properly
+model = smf.ols( 
+  formula="billing_amount ~ C(medical_condition) + length_of_stay", 
+  data=p4_data_cleaned ).fit() 
+
+# Simplifying results by pulling just the p_values and coefficients from the results
+regression_results_table = pd.DataFrame({
+    "coefficient": model.params,
+    "p_value": model.pvalues
+})
+
+print(regression_results_table)
+```
+
+Once again my test has not produced any significant results as denoted by the p_values, this indicates that pricing is consistent across medical conditions and length of stay showing good compliance with current pricing models.
+
+### Chi-Squared 
+
+As there doesn't appear to be any significant relationships between my variables and billing amount implying hospitals are already utilising effective pricing models, I will finally see if there is a relationship between test results and a particular medical condition. Test results can either be normal, abnormal or inclusive, so I would like to see if a particular medical condition is underperforming in relation to diagnosis.
+
+```{python chi-squared, echo=TRUE, comments="", results="markup"}
+
+initial_contingency_table = pd.crosstab( 
+  p4_data_cleaned["medical_condition"],
+  p4_data_cleaned["test_results"] ) 
+  
+chi2, p, dof, expected = chi2_contingency(initial_contingency_table)
+
+print("Chi-square statistic:", chi2)
+print("p-value:", p)
+print("Degrees of freedom:", dof)
+print("Expected frequencies:\n", expected)
+
+```
+
+### Conclusion
+
+I found no significant relationships between my variables and billing amount, indicating there is no one factor that is costing hospitals / patients more than others. I would still bring this to hospitals attention as while it seems like there is consistent pricing it could potentially mean that hospitals need to review their pricing. For example I would assume length of stay would impact the cost of billing, with shorter stays being cheaper, so there may be some incorrect accounting going on.
+
+The results of my chi-squared test shows no significance between medical condition and test results, showing no one condition produces more inconclusive results than others and would therefore need to be brought to hospitals attention.
