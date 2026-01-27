@@ -1,5 +1,5 @@
 ---
-title: "Project 3 - Bed Days KPI"
+title: "Bed Days KPI"
 output: html_document
 ---
 
@@ -24,5 +24,7 @@ Recording\;rate = \frac{Number\;of\;incidents}{Bed\;days\;in\;quarter}*1,000
 $$ 
 For the plot I decided on a scatter faceted by sector an alpha of 0.7 as there is a lot of overlap, this way you can clearly see the outliers and the the disparity between care sectors.
 
-![Bed days](images\bed_days.png){width=600px height=700px}
+<div style="text-align: center;"> 
+  <img src="images/bed_days.png" width="500" height="500"> 
+</div>
 
