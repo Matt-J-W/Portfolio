@@ -1,5 +1,5 @@
 ---
-title: "Project 1 - Carbon Emissions: How to Optimise Fuel Efficiency Without Comprimising on Deliveries"
+title: "Carbon Emissions: How to Optimise Fuel Efficiency Without Comprimising on Deliveries"
 output: html_document
 header-includes:
   - |
@@ -22,7 +22,7 @@ pre {
 # Context
 This fictional delivery company uses a range of vehicles, routes, and delivery types, I will determine how to improve their fuel efficiency without impacting their revenue.
 
-This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Seaborn
+This data was sourced from Kaggle and uses the following tools: Pandas, Matplotlib, Seaborn
 
 # Approach
 
@@ -39,7 +39,7 @@ knitr::opts_chunk$set(comment = "")
 ```{python, data import, results = FALSE}
 
 import pandas as pd
-import seaborn as sns
+import seaborn as sea
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 
@@ -47,7 +47,7 @@ p1_data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Po
 
 print(p1_data_import.columns)
 
-######NEW METHOD
+# Function for counts of variables
 def variable_counts(column):
   counts = p1_data_import[column].value_counts()
   formatted_counts = counts.apply(lambda x: f"{x:,}")
@@ -84,7 +84,6 @@ print(delivery_type_table)
 </div>
 
 </div>
-
 <br>
 
 I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type as these will be key metrics for later.
@@ -124,7 +123,7 @@ p1_data_import["CO2_Emissions_kg"] = (p1_data_import["CO2_Emissions_g"] / 1000).
 p1_data_import_cleaned = p1_data_import[p1_data_import["Vehicle_Type"] != "S"]
 
 columns_to_check = ["Vehicle_Type", "Route_Type", "Delivery_Type"]
-# Creating an average fuel efficiency per litre for each vehicle type
+# Creating an average fuel efficiency per litre for each vehicle, delivery and route type
 average_tables = {}
 
 for col in columns_to_check:
@@ -196,6 +195,7 @@ for vtype in p1_data_import_cleaned["Vehicle_Type"].unique():
 ```
 
 I will simplify the results by extracting just the p_values and impact on kmpl for every 10% increase in load.
+
 ```{python, regression results}
 # Empty dictionary to store results
 coef_table = [] 

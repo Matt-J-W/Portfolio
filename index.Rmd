@@ -31,6 +31,17 @@ I work with multiple large databases with experience in pulling data from multip
 ## Skills
 
 
+### Projects Summary
+
+```{python summary table creation, echo=FALSE, comments="", results="markup"}
+
+# Creating a summary table for my projects 
+headers = ["Project Title", "Tools Used", "Project Description"]
+rows = [
+  ["Project 1 - Optimising Fuel Efficiency", "Pandas, Matplot, Seaborn, Statsmodel", ""]
+]
+
+```
 I'm looking for a role that allows me to continue my data analysis career and this portfolio showcases my skills.
 
 ## Projects:
