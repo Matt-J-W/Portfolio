@@ -33,7 +33,7 @@ import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from scipy.stats import chi2_contingency
 
-p4_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio3\python data\healthcare_dataset.csv")
+p4_data_import = pd.read_csv(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\healthcare_dataset.csv")
 
 p4_data_import.head()
 p4_data_import.columns

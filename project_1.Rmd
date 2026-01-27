@@ -43,7 +43,7 @@ import seaborn as sea
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 
-p1_data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio3\python data\carbon_emissions_fleet_dataset.xlsx")
+p1_data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx")
 
 print(p1_data_import.columns)
 
