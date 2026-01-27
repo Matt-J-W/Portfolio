@@ -1,5 +1,5 @@
 ---
-title: "Project 2 - E-Commerce"
+title: "E-Commerce - Creating Customer Clusters"
 output: html_document
 ---
 <style> 
@@ -50,7 +50,7 @@ def variable_counts(column):
   counts = p2_data_import[column].value_counts()
   formatted_counts = counts.apply(lambda x: f"{x:,}")
   percentages = p2_data_import[column].value_counts(normalize=True).mul(100).round(1)
-  result = pd.concat([formatted_counts, percentages], axis = 1, keys = ['count', 'percentage'])
+  result = pd.concat([formatted_counts, percentages], axis = 1, keys = ['Count', 'Percentage'])
   return result
 
 employment_status_table = variable_counts("employment_status")
@@ -91,7 +91,7 @@ print(education_level_table)
 
 Now I want to start creating my customer clusters, first determining the types of the columns, then encoding the categorical variables so they can be quantified by the clustering.
 
-```{python clustering-test, echo=FALSE, include=TRUE, comment="", results="markup"}
+```{python clustering-test, echo=TRUE, include=TRUE, comment="", results="markup", warnings=FALSE, message=FALSE}
 
 # Dropping the user_id column
 p2_data_cleaned = p2_data_import.drop(columns = ["user_id"])
@@ -123,9 +123,9 @@ for k in range(2, 20):
     wcss.append(km.inertia_)
 
 # This produces the plot to easily visualise where the drop off is
-_ = plt.plot(range(2, 20), wcss, marker = 'o')
+plt.plot(range(2, 20), wcss, marker = 'o')
 plt.xlabel("Number of clusters /k")
-_ = plt.xticks(range(2, 20))
+plt.xticks(range(2, 20))
 plt.ylabel("WCSS")
 plt.title("Cluster Testing via Elbow Method")
 plt.show()
@@ -135,7 +135,7 @@ plt.show()
 
 From the above plot 5 clusters is where the gradient starts to become more shallow so I will use 5 clusters in this analysis. So now I need to run a final KMeans clustering.
 
-```{python kmeans, echo=FALSE, warning=FALSE, message=FALSE}
+```{python kmeans, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
 
 # KMeans clustering using 8 clusters
 p2_kmeans = KMeans(n_clusters = 5, random_state = 123)
