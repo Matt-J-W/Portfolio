@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Matthew Webb" />
+
+<meta name="date" content="2026-01-20" />
+
+<title>Healthcare Data: Investigating Hospital Billing Data for Inconsistencies</title>
+
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">About</a>
+</li>
+<li>
+  <a href="project_1.html">Project 1</a>
+</li>
+<li>
+  <a href="project_2.html">Project 2</a>
+</li>
+<li>
+  <a href="project_3.html">Project 3</a>
+</li>
+<li>
+  <a href="project_4.html">Project 4</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Healthcare Data: Investigating Hospital
+Billing Data for Inconsistencies</h1>
+<h4 class="author">Matthew Webb</h4>
+<h4 class="date">2026-01-20</h4>
+
+</div>
+
+
+<div id="context" class="section level1">
+<h1>Context</h1>
+<p>This fictional dataset contains information about patients stays at
+hospital including some demographic info and information about their
+reason for attendance. I will use this to create insights on healthcare
+trends in order to inform trusts about growing concerns around patient
+safety.</p>
+<p>This data was sourced from Kaggle and uses the following tools:
+Pandas, Matplotlib, Seaborn, ANOVA, Regression Test, Chi-Squared
+Test</p>
+</div>
+<div id="approach" class="section level1">
+<h1>Approach</h1>
+<p>My goal with this data is to determine what effects the billing price
+for a patient, I will be running some ANOVA and regression tests on some
+of the variables to determine their relationship with billing. Then I
+will be able to conclude where hospitals need to be focusing their
+attention to reduce these costs.</p>
+<div id="data-importing" class="section level2">
+<h2>Data Importing</h2>
+<p>I started by importing and exploring the data, checking for
+completeness and standardisation.</p>
+<p>This table of unique values is very useful as it indicates where the
+most appropriate analysis would be, I can’t do any sort of hospital
+bench marking as there aren’t enough rows per hospital.</p>
+<div style="display:flex; gap:20px;">
+<div style="flex:1;">
+<pre><code>                   Count  Percentage
+Medical Condition                   
+Arthritis          9,308        16.8
+Diabetes           9,304        16.8
+Hypertension       9,245        16.7
+Obesity            9,231        16.6
+Cancer             9,227        16.6
+Asthma             9,185        16.5</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>                 Count  Percentage
+Admission Type                    
+Elective        18,655        33.6
+Urgent          18,576        33.5
+Emergency       18,269        32.9</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>               Count  Percentage
+Test Results                    
+Abnormal      18,627        33.6
+Normal        18,517        33.4
+Inconclusive  18,356        33.1</code></pre>
+</div>
+<p><br></p>
+<div id="data-cleaning" class="section level3">
+<h3>Data Cleaning</h3>
+<p>Again we have an even spread of data in our variables with no missing
+or erroneous values, this means we won’t need to do much cleaning but
+I’ll fix the naming conventions as there is a mix of upper and lower
+case in the words, and my date variables need converting. Finally, as I
+have admission and discharge date I can calculate a length of stay
+variable.</p>
+<pre class="python"><code>
+# Converting the name columns, first creating a new dataframe so I leave the original intact
+p4_data_cleaned = p4_data_import
+p4_data_cleaned.columns = p4_data_cleaned.columns.str.lower().str.replace(&quot; &quot;, &quot;_&quot;)
+
+# Converting the name column
+p4_data_cleaned[&quot;name&quot;] = p4_data_cleaned[&quot;name&quot;].str.title()
+
+# Converting the date columns and creating LOS column
+p4_data_cleaned[&quot;date_of_admission&quot;] = pd.to_datetime(p4_data_cleaned[&quot;date_of_admission&quot;], yearfirst = True)
+p4_data_cleaned[&quot;discharge_date&quot;] = pd.to_datetime(p4_data_cleaned[&quot;discharge_date&quot;], yearfirst = True)
+p4_data_cleaned[&quot;length_of_stay&quot;] = (p4_data_cleaned[&quot;discharge_date&quot;] - p4_data_cleaned[&quot;date_of_admission&quot;]).dt.days</code></pre>
+</div>
+<div id="billing-analysis" class="section level3">
+<h3>Billing Analysis</h3>
+<p>As this dataset contains both patient admission information and
+insurance / billing information we can use this to analyse what
+conditions are costing the most and how much length of stay effects the
+billing.</p>
+<p>First I will inspect the average billing across conditions, insurance
+and admission types</p>
+<pre class="python"><code>
+condition_mean = p4_data_cleaned.groupby(&quot;medical_condition&quot;)[&quot;billing_amount&quot;].mean().round()
+admission_mean = p4_data_cleaned.groupby(&quot;admission_type&quot;)[&quot;billing_amount&quot;].mean().round()
+insurance_mean = p4_data_cleaned.groupby(&quot;insurance_provider&quot;)[&quot;billing_amount&quot;].mean().round()</code></pre>
+<div style="flex:1;">
+<pre><code>medical_condition
+Arthritis       25497.0
+Asthma          25635.0
+Cancer          25162.0
+Diabetes        25638.0
+Hypertension    25497.0
+Obesity         25806.0
+Name: billing_amount, dtype: float64</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>admission_type
+Elective     25602.0
+Emergency    25497.0
+Urgent       25517.0
+Name: billing_amount, dtype: float64</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>insurance_provider
+Aetna               25553.0
+Blue Cross          25613.0
+Cigna               25526.0
+Medicare            25616.0
+UnitedHealthcare    25389.0
+Name: billing_amount, dtype: float64</code></pre>
+</div>
+<p><br></p>
+</div>
+<div id="anova-test" class="section level3">
+<h3>ANOVA Test</h3>
+<p>This simple test is important as it will determine if there is
+significance in the difference in billing between the types of
+admissions, i.e. do they cost different amounts.</p>
+<pre class="python"><code># Running an ANOVA test and pulling the f-statistic and p-values to test for significance
+urgent_anova = p4_data_cleaned[p4_data_cleaned.admission_type == &quot;Urgent&quot;][&quot;billing_amount&quot;]
+emergency_anova = p4_data_cleaned[p4_data_cleaned.admission_type == &quot;Emergency&quot;][&quot;billing_amount&quot;]
+elective_anova = p4_data_cleaned[p4_data_cleaned.admission_type == &quot;Elective&quot;][&quot;billing_amount&quot;]
+
+# Getting the results
+f_statistic, p_value = f_oneway(urgent_anova, emergency_anova, elective_anova)
+
+# Creating a plot to visualise the results
+sns.boxplot(p4_data_cleaned, x=&quot;admission_type&quot;, y=&quot;billing_amount&quot;) </code></pre>
+<pre><code>&lt;Axes: xlabel=&#39;admission_type&#39;, ylabel=&#39;billing_amount&#39;&gt;</code></pre>
+<pre class="python"><code>plt.title(&quot;Billing Amount by Admission Type&quot;) </code></pre>
+<pre><code>Text(0.5, 1.0, &#39;Billing Amount by Admission Type&#39;)</code></pre>
+<pre class="python"><code>plt.ylabel(&quot;Billing Amount /£&quot;)</code></pre>
+<pre><code>Text(0, 0.5, &#39;Billing Amount /£&#39;)</code></pre>
+<pre class="python"><code>plt.xlabel(&quot;Admission Type&quot;)</code></pre>
+<pre><code>Text(0.5, 0, &#39;Admission Type&#39;)</code></pre>
+<pre class="python"><code>plt.show()</code></pre>
+<p><img src="project_4_files/figure-html/anova%20test-1.png" width="672" /></p>
+<p>The results of my ANOVA shows no significance between the billing
+amount and whether the admission type is urgent, elective or emergency
+(f_statistic = 0.28, p_value = 0.75). This suggests that current
+hospital pricing is standard across admission types and doesn’t need
+amending. However, I do now need to dig deeper to look for
+variability.</p>
+</div>
+<div id="regression-test" class="section level3">
+<h3>Regression Test</h3>
+<p>I want to see the effects of length of stay and medical condition on
+the billing amount, below are the results of my regression test.</p>
+<pre class="python"><code># I want to use medical condition but as it&#39;s categorical I need to tell python to encode it like a numeric so the regression can read it properly
+model = smf.ols( 
+  formula=&quot;billing_amount ~ C(medical_condition) + length_of_stay&quot;, 
+  data=p4_data_cleaned ).fit() 
+
+# Simplifying results by pulling just the p_values and coefficients from the results
+regression_results_table = pd.DataFrame({
+    &quot;coefficient&quot;: model.params,
+    &quot;p_value&quot;: model.pvalues
+})
+
+print(regression_results_table)</code></pre>
+<pre><code>                                       coefficient   p_value
+Intercept                             25640.136186  0.000000
+C(medical_condition)[T.Asthma]          139.571197  0.504271
+C(medical_condition)[T.Cancer]         -335.732924  0.107795
+C(medical_condition)[T.Diabetes]        140.209118  0.500938
+C(medical_condition)[T.Hypertension]     -0.772239  0.997047
+C(medical_condition)[T.Obesity]         308.155522  0.139877
+length_of_stay                           -9.203158  0.186467</code></pre>
+<p>Once again my test has not produced any significant results as
+denoted by the p_values, this indicates that pricing is consistent
+across medical conditions and length of stay showing good compliance
+with current pricing models.</p>
+</div>
+<div id="chi-squared" class="section level3">
+<h3>Chi-Squared</h3>
+<p>As there doesn’t appear to be any significant relationships between
+my variables and billing amount implying hospitals are already utilising
+effective pricing models, I will finally see if there is a relationship
+between test results and a particular medical condition. Test results
+can either be normal, abnormal or inclusive, so I would like to see if a
+particular medical condition is underperforming in relation to
+diagnosis.</p>
+<pre class="python"><code>initial_contingency_table = pd.crosstab( 
+  p4_data_cleaned[&quot;medical_condition&quot;],
+  p4_data_cleaned[&quot;test_results&quot;] ) 
+  
+chi2, p, dof, expected = chi2_contingency(initial_contingency_table)
+
+print(&quot;Chi-square statistic:&quot;, chi2)</code></pre>
+<pre><code>Chi-square statistic: 13.255075598058793</code></pre>
+<pre class="python"><code>print(&quot;p-value:&quot;, p)</code></pre>
+<pre><code>p-value: 0.20975788848479066</code></pre>
+<pre class="python"><code>print(&quot;Degrees of freedom:&quot;, dof)</code></pre>
+<pre><code>Degrees of freedom: 10</code></pre>
+<pre class="python"><code>print(&quot;Expected frequencies:\n&quot;, expected)</code></pre>
+<pre><code>Expected frequencies:
+ [[3123.96605405 3078.51618018 3105.51776577]
+ [3082.68459459 3037.83531532 3064.48009009]
+ [3096.7807027  3051.72634234 3078.49295495]
+ [3122.62356757 3077.19322523 3104.18320721]
+ [3102.82189189 3057.67963964 3084.49846847]
+ [3098.12318919 3053.0492973  3079.82751351]]</code></pre>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>I found no significant relationships between my variables and billing
+amount, indicating there is no one factor that is costing hospitals /
+patients more than others. I would still bring this to hospitals
+attention as while it seems like there is consistent pricing it could
+potentially mean that hospitals need to review their pricing. For
+example I would assume length of stay would impact the cost of billing,
+with shorter stays being cheaper, so there may be some incorrect
+accounting going on.</p>
+<p>The results of my chi-squared test shows no significance between
+medical condition and test results, showing no one condition produces
+more inconclusive results than others and would therefore need to be
+brought to hospitals attention.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

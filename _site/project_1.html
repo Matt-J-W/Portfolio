@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Carbon Emissions: How to Optimise Fuel Efficiency Without Comprimising on Deliveries</title>
+
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">About</a>
+</li>
+<li>
+  <a href="project_1.html">Project 1</a>
+</li>
+<li>
+  <a href="project_2.html">Project 2</a>
+</li>
+<li>
+  <a href="project_3.html">Project 3</a>
+</li>
+<li>
+  <a href="project_4.html">Project 4</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Carbon Emissions: How to Optimise Fuel
+Efficiency Without Comprimising on Deliveries</h1>
+
+</div>
+
+
+<style> 
+pre { 
+  text-align: left;
+  border: 1px solid #ccc; 
+  padding: 8px; 
+  margin-bottom: 20px; 
+  background: #fafafa; 
+  white-space: pre; 
+  } 
+  </style>
+<div id="context" class="section level1">
+<h1>Context</h1>
+<p>This fictional delivery company uses a range of vehicles, routes, and
+delivery types, I will determine how to improve their fuel efficiency
+without impacting their revenue.</p>
+<p>This data was sourced from Kaggle and uses the following tools:
+Pandas, Matplotlib, Seaborn</p>
+</div>
+<div id="approach" class="section level1">
+<h1>Approach</h1>
+<p>I will inspect the data and the counts of key variables, then
+calculate the mean fuel usage for for those key variables. I will then
+inspect the effects of load utilization on fuel efficiency and test it
+using regression analysis to identify significant relationships.
+Finally, I will create a matrix of of averages for all combinations of
+vehicle and delivery types to calculate how much fuel could be saved by
+switching vehicle types on certain routes.</p>
+<div id="data-importing" class="section level2">
+<h2>Data Importing</h2>
+<p>I started by importing and exploring the data, checking for
+completeness and standardisation.</p>
+<pre class="python"><code>import pandas as pd
+import seaborn as sea
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+
+p1_data_import = pd.read_excel(r&quot;C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx&quot;)
+
+print(p1_data_import.columns)</code></pre>
+<pre class="python"><code>
+# Function for counts of variables
+def variable_counts(column):
+  counts = p1_data_import[column].value_counts()
+  formatted_counts = counts.apply(lambda x: f&quot;{x:,}&quot;)
+  percentages = p1_data_import[column].value_counts(normalize=True).mul(100).round(1)
+  result = pd.concat([formatted_counts, percentages], axis=1, keys=[&#39;Count&#39;, &#39;Percentage&#39;])
+  return result
+
+vehicle_type_table = variable_counts(&quot;Vehicle_Type&quot;)
+route_type_table = variable_counts(&quot;Route_Type&quot;)
+delivery_type_table = variable_counts(&quot;Delivery_Type&quot;)</code></pre>
+<p>Here we have the counts of the variables which has highlighted an
+anomalous row we will remove in the vehicle type column, aside from that
+we can see these key columns don’t contain any na incidents or
+non-standard values.</p>
+<div style="display:flex; gap:20px;">
+<div style="flex:1;">
+<pre><code>             Count  Percentage
+Vehicle_Type                  
+Diesel Van     525        35.0
+Electric Van   403        26.9
+CNG Truck      310        20.7
+Bike           261        17.4
+S                1         0.1</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>           Count  Percentage
+Route_Type                  
+Urban        592        39.5
+Suburban     463        30.9
+Rural        305        20.3
+Highway      140         9.3</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>              Count  Percentage
+Delivery_Type                  
+Standard        749        49.9
+Express         459        30.6
+Same-day        292        19.5</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>I also want to check the count of delivery types for each vehicle
+type, and the average distance for each delivery type as these will be
+key metrics for later.</p>
+<div style="display:flex; gap:20px;">
+<div style="flex:1;">
+<pre><code>Delivery_Type
+Express     103.216187
+Same-day    101.389212
+Standard    101.014619
+Name: Distance_km, dtype: float64</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>Vehicle_Type  Delivery_Type
+Bike          Standard         135
+              Express           83
+              Same-day          43
+CNG Truck     Standard         160
+              Express           86
+              Same-day          64
+Diesel Van    Standard         253
+              Express          158
+              Same-day         114
+Electric Van  Standard         201
+              Express          132
+              Same-day          70
+S             Same-day           1
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p><br></p>
+</div>
+<div id="data-handling-descriptive-analysis" class="section level2">
+<h2>Data Handling &amp; Descriptive Analysis</h2>
+<p>Here I can see the break down of the key columns I will be using for
+my calculations, my next step is to handle the data and create an
+average fuel efficiency per vehicle and delivery type, and see how this
+compares to the averages of the type combinations. These tables will be
+used at a later stage.</p>
+<pre class="python"><code>
+# Handling columns
+p1_data_import[&quot;CO2_Emissions_kg&quot;] = (p1_data_import[&quot;CO2_Emissions_g&quot;] / 1000).round(2)
+p1_data_import_cleaned = p1_data_import[p1_data_import[&quot;Vehicle_Type&quot;] != &quot;S&quot;]
+
+columns_to_check = [&quot;Vehicle_Type&quot;, &quot;Route_Type&quot;, &quot;Delivery_Type&quot;]
+# Creating an average fuel efficiency per litre for each vehicle, delivery and route type
+average_tables = {}
+
+for col in columns_to_check:
+  average_tables[col] = p1_data_import_cleaned.groupby(col)[&quot;Fuel_Efficiency_kmpl&quot;].mean().to_frame(name=&quot;Average kmpl&quot;)</code></pre>
+<div style="display:flex; gap:20px;">
+<div style="flex:1;">
+<pre><code>              Average kmpl
+Vehicle_Type              
+Bike             15.732069
+CNG Truck        15.134452
+Diesel Van       15.172057
+Electric Van     14.837692</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>            Average kmpl
+Route_Type              
+Highway        15.511071
+Rural          15.255016
+Suburban       15.411147
+Urban          14.862145</code></pre>
+</div>
+<div style="flex:1;">
+<pre><code>               Average kmpl
+Delivery_Type              
+Express           15.223813
+Same-day          14.928797
+Standard          15.234526</code></pre>
+</div>
+</div>
+</div>
+<div id="load-utilisation" class="section level2">
+<h2>Load Utilisation</h2>
+<p>Before I start comparing the delivery and vehicle types for fuel
+efficiency I want to check how load utilization effects fuel efficiency,
+as ultimately maximizing fuel efficiency is what we are aiming to
+achieve here. We can see that for Electric vehicles and Bikes the fuel
+efficiency decreases steadily as the load utilization increases, whereas
+for CNG Trucks and Diesel Vans it increases. My next step is to
+calculate if these changes are significant.</p>
+</div>
+</div>
+<pre class="python"><code># Plotting the effects of load utilisation on fuel efficiency
+sea_load_util = sea.lmplot(
+  data=p1_data_import_cleaned, 
+  x=&quot;Load_Utilization_%&quot;, 
+  y=&quot;Fuel_Efficiency_kmpl&quot;, 
+  hue=&quot;Vehicle_Type&quot;, 
+  height=6, 
+  aspect=1.3, 
+  scatter = False 
+  )
+plt.xlabel(&quot;Load Utilization %&quot;)
+plt.ylabel(&quot;Fuel Efficiency kmpl&quot;)
+plt.show()</code></pre>
+<p><img src="project_1_files/figure-html/load%20utilisation%20plot-1.png" width="875" /></p>
+</div>
+<div id="regression-test" class="section level2">
+<h2>Regression Test</h2>
+<p>I will now employ a regression analysis to see how much fuel
+efficiency is impacted by load utilisation across vehicle types as this
+will tell us where to maximize it and where to not.</p>
+<pre class="python"><code># Creating empty dictionary to store results
+results = {} 
+
+for vtype in p1_data_import_cleaned[&quot;Vehicle_Type&quot;].unique(): 
+  # Subsetting data based on vehicle type
+  subset = p1_data_import_cleaned[p1_data_import_cleaned[&quot;Vehicle_Type&quot;] == vtype] 
+  # Adding in predictor variable coefficient
+  X = sm.add_constant(subset[&quot;Load_Utilization_%&quot;])
+  y = subset[&quot;Fuel_Efficiency_kmpl&quot;] 
+  # Running regression
+  model = sm.OLS(y, X).fit() 
+  results[vtype] = model</code></pre>
+<p>I will simplify the results by extracting just the p_values and
+impact on kmpl for every 10% increase in load.</p>
+<pre class="python"><code># Empty dictionary to store results
+coef_table = [] 
+
+for vtype, model in results.items(): 
+  # Pulling kmpl change for every 1% load increase
+  beta_1 = model.params[&quot;Load_Utilization_%&quot;] 
+  # Pulling p values
+  pval = model.pvalues[&quot;Load_Utilization_%&quot;] 
+  # Creating a better metric of kmpl change for every 10% increase
+  beta_10 = beta_1 * 10
+  
+  coef_table.append({ 
+    &quot;Vehicle Type&quot;: vtype, 
+    &quot;kmpl change per 10% load increase&quot;: beta_10, 
+    &quot;p_value&quot;: pval 
+    }) 
+    
+coef_results = pd.DataFrame(coef_table) 
+print(coef_results)</code></pre>
+<pre><code>   Vehicle Type  kmpl change per 10% load increase   p_value
+0    Diesel Van                           0.042691  0.810296
+1          Bike                          -0.134249  0.584365
+2     CNG Truck                           0.096572  0.664480
+3  Electric Van                          -0.293594  0.162169</code></pre>
+<p>As you can see every p value is &gt;0.05 meaning none of the results
+are significant, indicating that increasing the load has a negligible
+effect on fuel efficiency for every vehicle type.</p>
+</div>
+<div id="mean-testing" class="section level2">
+<h2>Mean Testing</h2>
+<p>I created a function that calculates the averages for each
+combination of delivery and vehicle types for the other key metrics in
+the data.</p>
+<pre class="python"><code># Creating function to compute means
+def matrix_function(value_column):
+  return p1_data_import_cleaned.pivot_table(
+    index=&quot;Vehicle_Type&quot;,
+    columns=&quot;Delivery_Type&quot;,
+    values=value_column,
+    aggfunc=&quot;mean&quot;
+  ).round(2).T
+
+on_time_matrix = matrix_function(&quot;On_Time_Delivery&quot;)
+co2_matrix = matrix_function(&quot;CO2_Emissions_kg&quot;)
+fuel_matrix = matrix_function(&quot;Fuel_Efficiency_kmpl&quot;)
+
+# Now combining them into one matrix for ease of reading
+combined_matrix = pd.concat(
+    [on_time_matrix, co2_matrix, fuel_matrix],
+    axis=0,
+    keys=[&quot;On_Time&quot;, &quot;CO2_kg&quot;, &quot;Fuel_kmpl&quot;]
+)
+
+combined_matrix.index = combined_matrix.index.map(&#39;_&#39;.join)
+combined_matrix</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Vehicle_Type</th>
+      <th>Bike</th>
+      <th>CNG Truck</th>
+      <th>Diesel Van</th>
+      <th>Electric Van</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>On_Time_Express</th>
+      <td>0.89</td>
+      <td>0.87</td>
+      <td>0.89</td>
+      <td>0.92</td>
+    </tr>
+    <tr>
+      <th>On_Time_Same-day</th>
+      <td>0.95</td>
+      <td>0.92</td>
+      <td>0.93</td>
+      <td>0.90</td>
+    </tr>
+    <tr>
+      <th>On_Time_Standard</th>
+      <td>0.93</td>
+      <td>0.92</td>
+      <td>0.94</td>
+      <td>0.90</td>
+    </tr>
+    <tr>
+      <th>CO2_kg_Express</th>
+      <td>2.72</td>
+      <td>11.86</td>
+      <td>18.77</td>
+      <td>4.07</td>
+    </tr>
+    <tr>
+      <th>CO2_kg_Same-day</th>
+      <td>2.00</td>
+      <td>11.93</td>
+      <td>20.89</td>
+      <td>3.70</td>
+    </tr>
+    <tr>
+      <th>CO2_kg_Standard</th>
+      <td>2.41</td>
+      <td>12.39</td>
+      <td>18.12</td>
+      <td>4.08</td>
+    </tr>
+    <tr>
+      <th>Fuel_kmpl_Express</th>
+      <td>15.17</td>
+      <td>14.94</td>
+      <td>15.44</td>
+      <td>15.18</td>
+    </tr>
+    <tr>
+      <th>Fuel_kmpl_Same-day</th>
+      <td>16.07</td>
+      <td>14.67</td>
+      <td>14.86</td>
+      <td>14.57</td>
+    </tr>
+    <tr>
+      <th>Fuel_kmpl_Standard</th>
+      <td>15.97</td>
+      <td>15.42</td>
+      <td>15.15</td>
+      <td>14.70</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<p>Now we can clearly see how the averages of the combinations stack up
+against the average for the whole variable, this shows us which
+combinations are preforming below average and could do with
+reorganising.</p>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<ul>
+<li><strong>Fuel Efficiency:</strong> - Bikes have the highest fuel
+efficiency for same day deliveries with 16.07 and electric vans have the
+lowest with 14.57. Currently bikes are only delivering 15% of same day
+deliveries so there is scope to shift bikes from express to same day, as
+express is their lowest performing metric for on time deliveries. Using
+the below equation you can calculate how much fuel you would save per
+delivery on average:</li>
+</ul>
+<p><span class="math display">\[
+Fuel\;saved =
+(\frac{1}{Vehicle\;1\;Av.\;kmpl}-\frac{1}{Vehicle\;2\;Av.\;kmpl})*Average\;distance
+\]</span> So this give you 0.65 litres saved per delivery. <span
+class="math display">\[
+Fuel\;saved = (\frac{1}{14.57}-\frac{1}{16.07})*101
+\]</span></p>
+<ul>
+<li><p><strong>CO2 kg:</strong> - Same day delivery for diesel vans
+produces &gt;2kg of fuel per delivery on average, compared to electric
+vans which has a lower average fuel cost. So moving some of the same day
+deliveries over from diesel to electric will lower the CO2 emissions
+without compromising deliveries.</p></li>
+<li><p><strong>Load Utilisation:</strong> - Diesel vans and electric
+vans both have a steady decline in their fuel efficiency as load
+utilisation increases, with electric vehicles seeing a bigger drop.
+However, my coefficient table indicates that these observations are not
+significant.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
