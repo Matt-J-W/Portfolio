@@ -11,25 +11,43 @@ header-includes:
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <p>
-  <a href="https://www.linkedin.com/in/matthew1webb/">
-    <img src="icons/linkedin.png" width="32" style="vertical-align:middle; margin-right:10px;">[LinkedIn](https://www.linkedin.com/in/matthew1webb/)
+  <a href="https://www.linkedin.com/in/matthew1webb/" style="display:inline-block; margin-right:20px;">
+    <img src="icons/linkedin.png" width="32" style="vertical-align:middle; margin-right:8px;">
+    LinkedIn
   </a>
 
-  <a href="https://github.com/Matt-J-W">
-    <img src="icons/github.png" width="32" style="vertical-align:middle; margin-right:10px;">[Github](https://github.com/Matt-J-W)
+  <a href="https://github.com/Matt-J-W" style="display:inline-block; margin-right:20px;">
+    <img src="icons/github.png" width="32" style="vertical-align:middle; margin-right:8px;">
+    Github
   </a>
 
-  <a href="mailto:your.email@example.com">
-    <img src="icons/email.png" width="32" style="vertical-align:middle;"> Email
+  <a href="mailto:your.email@example.com" style="display:inline-block;">
+    <img src="icons/email.png" width="32" style="vertical-align:middle; margin-right:8px;">
+    Email
   </a>
 </p>
+
 
 I've been a data analyst in the NHS for a decade working with many pools of healthcare data from local trust trauma data at Lewisham A&E, to Parliamentary inquiries around Never Events at NHS England. I have experience working with a range of software and coding languages providing insights to organisations throughout the UK, I lead end-to-end analysis and and produce automated repeatable reports using github version control. This includes liaising with stakeholders on a daily basis to understand their requests and help design strategies to pull the most relevant data possible, I have experience then presenting the findings to the stakeholders in order to ensure the the request has been fulfilled successfully.
 
 I work with multiple large databases with experience in pulling data from multiple sources to create the clearest picture possible with the data. I know how to handle data quality issues and structure my scripts so anyone can run them. My team is responsible for warehousing and analysing the largest repository of patient safety incidents in the country with over 200,000 incidents reported every month.
 
-## Skills
+### Skills
 
+**Languages & Tools** - Python, RStudio, SAS, SQL, HTML, VBA, Tableau, Power BI, Databricks, Pyspark, Postgres, NCDR
+**Statistical Techniques** - Regression Models, Trend Analysis, Clustering, Descriptive Tests, ANOVA, T-tests, Chi-squared
+**Data Automation and Publication** - RMarkdown, Quarto, TaskSchedular
+**Data Visualisation** - Tableau, Power BI, Ggplot, Matplot, Plotly, Pivot Tables
+**Scripting** - Regex, Text Mining, Script Writing, Data Quality, Data Cleansing
+**Big Data & Cloud Platforms** - Oracle, Azure DevOps, Snowflake
+
+### National Publications
+
+[**Patient Safety Events Data**](https://www.england.nhs.uk/statistics/statistical-work-areas/patient-safety-data/2025-26/quarter-2-2025-26-july-august-september-2025/) - A quarterly publication I created from scratch to publish the progress of our new database, the [LFPSE](https://www.england.nhs.uk/patient-safety/patient-safety-insight/learning-from-patient-safety-events/learn-from-patient-safety-events-service/), there is a huge amount of of cleansing, preparing and manipulating in order to combine multiple data sources and visualise the metrics in the desired form.
+
+[**Never Events**](https://www.england.nhs.uk/long-read/provisional-publication-of-never-events-reported-as-occurring-between-april-2025-and-november-2025/) - A monthly publication I created to publish national never events data, this keeps trusts and the wider NHS up to date with their progress on reducing Never Events, which are a very high-level incident type that requires close monitoring. I created an automated script that completes the end-to-end analysis in one step and produces the finished report ready for publication
+
+[**Transition Report**](https://www.england.nhs.uk/statistics/statistical-work-areas/patient-safety-data/2024-25/nrls-to-lfpse-transition-report/) - This was a one-off report designed to show the transition from the NRLS to LFPSE databases, and how reporting patterns and reporting metrics have changed.
 
 ### Projects Summary
 
