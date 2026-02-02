@@ -403,7 +403,6 @@ run a final KMeans clustering.</p>
 # First let&#39;s visualise our clusters
 # This creates a new plot so it doesnt overwrite the previous
 plt.figure(figsize=(8,6))  </code></pre>
-<pre><code>&lt;Figure size 800x600 with 0 Axes&gt;</code></pre>
 <pre class="python"><code>pca = PCA(n_components=2)
 pca_result = pca.fit_transform(p2_data_all_cols.drop(columns=[&quot;cluster&quot;]))
 
@@ -419,16 +418,10 @@ scatter = plt.scatter(
 # auto-generate legend with correct colours
 handles, _ = scatter.legend_elements(prop=&quot;colors&quot;)
 plt.legend(handles, [f&quot;Cluster {i}&quot; for i in sorted(set(labels))], title=&quot;Clusters&quot;)</code></pre>
-<pre><code>&lt;matplotlib.legend.Legend object at 0x00000289BBD28BF0&gt;</code></pre>
 <pre class="python"><code>plt.title(&quot;PCA of Clusters&quot;)</code></pre>
-<pre><code>Text(0.5, 1.0, &#39;PCA of Clusters&#39;)</code></pre>
 <pre class="python"><code>plt.xlabel(&quot;PC1&quot;)</code></pre>
-<pre><code>Text(0.5, 0, &#39;PC1&#39;)</code></pre>
 <pre class="python"><code>plt.ylabel(&quot;PC2&quot;)</code></pre>
-<pre><code>Text(0, 0.5, &#39;PC2&#39;)</code></pre>
 <pre class="python"><code>plt.show()</code></pre>
-<pre><code>C:\Users\Matthew.Webb12\AppData\Local\R\win-library\4.5\reticulate\python\rpytools\call.py:6: UserWarning: Creating legend with loc=&quot;best&quot; can be slow with large amounts of data.
-  return call_r_function(f, *args, **kwargs)</code></pre>
 <p><img src="project_2_files/figure-html/cluster%20plot-3.png" width="768" /></p>
 </div>
 </div>
