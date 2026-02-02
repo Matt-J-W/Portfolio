@@ -33,11 +33,9 @@ I work with multiple large databases with experience in pulling data from multip
 
 ### Projects Summary
 
-```{python summary table creation, echo=FALSE, comments="", results="markup"}
-
+```{python summary table creation, echo=FALSE, results='asis'}
 import pandas as pd
 
-# Creating a summary table for my projects 
 headers = ["Project Title", "Packages Used", "Project Description"]
 rows = [
   ["Project 1 - Optimising Fuel Efficiency", "Knitr, Pandas, Matplot, Seaborn, Statsmodel", "Using analyical tools to show where this company can increase fuel efficienc and save money without comprimising on deliveries"],
@@ -48,17 +46,5 @@ rows = [
 
 project_table_initial = pd.DataFrame(rows, columns=headers)
 
-project_table = (
-    project_table_initial.style
-    .set_table_styles([
-        {"selector": "th", "props": [("text-align", "center"), ("font-weight", "bold")]},
-        {"selector": "td", "props": [("text-align", "left"), ("vertical-align", "top")]}
-    ])
-    .set_properties(
-      **{"width": "250px", "white-space": "normal"}
-    )
-)
-
 print(project_table_initial.to_markdown())
-
 ```
