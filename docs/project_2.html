@@ -370,10 +370,9 @@ p2_data_cleaned = p2_data_import.drop(columns = [&quot;user_id&quot;])
 
 # Separating the columns into numeric and categorical, this is so the KMeans will run correctly
 numeric_cols = p2_data_cleaned.select_dtypes(include = [&#39;int64&#39;, &#39;float64&#39;]).columns
-categorical_cols = p2_data_cleaned.select_dtypes(include = [&#39;object&#39;, &#39;category&#39;]).columns</code></pre>
-<pre><code>&lt;string&gt;:1: Pandas4Warning: For backward compatibility, &#39;str&#39; dtypes are included by select_dtypes when &#39;object&#39; dtype is specified. This behavior is deprecated and will be removed in a future version. Explicitly pass &#39;str&#39; to `include` to select them, or to `exclude` to remove them and silence this warning.
-See https://pandas.pydata.org/docs/user_guide/migration-3-strings.html#string-migration-select-dtypes for details on how to write code that works with pandas 2 and 3.</code></pre>
-<pre class="python"><code># Now I need to scale the numeric columns and encode the categorical columns
+categorical_cols = p2_data_cleaned.select_dtypes(include=[&#39;object&#39;, &#39;category&#39;, &#39;string&#39;, &#39;str&#39;]).columns
+
+# Now I need to scale the numeric columns and encode the categorical columns
 # This is so KMeans treats the numeric columns equally and can effectively read the categorical columns
 column_encoding = ColumnTransformer(
     transformers = [
@@ -394,44 +393,14 @@ for k in range(2, 20):
     km = KMeans(n_clusters = k, random_state = 123)
     km.fit(p2_data_transformed)
     wcss.append(km.inertia_)</code></pre>
-<pre><code>KMeans(n_clusters=2, random_state=123)
-KMeans(n_clusters=3, random_state=123)
-KMeans(n_clusters=4, random_state=123)
-KMeans(n_clusters=5, random_state=123)
-KMeans(n_clusters=6, random_state=123)
-KMeans(n_clusters=7, random_state=123)
-KMeans(random_state=123)
-KMeans(n_clusters=9, random_state=123)
-KMeans(n_clusters=10, random_state=123)
-KMeans(n_clusters=11, random_state=123)
-KMeans(n_clusters=12, random_state=123)
-KMeans(n_clusters=13, random_state=123)
-KMeans(n_clusters=14, random_state=123)
-KMeans(n_clusters=15, random_state=123)
-KMeans(n_clusters=16, random_state=123)
-KMeans(n_clusters=17, random_state=123)
-KMeans(n_clusters=18, random_state=123)
-KMeans(n_clusters=19, random_state=123)</code></pre>
-<pre class="python"><code># This produces the plot to easily visualise where the drop off is
-plt.plot(range(2, 20), wcss, marker = &#39;o&#39;)</code></pre>
-<pre><code>[&lt;matplotlib.lines.Line2D object at 0x00000289BA9D2C90&gt;]</code></pre>
-<pre class="python"><code>plt.xlabel(&quot;Number of clusters /k&quot;)</code></pre>
-<pre><code>Text(0.5, 0, &#39;Number of clusters /k&#39;)</code></pre>
-<pre class="python"><code>plt.xticks(range(2, 20))</code></pre>
-<pre><code>([&lt;matplotlib.axis.XTick object at 0x00000289B7CE6F00&gt;, &lt;matplotlib.axis.XTick object at 0x00000289BAA9F5F0&gt;, &lt;matplotlib.axis.XTick object at 0x00000289BA9D3200&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB0ADE80&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB0AE810&gt;, &lt;matplotlib.axis.XTick object at 0x00000289BF0309E0&gt;, &lt;matplotlib.axis.XTick object at 0x00000289BF0542C0&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB0AF0B0&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB0AFAD0&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB0004A0&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB0AF200&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB000C80&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB0015E0&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB001FA0&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB002600&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB002B70&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB0030E0&gt;, &lt;matplotlib.axis.XTick object at 0x00000289FB003A10&gt;], [Text(2, 0, &#39;2&#39;), Text(3, 0, &#39;3&#39;), Text(4, 0, &#39;4&#39;), Text(5, 0, &#39;5&#39;), Text(6, 0, &#39;6&#39;), Text(7, 0, &#39;7&#39;), Text(8, 0, &#39;8&#39;), Text(9, 0, &#39;9&#39;), Text(10, 0, &#39;10&#39;), Text(11, 0, &#39;11&#39;), Text(12, 0, &#39;12&#39;), Text(13, 0, &#39;13&#39;), Text(14, 0, &#39;14&#39;), Text(15, 0, &#39;15&#39;), Text(16, 0, &#39;16&#39;), Text(17, 0, &#39;17&#39;), Text(18, 0, &#39;18&#39;), Text(19, 0, &#39;19&#39;)])</code></pre>
-<pre class="python"><code>plt.ylabel(&quot;WCSS&quot;)</code></pre>
-<pre><code>Text(0, 0.5, &#39;WCSS&#39;)</code></pre>
-<pre class="python"><code>plt.title(&quot;Cluster Testing via Elbow Method&quot;)</code></pre>
-<pre><code>Text(0.5, 1.0, &#39;Cluster Testing via Elbow Method&#39;)</code></pre>
-<pre class="python"><code>plt.show()</code></pre>
-<p><img src="project_2_files/figure-html/clustering-test-1.png" width="672" />
-<br><br><br></p>
+<p><img src="project_2_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><br><br><br></p>
 <p>From the above plot 5 clusters is where the gradient starts to become
 more shallow so I will use 5 clusters in this analysis. So now I need to
 run a final KMeans clustering.</p>
 <pre><code>KMeans(n_clusters=5, random_state=123)</code></pre>
 <pre><code>&lt;Figure size 800x600 with 0 Axes&gt;</code></pre>
-<pre><code>&lt;matplotlib.legend.Legend object at 0x00000289BA9D1850&gt;</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend object at 0x00000289FB045160&gt;</code></pre>
 <pre><code>Text(0.5, 1.0, &#39;PCA of Clusters&#39;)</code></pre>
 <pre><code>Text(0.5, 0, &#39;PC1&#39;)</code></pre>
 <pre><code>Text(0, 0.5, &#39;PC2&#39;)</code></pre>
