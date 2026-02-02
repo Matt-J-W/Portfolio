@@ -398,30 +398,6 @@ for k in range(2, 20):
 <p>From the above plot 5 clusters is where the gradient starts to become
 more shallow so I will use 5 clusters in this analysis. So now I need to
 run a final KMeans clustering.</p>
-<pre class="python"><code># The final step is to pull the greatest variance among clusters and turn this into insights
-
-# First let&#39;s visualise our clusters
-# This creates a new plot so it doesnt overwrite the previous
-plt.figure(figsize=(8,6))  </code></pre>
-<pre class="python"><code>pca = PCA(n_components=2)
-pca_result = pca.fit_transform(p2_data_all_cols.drop(columns=[&quot;cluster&quot;]))
-
-# main scatterplot
-scatter = plt.scatter(
-    pca_result[:,0],
-    pca_result[:,1],
-    c=labels,
-    cmap=&quot;tab10&quot;,
-    s=10
-)
-
-# auto-generate legend with correct colours
-handles, _ = scatter.legend_elements(prop=&quot;colors&quot;)
-plt.legend(handles, [f&quot;Cluster {i}&quot; for i in sorted(set(labels))], title=&quot;Clusters&quot;)</code></pre>
-<pre class="python"><code>plt.title(&quot;PCA of Clusters&quot;)</code></pre>
-<pre class="python"><code>plt.xlabel(&quot;PC1&quot;)</code></pre>
-<pre class="python"><code>plt.ylabel(&quot;PC2&quot;)</code></pre>
-<pre class="python"><code>plt.show()</code></pre>
 <p><img src="project_2_files/figure-html/cluster%20plot-3.png" width="768" /></p>
 </div>
 </div>

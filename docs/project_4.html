@@ -364,6 +364,7 @@ and admission types</p>
 condition_mean = p4_data_cleaned.groupby(&quot;medical_condition&quot;)[&quot;billing_amount&quot;].mean().round()
 admission_mean = p4_data_cleaned.groupby(&quot;admission_type&quot;)[&quot;billing_amount&quot;].mean().round()
 insurance_mean = p4_data_cleaned.groupby(&quot;insurance_provider&quot;)[&quot;billing_amount&quot;].mean().round()</code></pre>
+<div style="display:flex; gap:20px;">
 <div style="flex:1;">
 <pre><code>medical_condition
 Arthritis       25497.0
@@ -389,6 +390,7 @@ Cigna               25526.0
 Medicare            25616.0
 UnitedHealthcare    25389.0
 Name: billing_amount, dtype: float64</code></pre>
+</div>
 </div>
 <p><br></p>
 </div>
