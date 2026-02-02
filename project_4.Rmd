@@ -1,14 +1,15 @@
 ---
-title: "project_4"
+title: "Healthcare Data: Investigating Hospital Billing Data for Inconsistencies"
 author: "Matthew Webb"
 date: "2026-01-20"
 output: html_document
 ---
 
 # Context
+
 This fictional dataset contains information about patients stays at hospital including some demographic info and information about their reason for attendance. I will use this to create insights on healthcare trends in order to inform trusts about growing concerns around patient safety.
 
-This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Seaborn, ANOVA, Regression Test, Chi-Squared Test
+This data was sourced from Kaggle and uses the following tools: Pandas, Matplotlib, Seaborn, ANOVA, Regression Test, Chi-Squared Test
 
 # Approach
 
