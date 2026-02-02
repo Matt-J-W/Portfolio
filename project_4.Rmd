@@ -82,6 +82,7 @@ print(test_results_table)
 ```
 </div>
 
+</div>
 <br>
 
 ### Data Cleaning 
