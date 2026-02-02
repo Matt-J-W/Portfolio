@@ -164,7 +164,7 @@ p2_data_all_cols = pd.DataFrame(
 p2_data_all_cols["cluster"] = labels
 ```
 
-```{python cluster plot, echo=TRUE, results='hide', warnings=FALSE, message=FALSE}
+```{python cluster plot, echo=FALSE, results='hide', warnings=FALSE, message=FALSE}
 # The final step is to pull the greatest variance among clusters and turn this into insights
 
 # First let's visualise our clusters

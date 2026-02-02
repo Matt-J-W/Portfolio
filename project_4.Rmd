@@ -119,6 +119,8 @@ insurance_mean = p4_data_cleaned.groupby("insurance_provider")["billing_amount"]
 
 ```
 
+<div style="display:flex; gap:20px;">
+
 <div style="flex:1;">
 ```{python, echo = FALSE, comment="", results="markup"}
 print(condition_mean)
@@ -135,6 +137,7 @@ print(admission_mean)
 ```{python, echo = FALSE, comment="", results="markup"}
 print(insurance_mean)
 ```
+</div>
 </div>
 
 <br>

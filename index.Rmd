@@ -35,10 +35,15 @@ I work with multiple large databases with experience in pulling data from multip
 ### Skills
 
 **Languages & Tools** - Python, RStudio, SAS, SQL, HTML, VBA, Tableau, Power BI, Databricks, Pyspark, Postgres, NCDR
+
 **Statistical Techniques** - Regression Models, Trend Analysis, Clustering, Descriptive Tests, ANOVA, T-tests, Chi-squared
+
 **Data Automation and Publication** - RMarkdown, Quarto, TaskSchedular
+
 **Data Visualisation** - Tableau, Power BI, Ggplot, Matplot, Plotly, Pivot Tables
+
 **Scripting** - Regex, Text Mining, Script Writing, Data Quality, Data Cleansing
+
 **Big Data & Cloud Platforms** - Oracle, Azure DevOps, Snowflake
 
 ### National Publications
