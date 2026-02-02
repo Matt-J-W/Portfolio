@@ -1,21 +1,16 @@
-title: "my-portfolio"
-description: "MSc Matthew Webb - Data Scientist"
+name: "my-portfolio"
+title: "MSc Matthew Webb - Data Scientist"
 
-remote_theme: just-the-docs/just-the-docs
+navbar:
+  left:
+    - text: "About"
+      href: index.html
+    - text: "Project 1"
+      href: project_1.html
+    - text: "Project 2"
+      href: project_2.html
+    - text: "Project 3"
+      href: project_3.html
+    - text: "Project 4"
+      href: project_4.html
 
-plugins:
-  - jekyll-remote-theme
-
-destination: docs
-
-nav:
-  - title: "About"
-    url: index.html
-  - title: "Project 1"
-    url: project_1.html
-  - title: "Project 2"
-    url: project_2.html
-  - title: "Project 3"
-    url: project_3.html
-  - title: "Project 4"
-    url: project_4.html
