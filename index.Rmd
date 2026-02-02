@@ -35,17 +35,32 @@ I work with multiple large databases with experience in pulling data from multip
 
 ```{python summary table creation, echo=FALSE, comments="", results="markup"}
 
+import pandas as pd
+import jinja2
+import tabulate
+
 # Creating a summary table for my projects 
-headers = ["Project Title", "Tools Used", "Project Description"]
+headers = ["Project Title", "Packages Used", "Project Description"]
 rows = [
-  ["Project 1 - Optimising Fuel Efficiency", "Pandas, Matplot, Seaborn, Statsmodel", ""]
+  ["Project 1 - Optimising Fuel Efficiency", "Knitr, Pandas, Matplot, Seaborn, Statsmodel", "Using analyical tools to show where this company can increase fuel efficienc and save money without comprimising on deliveries"],
+  ["Project 2 - E-Commerce", "Knitr, Pandas, Matplot, Sickit-learn, KMeans, Principal Component Analysis", "Creating customer clusters to efficienctly target similar groups with profit maximising tactics"],
+  ["Project 3 - Bed Days KPI", "Knitr, Ggplot, Tidyverse, ODBC, Janitor, Quarto", "Creating a standardised metric to compare trusts with each other accounting for different sizes and reaches, used in my Event Stats Publication"],
+  ["Project 4 - Hospital Billing", "Knitr, Pandas, Matplot, Sickit-learn, Scipy, Statsmodels, ANOVA, Regression", "Inspecting hospital billing data to search for inconsistencies or areas for improvement"]
 ]
 
+project_table_initial = pd.DataFrame(rows, columns=headers)
+
+project_table = (
+    project_table_initial.style
+    .set_table_styles([
+        {"selector": "th", "props": [("text-align", "center"), ("font-weight", "bold")]},
+        {"selector": "td", "props": [("text-align", "left"), ("vertical-align", "top")]}
+    ])
+    .set_properties(
+      **{"width": "250px", "white-space": "normal"}
+    )
+)
+
+print(project_table_initial.to_markdown())
+
 ```
-I'm looking for a role that allows me to continue my data analysis career and this portfolio showcases my skills.
-
-## Projects:
-## Project 1 - Carbon Emissions: How to Optimise Fuel Efficiency Without Comprimising on Deliveries
-## Project 2 - E-Commerce: 
-## Project 3 - Snapshot of my Patient Safety Events Data Publication: Creating Bed Days KPI
-
