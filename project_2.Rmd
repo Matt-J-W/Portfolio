@@ -15,7 +15,7 @@ pre {
 
 # Context
 
-This dataset contains 1,000,000 rows that simulates e-commerce shopping patterns. This data was sourced from Kaggle and uses the following tools: Python, Pandas, Matplotlib, Sickit-learn
+This dataset contains 1,000,000 rows that simulates e-commerce shopping patterns. This data was sourced from Kaggle and uses the following tools: Pandas, Matplotlib, Sickit-learn, KMeans
 
 # Approach
 
