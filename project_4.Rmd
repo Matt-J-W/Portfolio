@@ -146,7 +146,7 @@ print(insurance_mean)
 
 This simple test is important as it will determine if there is significance in the difference in billing between the types of admissions, i.e. do they cost different amounts.
 
-```{python, anova test, comment="", results="markup", echo = TRUE}
+```{python, anova test, echo=TRUE, results='hide', warnings=FALSE, message=FALSE}
 
 # Running an ANOVA test and pulling the f-statistic and p-values to test for significance
 urgent_anova = p4_data_cleaned[p4_data_cleaned.admission_type == "Urgent"]["billing_amount"]

@@ -155,7 +155,8 @@ Before I start comparing the delivery and vehicle types for fuel efficiency I wa
 </div>
 </div>
 
-```{python, load utilisation plot}
+```{python, load utilisation plot, echo=TRUE, results='hide', warnings=FALSE, message=FALSE}
+
 # Plotting the effects of load utilisation on fuel efficiency
 sea_load_util = sea.lmplot(
   data=p1_data_import_cleaned, 
