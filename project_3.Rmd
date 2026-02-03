@@ -25,6 +25,6 @@ $$
 For the plot I decided on a scatter faceted by sector an alpha of 0.7 as there is a lot of overlap, this way you can clearly see the outliers and the the disparity between care sectors.
 
 <div style="text-align: center;"> 
-  <img src="images/bed_days.png" width="500" height="500"> 
+  <img src="images/bed_days.png" width="650" height="500"> 
 </div>
 
