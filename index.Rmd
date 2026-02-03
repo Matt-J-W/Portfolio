@@ -34,7 +34,7 @@ I work with multiple large databases with experience in pulling data from multip
 
 ### Skills
 
-**Languages & Tools** - Python, RStudio, SAS, SQL, HTML, VBA, Tableau, Power BI, Databricks, Pyspark, Postgres, NCDR
+**Languages & Tools** - Python, RStudio, SAS, SQL, HTML, VBA, Tableau, Power BI, Databricks, Pyspark, Postgres, NCDR, Pandas
 
 **Statistical Techniques** - Regression Models, Trend Analysis, Clustering, Descriptive Tests, ANOVA, T-tests, Chi-squared
 
@@ -46,7 +46,10 @@ I work with multiple large databases with experience in pulling data from multip
 
 **Big Data & Cloud Platforms** - Oracle, Azure DevOps, Snowflake
 
+
 ### National Publications
+
+Below is three publications I've created and currently oversee for NHS England, these publications influence policy and guidelines across the UK and required an advanced knowledge of big data and analytical tools in order to pull, clean, manipulate and output various large data sets into cohesive reports.
 
 [**Patient Safety Events Data**](https://www.england.nhs.uk/statistics/statistical-work-areas/patient-safety-data/2025-26/quarter-2-2025-26-july-august-september-2025/) - A quarterly publication I created from scratch to publish the progress of our new database, the [LFPSE](https://www.england.nhs.uk/patient-safety/patient-safety-insight/learning-from-patient-safety-events/learn-from-patient-safety-events-service/), there is a huge amount of of cleansing, preparing and manipulating in order to combine multiple data sources and visualise the metrics in the desired form.
 
@@ -55,6 +58,8 @@ I work with multiple large databases with experience in pulling data from multip
 [**Transition Report**](https://www.england.nhs.uk/statistics/statistical-work-areas/patient-safety-data/2024-25/nrls-to-lfpse-transition-report/) - This was a one-off report designed to show the transition from the NRLS to LFPSE databases, and how reporting patterns and reporting metrics have changed.
 
 ### Projects Summary
+
+In this website I've included four projects that showcase a variety of skills, tools and processes that I can use to manipulate data to pull relevant insights from various data sources for a variety of fictional companies with different goals.
 
 ```{python summary table creation, echo=FALSE, results='asis'}
 import pandas as pd
