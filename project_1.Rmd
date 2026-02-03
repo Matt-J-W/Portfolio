@@ -45,8 +45,6 @@ import statsmodels.api as sm
 
 p1_data_import = pd.read_excel(r"C:\Users\Matthew.Webb12\Desktop\GitHub Repos\Portfolio\python data\carbon_emissions_fleet_dataset.xlsx")
 
-print(p1_data_import.columns)
-
 # Function for counts of variables
 def variable_counts(column):
   counts = p1_data_import[column].value_counts()
@@ -82,10 +80,8 @@ print(route_type_table)
 print(delivery_type_table)
 ```
 </div>
-
 </div>
 <br>
-
 I also want to check the count of delivery types for each vehicle type, and the average distance for each delivery type as these will be key metrics for later.
 
 ```{python, vehicle + delivery averages, echo=FALSE, comment="", results="markup"}
@@ -215,7 +211,7 @@ for vtype, model in results.items():
     }) 
     
 coef_results = pd.DataFrame(coef_table) 
-print(coef_results)
+print(coef_results(index=False))
 ```
 As you can see every p value is >0.05 meaning none of the results are significant, indicating that increasing the load has a negligible effect on fuel efficiency for every vehicle type.
 
@@ -223,7 +219,7 @@ As you can see every p value is >0.05 meaning none of the results are significan
 
 I created a function that calculates the averages for each combination of delivery and vehicle types for the other key metrics in the data.
 
-```{python, average function}
+```{python, average function, results='hide'}
 
 # Creating function to compute means
 def matrix_function(value_column):
@@ -246,10 +242,20 @@ combined_matrix = pd.concat(
 )
 
 combined_matrix.index = combined_matrix.index.map('_'.join)
-combined_matrix
 ```
 
+```{python, echo=FALSE, include=FALSE, results='asis'}
+
+md_table = combined_matrix.to_markdown(index=True)
+
+print(f"""
+<div style='text-align:center;'>
+
+{md_table}
+
 </div>
+""")
+```
 
 Now we can clearly see how the averages of the combinations stack up against the average for the whole variable, this shows us which combinations are preforming below average and could do with reorganising. 
 
