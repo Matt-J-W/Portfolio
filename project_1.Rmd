@@ -211,7 +211,7 @@ for vtype, model in results.items():
     }) 
     
 coef_results = pd.DataFrame(coef_table) 
-print(coef_results(index=False))
+print(coef_results)
 ```
 As you can see every p value is >0.05 meaning none of the results are significant, indicating that increasing the load has a negligible effect on fuel efficiency for every vehicle type.
 
