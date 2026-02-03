@@ -200,7 +200,7 @@ This plot tells me some key things about my clustering, the clustering has been 
 
 Before my final summary I need one more step, adding in a means table and pulling the dominant cluster features from each cluster so I can build a profile for the business to target actions to.
 
-```{python dominant cluster features, comments = "", results='asis', include = TRUE}
+```{python dominant cluster features, comments = "", results='markup', include = TRUE}
 
 # In order to now interpret the results of this clustering I need to create a means table, and a dominant variance for each cluster list
 
@@ -229,7 +229,7 @@ Now I have my cluster profiles I can provide business insights into how to targe
 
 ### Cluster 1
 
-```{python, conclusions, comments = "", results='asis', include = TRUE}
+```{python, conclusions, comments = "", results='markup', include = TRUE}
 print(dom_features_per_cluster[0])
 
 ```
@@ -241,7 +241,7 @@ print(dom_features_per_cluster[0])
 
 ### Cluster 2
 
-```{python, conclusions continued, comments = "", results='asis', include = TRUE}
+```{python, conclusions continued, comments = "", results='markup', include = TRUE}
 print(dom_features_per_cluster[1])
 
 ```
