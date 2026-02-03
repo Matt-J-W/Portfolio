@@ -74,5 +74,5 @@ rows = [
 
 project_table_initial = pd.DataFrame(rows, columns=headers)
 
-print(project_table_initial.to_markdown())
+print(project_table_initial.to_markdown(index=False))
 ```
