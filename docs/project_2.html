@@ -441,13 +441,22 @@ calculated in the previous step.</p>
 <div id="cluster-1" class="section level3">
 <h3>Cluster 1</h3>
 <pre class="python"><code>print(dom_features_per_cluster[0])</code></pre>
-<p>Device Type Mobile 60.21 Urban Rural Urban 50.05 Gender Male 48.09
-Gender Female 47.92 Age 36.89 Budgeting Style Moderate 33.39 Budgeting
-Style Strict 33.33 Budgeting Style Loose 33.28 Urban Rural Suburban
-30.08 Education Level Bachelor 29.86 Device Type Desktop 29.86 Education
-Level High School 29.71 Shopping Time Of Day Evening 25.11 Shopping Time
-Of Day Night 25.03 Shopping Time Of Day Afternoon 24.94 Name: 0, dtype:
-float64</p>
+<pre><code>Device Type Mobile                60.21
+Urban Rural Urban                 50.05
+Gender Male                       48.09
+Gender Female                     47.92
+Age                               36.89
+Budgeting Style Moderate          33.39
+Budgeting Style Strict            33.33
+Budgeting Style Loose             33.28
+Urban Rural Suburban              30.08
+Education Level Bachelor          29.86
+Device Type Desktop               29.86
+Education Level High School       29.71
+Shopping Time Of Day Evening      25.11
+Shopping Time Of Day Night        25.03
+Shopping Time Of Day Afternoon    24.94
+Name: 0, dtype: float64</code></pre>
 <ul>
 <li><strong>Split evenly among genders</strong> - Use gender neutral ads
 to maximise engagement</li>
@@ -467,27 +476,40 @@ click-and-collect</li>
 <div id="cluster-2" class="section level3">
 <h3>Cluster 2</h3>
 <pre class="python"><code>print(dom_features_per_cluster[1])</code></pre>
-<p>Cart Abandonment Rate 92.75 Stress From Financial Decisions 92.58
-Impulse Buying Score 92.28 Overall Stress Level 88.73 Impulse Purchases
-Per Month 83.70 Social Sharing Frequency 73.65 Device Type Mobile 60.16
-Urban Rural Urban 49.82 Gender Female 48.09 Gender Male 47.92 Budgeting
-Style Moderate 33.35 Budgeting Style Loose 33.34 Budgeting Style Strict
-33.30 Education Level High School 30.35 Urban Rural Suburban 30.11 Name:
-1, dtype: float64 - <strong>Very High cart abandonment rate</strong> -
-Offer promotional deals like free returns, or pay in installments, and
-make the buying process quicker with one-click payment to prevent
-customers backing out. Make sure to also save their carts if customers
-leave the site, and offer them discounts on the cart if they come back
-and pay. - <strong>Very impulsive</strong> - This is a relatively easy
+<pre><code>Cart Abandonment Rate              92.75
+Stress From Financial Decisions    92.58
+Impulse Buying Score               92.28
+Overall Stress Level               88.73
+Impulse Purchases Per Month        83.70
+Social Sharing Frequency           73.65
+Device Type Mobile                 60.16
+Urban Rural Urban                  49.82
+Gender Female                      48.09
+Gender Male                        47.92
+Budgeting Style Moderate           33.35
+Budgeting Style Loose              33.34
+Budgeting Style Strict             33.30
+Education Level High School        30.35
+Urban Rural Suburban               30.11
+Name: 1, dtype: float64</code></pre>
+<ul>
+<li><strong>Very High cart abandonment rate</strong> - Offer promotional
+deals like free returns, or pay in installments, and make the buying
+process quicker with one-click payment to prevent customers backing out.
+Make sure to also save their carts if customers leave the site, and
+offer them discounts on the cart if they come back and pay.</li>
+<li><strong>Very impulsive</strong> - This is a relatively easy
 behaviour to utilise because it works against the customer, offer them
-time sensitive deals like flash deals - <strong>Also predominantly on
-mobile devices</strong> - So utilise mobile push notifications about the
-cart abandonment deals and incorporate mobile paying services like apple
-pay as this will pair with their impulsivity if they don’t need to input
-card details, giving them time to think about their purchase and lose
-interest - <strong>High social sharing frequency</strong> - This can be
-a useful feature as it implies that people with respond to things like
-referral bonuses and sharing bonuses if they share on social media</p>
+time sensitive deals like flash deals</li>
+<li><strong>Also predominantly on mobile devices</strong> - So utilise
+mobile push notifications about the cart abandonment deals and
+incorporate mobile paying services like apple pay as this will pair with
+their impulsivity if they don’t need to input card details, giving them
+time to think about their purchase and lose interest</li>
+<li><strong>High social sharing frequency</strong> - This can be a
+useful feature as it implies that people with respond to things like
+referral bonuses and sharing bonuses if they share on social media</li>
+</ul>
 </div>
 </div>
 </div>

@@ -452,9 +452,7 @@ sea_load_util = sea.lmplot(
   scatter = False 
   )
 plt.xlabel(&quot;Load Utilization %&quot;)</code></pre>
-<pre><code>Text(0.5, 29.140624999999964, &#39;Load Utilization %&#39;)</code></pre>
 <pre class="python"><code>plt.ylabel(&quot;Fuel Efficiency kmpl&quot;)</code></pre>
-<pre><code>Text(39.63154296875002, 0.5, &#39;Fuel Efficiency kmpl&#39;)</code></pre>
 <pre class="python"><code>plt.show()</code></pre>
 <p><img src="project_1_files/figure-html/load%20utilisation%20plot-1.png" width="875" /></p>
 </div>
@@ -532,6 +530,91 @@ combined_matrix = pd.concat(
 )
 
 combined_matrix.index = combined_matrix.index.map(&#39;_&#39;.join)</code></pre>
+<div style="text-align:center;">
+<table>
+<colgroup>
+<col width="28%" />
+<col width="11%" />
+<col width="18%" />
+<col width="19%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Bike</th>
+<th align="right">CNG Truck</th>
+<th align="right">Diesel Van</th>
+<th align="right">Electric Van</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">On_Time_Express</td>
+<td align="right">0.89</td>
+<td align="right">0.87</td>
+<td align="right">0.89</td>
+<td align="right">0.92</td>
+</tr>
+<tr class="even">
+<td align="left">On_Time_Same-day</td>
+<td align="right">0.95</td>
+<td align="right">0.92</td>
+<td align="right">0.93</td>
+<td align="right">0.9</td>
+</tr>
+<tr class="odd">
+<td align="left">On_Time_Standard</td>
+<td align="right">0.93</td>
+<td align="right">0.92</td>
+<td align="right">0.94</td>
+<td align="right">0.9</td>
+</tr>
+<tr class="even">
+<td align="left">CO2_kg_Express</td>
+<td align="right">2.72</td>
+<td align="right">11.86</td>
+<td align="right">18.77</td>
+<td align="right">4.07</td>
+</tr>
+<tr class="odd">
+<td align="left">CO2_kg_Same-day</td>
+<td align="right">2</td>
+<td align="right">11.93</td>
+<td align="right">20.89</td>
+<td align="right">3.7</td>
+</tr>
+<tr class="even">
+<td align="left">CO2_kg_Standard</td>
+<td align="right">2.41</td>
+<td align="right">12.39</td>
+<td align="right">18.12</td>
+<td align="right">4.08</td>
+</tr>
+<tr class="odd">
+<td align="left">Fuel_kmpl_Express</td>
+<td align="right">15.17</td>
+<td align="right">14.94</td>
+<td align="right">15.44</td>
+<td align="right">15.18</td>
+</tr>
+<tr class="even">
+<td align="left">Fuel_kmpl_Same-day</td>
+<td align="right">16.07</td>
+<td align="right">14.67</td>
+<td align="right">14.86</td>
+<td align="right">14.57</td>
+</tr>
+<tr class="odd">
+<td align="left">Fuel_kmpl_Standard</td>
+<td align="right">15.97</td>
+<td align="right">15.42</td>
+<td align="right">15.15</td>
+<td align="right">14.7</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>Now we can clearly see how the averages of the combinations stack up
 against the average for the whole variable, this shows us which
 combinations are preforming below average and could do with

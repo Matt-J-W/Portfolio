@@ -409,13 +409,9 @@ f_statistic, p_value = f_oneway(urgent_anova, emergency_anova, elective_anova)
 
 # Creating a plot to visualise the results
 sns.boxplot(p4_data_cleaned, x=&quot;admission_type&quot;, y=&quot;billing_amount&quot;) </code></pre>
-<pre><code>&lt;Axes: xlabel=&#39;admission_type&#39;, ylabel=&#39;billing_amount&#39;&gt;</code></pre>
 <pre class="python"><code>plt.title(&quot;Billing Amount by Admission Type&quot;) </code></pre>
-<pre><code>Text(0.5, 1.0, &#39;Billing Amount by Admission Type&#39;)</code></pre>
 <pre class="python"><code>plt.ylabel(&quot;Billing Amount /£&quot;)</code></pre>
-<pre><code>Text(0, 0.5, &#39;Billing Amount /£&#39;)</code></pre>
 <pre class="python"><code>plt.xlabel(&quot;Admission Type&quot;)</code></pre>
-<pre><code>Text(0.5, 0, &#39;Admission Type&#39;)</code></pre>
 <pre class="python"><code>plt.show()</code></pre>
 <p><img src="project_4_files/figure-html/anova%20test-1.png" width="672" /></p>
 <p>The results of my ANOVA shows no significance between the billing
