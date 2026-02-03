@@ -453,11 +453,9 @@ sea_load_util = sea.lmplot(
   aspect=1.3, 
   scatter = False 
   )
-plt.xlabel(&quot;Load Utilization %&quot;)</code></pre>
-<pre><code>Text(0.5, 29.140624999999964, &#39;Load Utilization %&#39;)</code></pre>
-<pre class="python"><code>plt.ylabel(&quot;Fuel Efficiency kmpl&quot;)</code></pre>
-<pre><code>Text(39.63154296875002, 0.5, &#39;Fuel Efficiency kmpl&#39;)</code></pre>
-<pre class="python"><code>plt.show()</code></pre>
+plt.xlabel(&quot;Load Utilization %&quot;)
+plt.ylabel(&quot;Fuel Efficiency kmpl&quot;)
+plt.show()</code></pre>
 <p><img src="project_1_files/figure-html/load%20utilisation%20plot-1.png" width="875" /></p>
 </div>
 <div id="regression-test" class="section level2">
@@ -534,16 +532,97 @@ combined_matrix = pd.concat(
 
 combined_matrix.index = combined_matrix.index.map(&#39;_&#39;.join)
 combined_matrix</code></pre>
-<pre><code>Vehicle_Type         Bike  CNG Truck  Diesel Van  Electric Van
-On_Time_Express      0.89       0.87        0.89          0.92
-On_Time_Same-day     0.95       0.92        0.93          0.90
-On_Time_Standard     0.93       0.92        0.94          0.90
-CO2_kg_Express       2.72      11.86       18.77          4.07
-CO2_kg_Same-day      2.00      11.93       20.89          3.70
-CO2_kg_Standard      2.41      12.39       18.12          4.08
-Fuel_kmpl_Express   15.17      14.94       15.44         15.18
-Fuel_kmpl_Same-day  16.07      14.67       14.86         14.57
-Fuel_kmpl_Standard  15.97      15.42       15.15         14.70</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Vehicle_Type</th>
+      <th>Bike</th>
+      <th>CNG Truck</th>
+      <th>Diesel Van</th>
+      <th>Electric Van</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>On_Time_Express</th>
+      <td>0.89</td>
+      <td>0.87</td>
+      <td>0.89</td>
+      <td>0.92</td>
+    </tr>
+    <tr>
+      <th>On_Time_Same-day</th>
+      <td>0.95</td>
+      <td>0.92</td>
+      <td>0.93</td>
+      <td>0.90</td>
+    </tr>
+    <tr>
+      <th>On_Time_Standard</th>
+      <td>0.93</td>
+      <td>0.92</td>
+      <td>0.94</td>
+      <td>0.90</td>
+    </tr>
+    <tr>
+      <th>CO2_kg_Express</th>
+      <td>2.72</td>
+      <td>11.86</td>
+      <td>18.77</td>
+      <td>4.07</td>
+    </tr>
+    <tr>
+      <th>CO2_kg_Same-day</th>
+      <td>2.00</td>
+      <td>11.93</td>
+      <td>20.89</td>
+      <td>3.70</td>
+    </tr>
+    <tr>
+      <th>CO2_kg_Standard</th>
+      <td>2.41</td>
+      <td>12.39</td>
+      <td>18.12</td>
+      <td>4.08</td>
+    </tr>
+    <tr>
+      <th>Fuel_kmpl_Express</th>
+      <td>15.17</td>
+      <td>14.94</td>
+      <td>15.44</td>
+      <td>15.18</td>
+    </tr>
+    <tr>
+      <th>Fuel_kmpl_Same-day</th>
+      <td>16.07</td>
+      <td>14.67</td>
+      <td>14.86</td>
+      <td>14.57</td>
+    </tr>
+    <tr>
+      <th>Fuel_kmpl_Standard</th>
+      <td>15.97</td>
+      <td>15.42</td>
+      <td>15.15</td>
+      <td>14.70</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 <p>Now we can clearly see how the averages of the combinations stack up
 against the average for the whole variable, this shows us which
