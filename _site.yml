@@ -2,6 +2,10 @@ name: "my-portfolio"
 title: "MSc Matthew Webb - Data Scientist"
 output_dir: "docs"
 
+output:
+  html_document:
+    theme: flatly   # or cerulean, cosmo, journal, lumen, 
+
 navbar:
   left:
     - text: "About"
