@@ -4,7 +4,7 @@ output_dir: "docs"
 
 output:
   html_document:
-    theme: cosmo   # or cerulean, cosmo, journal, lumen, 
+    theme: cerulean  # or cerulean, cosmo, journal, lumen, 
 
 navbar:
   left:
